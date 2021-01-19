@@ -9,19 +9,16 @@
 3. 
 
 
-
-
-
-
-
-
-
-
-
+&nbsp;   
+&nbsp;   
+&nbsp;   
+&nbsp;   
 
 
 # 1. 들어가기
 
+
+&nbsp;     
 
 
 #### 1) markup 이란?
@@ -33,8 +30,9 @@ browser에게 제공하고자하는 정보가 어떤 성격의 정보인지 알�
 markup 마크업시, 가장 최소한의 서로 다른 단위부터 파악한다.
 
 
-
-
+&nbsp;   
+&nbsp;   
+  
 
 #### 2) tag's attribute and value
 
@@ -49,12 +47,15 @@ markup 마크업시, 가장 최소한의 서로 다른 단위부터 파악한다
 물론, 항상 attr가 따라다녀야하는 태그도 있음.
 
 
-
+&nbsp;   
+&nbsp;   
 
 
 #### 3) Doctype & Document Structure
 
 
+&nbsp;   
+ 
 
 * __Doctype__
 
@@ -68,6 +69,9 @@ Document = Html 그 자체
 
 cf ) 웹 표준 검사기 - W3C validator
 
+
+&nbsp;   
+&nbsp;   
 
 
 * __Document Structure__
@@ -85,15 +89,10 @@ cf ) 웹 표준 검사기 - W3C validator
 [언어코드 참조링크](http://www.w3bai.com/ko/tags/ref_language_codes.html)
 
 
-
-
-
-
-
-
-
-
-
+&nbsp;   
+&nbsp;   
+&nbsp;   
+&nbsp;   
 
 
 # 2. Head Structure
@@ -101,7 +100,8 @@ cf ) 웹 표준 검사기 - W3C validator
 `<head>` 'meta data' declaration about web document
 
 
-
+&nbsp;   
+&nbsp;   
 
 
 #### 1) Meta data
@@ -109,7 +109,8 @@ cf ) 웹 표준 검사기 - W3C validator
 __meta__란?	정보 => 검색엔진 or 브라우저에 제공
 
 
-
+&nbsp;   
+&nbsp;   
 
 
 * 반드시 따라오는 속성들
@@ -137,7 +138,8 @@ __"viewport"__ - 반응형 웹사이트를 제공 하기위해 필요한 코드.
 ````
 
 
-
+&nbsp;   
+&nbsp;   
 
 
 * 그 외 중요한 속성들
@@ -152,14 +154,15 @@ __charset__ == charactor(문자,요소,특성,성격) set
 
 그 무엇보다도 문자 인코딩 방식을 선언해야 하기 때문이며, 방식의 선언이 브라우저에 정보 전달, 화면 출력보다 앞서야함.
 
-
+&nbsp;   
 
 __'인코딩'__ 이란?	텍스트 렌더링 시, 텍스트의 출력 방식
 
 ex)	UTF-8(조합형) : 아시아권 언어 문자 출력 특화, EUC-KR(완성형) 등등
 
 
-
+&nbsp;   
+&nbsp;   
 
 
 ````html
@@ -175,7 +178,8 @@ __http-equiv__
 위 코드는 '해당 html은 IE에서 렌더링될 때, 최신의 IE 렌더링 방식으로 출력한다'라는 뜻을 가짐
 
 
-
+&nbsp;   
+&nbsp;   
 
 
 * 기타
@@ -190,9 +194,15 @@ __`<base>`__
 
 절대 경로든 상대 경로든 해당 경로에서 지속적으로 여러 주소들을 가져올 때 쓰일 수 있다.
 
-
 문서 안의 모든 '상대 경로(URL)'이 사용할 '기준 경로(URL)'을 지정
 
 빈 태그로 단 한번만 사용될 수 있으며,
 
 해당 html의 모든 상대 경로에 영향을 끼치기 때문에, 일부분에서만 사용하는 개념이 된다면 오히려 문제가 될 수 있다.
+
+
+&nbsp;   
+&nbsp;   
+&nbsp;   
+&nbsp;   
+
