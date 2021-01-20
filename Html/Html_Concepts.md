@@ -6,20 +6,16 @@
    3. Doctype & Document Structure
 2. Head Structure
    1. Meta data
-3. 
+3.
 
-
-&nbsp;   
-&nbsp;   
-&nbsp;   
-&nbsp;   
-
+&nbsp;  
+&nbsp;  
+&nbsp;  
+&nbsp;
 
 # 1. 들어가기
 
-
-&nbsp;     
-
+&nbsp;
 
 #### 1) markup 이란?
 
@@ -29,10 +25,8 @@ browser에게 제공하고자하는 정보가 어떤 성격의 정보인지 알�
 
 markup 마크업시, 가장 최소한의 서로 다른 단위부터 파악한다.
 
-
-&nbsp;   
-&nbsp;   
-  
+&nbsp;  
+&nbsp;
 
 #### 2) tag's attribute and value
 
@@ -46,18 +40,14 @@ markup 마크업시, 가장 최소한의 서로 다른 단위부터 파악한다
 
 물론, 항상 attr가 따라다녀야하는 태그도 있음.
 
-
-&nbsp;   
-&nbsp;   
-
+&nbsp;  
+&nbsp;
 
 #### 3) Doctype & Document Structure
 
+&nbsp;
 
-&nbsp;   
- 
-
-* __Doctype__
+- **Doctype**
 
 `<!DOCTYPE html>` : Document type Declaration
 
@@ -69,18 +59,16 @@ Document = Html 그 자체
 
 cf ) 웹 표준 검사기 - W3C validator
 
+&nbsp;  
+&nbsp;
 
-&nbsp;   
-&nbsp;   
+- **Document Structure**
 
-
-* __Document Structure__
-
-````html
+```html
 <!DOCTYPE html>
 
-<html lang="en">
-````
+<html lang="en"></html>
+```
 
 이는 보통 Head Structure 상단에 입력해주는 것이 원칙이다.
 
@@ -88,88 +76,78 @@ cf ) 웹 표준 검사기 - W3C validator
 
 [언어코드 참조링크](http://www.w3bai.com/ko/tags/ref_language_codes.html)
 
-
-&nbsp;   
-&nbsp;   
-&nbsp;   
-&nbsp;   
-
+&nbsp;  
+&nbsp;  
+&nbsp;  
+&nbsp;
 
 # 2. Head Structure
 
 `<head>` 'meta data' declaration about web document
 
-
-&nbsp;   
-&nbsp;   
-
+&nbsp;  
+&nbsp;
 
 #### 1) Meta data
 
-__meta__란?	정보 => 검색엔진 or 브라우저에 제공
+**meta** 란? 정보 => 검색엔진 or 브라우저에 제공
 
+&nbsp;  
+&nbsp;
 
-&nbsp;   
-&nbsp;   
+- 반드시 따라오는 속성들
 
-
-* 반드시 따라오는 속성들
-
-````html
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-````
+```
 
-__name__ == "kinds of meta data"
+**`name`** == "kinds of meta data"
 
-__content__ == "value of meta data" - http-equiv 또는 name 중 해당 속성의 값
+**`content`** == "value of meta data" - http-equiv 또는 name 중 해당 속성의 값
 
-__"viewport"__ - 반응형 웹사이트를 제공 하기위해 필요한 코드. 화면에 렌더링되는 특정 영역을 어떤 방식으로 선언할 것 인가
+**`"viewport"`** - 반응형 웹사이트를 제공 하기위해 필요한 코드. 화면에 렌더링되는 특정 영역을 어떤 방식으로 선언할 것 인가
 
 쉽게 말해 화면사이즈. 현 시대에는 desktop, mobile 등 여러가지 device에서 사용하기 때문에
 
-이것들을 사용해서 각 디바이스에 알맞은 반응형 site를 출력할 수 있다.    cf)  단축키 - `meta:vp`
+이것들을 사용해서 각 디바이스에 알맞은 반응형 site를 출력할 수 있다. cf) 단축키 - `meta:vp`
 
-````html
-<meta name="author" content="seok">
+```html
+<meta name="author" content="seok" />
 
-<meta name="keywords" content="sharpcoder">
+<meta name="keywords" content="sharpcoder" />
 
-<meta name="description" conent="웹사이트 설명">
-````
+<meta name="description" conent="웹사이트 설명" />
+```
 
+&nbsp;  
+&nbsp;
 
-&nbsp;   
-&nbsp;   
+- 그 외 중요한 속성들
 
+```html
+<meta charset="UTF-8" /> - 문자 전체의 인코딩 방식 설정
+```
 
-* 그 외 중요한 속성들
-
-````html
-<meta charset="UTF-8"> - 문자 전체의 인코딩 방식 설정
-````
-
-__charset__ == charactor(문자,요소,특성,성격) set
+**`charset`** == charactor(문자,요소,특성,성격) set
 
 일반적으로 Head Structure 내에서 맨 위에 입력
 
 그 무엇보다도 문자 인코딩 방식을 선언해야 하기 때문이며, 방식의 선언이 브라우저에 정보 전달, 화면 출력보다 앞서야함.
 
-&nbsp;   
+&nbsp;
 
-__'인코딩'__ 이란?	텍스트 렌더링 시, 텍스트의 출력 방식
+**'인코딩'** 이란? 텍스트 렌더링 시, 텍스트의 출력 방식
 
-ex)	UTF-8(조합형) : 아시아권 언어 문자 출력 특화, EUC-KR(완성형) 등등
+ex) UTF-8(조합형) : 아시아권 언어 문자 출력 특화, EUC-KR(완성형) 등등
 
+&nbsp;  
+&nbsp;
 
-&nbsp;   
-&nbsp;   
+```html
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+```
 
-
-````html
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-````
-
-__http-equiv__
+**`http-equiv`**
 
 서버나 사용자 환경의 작동방식을 변경해주는 지시사항 명시
 
@@ -177,18 +155,16 @@ __http-equiv__
 
 위 코드는 '해당 html은 IE에서 렌더링될 때, 최신의 IE 렌더링 방식으로 출력한다'라는 뜻을 가짐
 
+&nbsp;  
+&nbsp;
 
-&nbsp;   
-&nbsp;   
+- 기타
 
+**`<base>`**
 
-* 기타
-
-__`<base>`__
-
-````html
-<base href="./css/">
-````
+```html
+<base href="./css/" />
+```
 
 `<meta>`에 비해 적게 쓰이지만 중요한 meta data중 하나
 
@@ -200,9 +176,64 @@ __`<base>`__
 
 해당 html의 모든 상대 경로에 영향을 끼치기 때문에, 일부분에서만 사용하는 개념이 된다면 오히려 문제가 될 수 있다.
 
+&nbsp;  
+&nbsp;
 
-&nbsp;   
-&nbsp;   
-&nbsp;   
-&nbsp;   
+#### 2) Title, Link, Style & Script
 
+&nbsp;
+
+**`<titel>`**
+
+문서의 대제목 - 아이콘은 관련없음
+
+title 잘 쓰는 법? (검색 최적화)
+
+1. 키워드 단순 나열 X
+2. page마다 그에 맞게 변경
+
+&nbsp;
+&nbsp;
+
+**`<Link>`**
+
+'외부에 있는 문서를 가져온다'는 개념
+
+`rel` - relationship 관계. 필수 attributon
+
+`href` 외부 문서의 위치를 지정 (경로)
+
+&nbsp;
+
+쓰임 1) 보통 **css stylesheet** 첨부
+
+'link:css' 라고 치면 자동 완성됨
+
+cf) css 요소인 font는 design에 많은 영향을 끼침 <_*추천*_> spoqa-han-sans
+
+&nbsp;
+
+쓰임 2) title 옆의 icon을 가져옴
+
+```html
+<link rel="icon" href="./favicon.png" />
+```
+
+&nbsp;
+&nbsp;
+
+**`style`**
+
+html 문서 내에서 css 코드를 작성할 때 사용
+
+&nbsp;
+
+tip) link든 style 이든 html5보다 낮은 버전에서는 type을 명시해야했지만, html5에서는 type을 자동으로 체크 하기때문에 생략 가능하다.
+
+작성할 `<style>` 태그 안에 어떤 type의 내용을 작성할것인가?
+
+&nbsp;
+
+여기서 각각의 file이나 개념이 어떤 type인지 명시하는 것을 'MIME 타입'이라고 한다.
+
+ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css">`
