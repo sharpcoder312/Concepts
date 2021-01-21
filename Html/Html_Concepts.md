@@ -237,3 +237,146 @@ tip) link든 style 이든 html5보다 낮은 버전에서는 type을 명시해�
 여기서 각각의 file이나 개념이 어떤 type인지 명시하는 것을 'MIME 타입'이라고 한다.
 
 ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css">`
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+# 3. Html's various tags
+
+&nbsp;
+&nbsp;
+
+1 ) **`<h>`**
+
+```html
+<h1>Title</h1>
+```
+
+제목을 나타내는 태그
+
+`<h1>`로 시작해서 `<h2>` `<h3>` 순차적 기입이 필요하다
+
+목차가 비어 있으면 브라우저나 검색엔진 정보보조기기에서 오류가 나올 수 있다
+
+크기는 css의 font-size로 해결가능하다 `<h>`는 글자 크기를 설정하는 tag가 아니다
+
+`<h1>`은 단 한번만 사용한다 - Nesting 중첩
+
+`<header> <footer>` 섹션과 잘 어울린다
+
+&nbsp;
+&nbsp;
+
+2 ) **`<em> <strong> <mark> <b> <i> <u>`**
+
+&nbsp;
+
+- **emphasis** 	단순한 의미 강조 	// 	기본적으로 Italic type 	//	 em의 중첩 가능. 중첩할수록 강조의미 강해짐	 // 	정보통신보조기기 등에서 '구두 강조'로 발음
+
+  ```html
+  <p>Get out of bed <em>now</em>!</p>
+  ```
+
+&nbsp;
+
+- **strong** 	의미의 중요성 (문맥상)	 // 	기본적으로 글씨 굵게
+
+  ```html
+  <p>Get out of bed <strong>now</strong>!</p>
+  ```
+
+&nbsp;
+
+- **Mark Text** 	형광펜을 사용하여 관심있는 부분을 표시하는 것과 같은 의미	 // 	의미보다는 시각적 효과
+
+  ```html
+  <p>Several species of <mark>salamander</mark> inhabit the temperate rainforest of the Pacific Northwest.</p>
+  ```
+
+&nbsp;
+
+- **bring attention** 	특정 텍스트 범위 설정	 // 	기본적으로 글자 두껍게 표시 	// 	읽기 흐름에 도움을 주는 용도	 // 	특별한 의미가 없으며 다른 태그가 적합치 않은 경우 마지막 수단으로 사용
+
+  ```html
+  This article describes several <b class="keywords">text-level</b> elements.
+  ```
+
+&nbsp;
+
+- **i**	 `<b>`처럼 특별한 의미가 없으며 다른 태그가 적합치 않은 경우 마지막 수단으로 사용. `<b>`가 text 대상이라면 `<i>`는 '아이콘'이나 '특수기호' 대상 	// 	기본적으로 Italic type	 // 	두 태그 모두 css로 더 시각적으로 명확히 나타낼 수 있지만, 이 태그들을 사용함으로써 browser에게 중요하다는 메세지를 전달한다는 점이 point다.
+
+  ```html
+  <p>The Latin phrase <i>Veni, vidi, vici</i> is often
+  mentioned in music, art, and literature.</p>
+  ```
+
+&nbsp;
+
+- **underline** 	css를 쓰지 못하는 경우에만 사용하자 
+
+  ```html
+  <span style="text-decpration: underline;">
+  ```
+  
+  &nbsp;
+  &nbsp;
+
+3 ) **`<p> <hr> <br>`**
+
+&nbsp;
+
+- **paragraph** 	문단 나눌 때 	
+
+  ```html
+<p>This is the first paragraph of text. </p>
+  <p>This is the second paragraph. </p>
+```
+  
+  위,아래 static margin이 생김
+  
+  하나의 문단을 설정 	cf) 문장같은 경우에는 보통 `<span>` 많이 쓴다
+  
+  일반적으로 정보통신보조기기 등은 다음 문단`<p>`으로 넘어갈 수 있는 단축키 제공
+  
+  대표적인 block 요소
+
+&nbsp;
+
+- **horizontal rule** 	문단의 분리(주제에 의한)를 위해 설정
+
+  ```html
+<p>This is the first paragraph of text. </p>
+  
+<hr>
+  
+  <p>This is the second paragraph. </p>
+  ```
+  
+  단, 수평선을 만들어내기 위한 용도로만 사용해서는 안됨. 이는 어디까지나 의미론적 접근이 아닌 시각적 요소일 뿐임
+  
+  물론, `<hr>`을 쓰고 css로 가려줄 수는 있음 - `border: none`
+  
+  또한, 모든 요소는 사각형의 성질을 가지고 있는데 `<hr>` 요소 또한 자세히 들여다보면 상하좌우를 가진 사각형이다. 이 부분은 직접 padding값을 넣어보면 시각적으로 확인할 수 있을 것이다. 실제로, `border: 2px`을 입력한다면 위 아래 선에 모두 적용되어 4px만큼 두께가 길어진다. 그러므로`border: none;`에 `border-top` 또는 `border-bottom` 즉, 위나 아래 중 하나만 넣자. 쉽게 말해, 원래 있던 border를 없애고 선을 하나 새로 만든다고 생각하자. `border: none;`은 `<hr>`을 입력할 때 항상 같이 쓰는 습관을 기르자.
+
+&nbsp;
+
+- **break a line** 	단순 줄바꿈
+
+  ```html
+  동해물과 백두산이 마르고 닳도록<br>
+  하느님이 보우하사 우리나라 만세
+  ```
+  
+  선의 간격(줄 높이)을 늘리고 싶을때
+  
+   `<br>`을 여러번 쓰는 것은 html의 의미론적 접근에 벗어나는 행위이다. 이하의 방법으로 대체하자.
+  
+  ```css
+  p {
+      line-height: 50px
+  }
+  ```
+  
+  cf )	16px(보통 기본폰트크기) x 1.4	-	일반적인 줄 높이
