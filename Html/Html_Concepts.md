@@ -6,7 +6,14 @@
    3. Doctype & Document Structure
 2. Head Structure
    1. Meta data
-3.
+3. Title, Link, Style & Script
+4. Html's various Tags
+   1. `<h>`
+   2. `<em> <strong> <mark> <b> <i> <u>`
+   3. `<p> <hr/> <br/>`
+   4. `<a>`
+   5. `<img>`      //      `<figure> <figcaption>`
+   6. `<ul> <ol> <li>`      //      `<dl>`
 
 &nbsp;  
 &nbsp;  
@@ -243,12 +250,12 @@ ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css
 &nbsp;
 &nbsp;
 
-# 3. Html's various tags
+# 3. Html's various Tags
 
 &nbsp;
 &nbsp;
 
-1 ) **`<h>`**
+#### 1 ) `<h>`
 
 ```html
 <h1>Title</h1>
@@ -269,11 +276,13 @@ ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css
 &nbsp;
 &nbsp;
 
-2 ) **`<em> <strong> <mark> <b> <i> <u>`**
+#### 2 ) `<em> <strong> <mark> <b> <i> <u>`
 
 &nbsp;
 
-- **emphasis** 	단순한 의미 강조 	// 	기본적으로 Italic type 	//	 em의 중첩 가능. 중첩할수록 강조의미 강해짐	 // 	정보통신보조기기 등에서 '구두 강조'로 발음
+- **emphasis**
+
+  단순한 의미 강조 // 기본적으로 Italic type // em의 중첩 가능. 중첩할수록 강조의미 강해짐 // 정보통신보조기기 등에서 '구두 강조'로 발음
 
   ```html
   <p>Get out of bed <em>now</em>!</p>
@@ -281,7 +290,9 @@ ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css
 
 &nbsp;
 
-- **strong** 	의미의 중요성 (문맥상)	 // 	기본적으로 글씨 굵게
+- **strong**
+
+  의미의 중요성 (문맥상) // 기본적으로 글씨 굵게
 
   ```html
   <p>Get out of bed <strong>now</strong>!</p>
@@ -289,15 +300,22 @@ ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css
 
 &nbsp;
 
-- **Mark Text** 	형광펜을 사용하여 관심있는 부분을 표시하는 것과 같은 의미	 // 	의미보다는 시각적 효과
+- **Mark Text**
+
+  형광펜을 사용하여 관심있는 부분을 표시하는 것과 같은 의미 // 의미보다는 시각적 효과
 
   ```html
-  <p>Several species of <mark>salamander</mark> inhabit the temperate rainforest of the Pacific Northwest.</p>
+  <p>
+    Several species of <mark>salamander</mark> inhabit the temperate rainforest
+    of the Pacific Northwest.
+  </p>
   ```
 
 &nbsp;
 
-- **bring attention** 	특정 텍스트 범위 설정	 // 	기본적으로 글자 두껍게 표시 	// 	읽기 흐름에 도움을 주는 용도	 // 	특별한 의미가 없으며 다른 태그가 적합치 않은 경우 마지막 수단으로 사용
+- **bring attention**
+
+  특정 텍스트 범위 설정 // 기본적으로 글자 두껍게 표시 // 읽기 흐름에 도움을 주는 용도 // 특별한 의미가 없으며 다른 태그가 적합치 않은 경우 마지막 수단으로 사용
 
   ```html
   This article describes several <b class="keywords">text-level</b> elements.
@@ -305,78 +323,372 @@ ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css
 
 &nbsp;
 
-- **i**	 `<b>`처럼 특별한 의미가 없으며 다른 태그가 적합치 않은 경우 마지막 수단으로 사용. `<b>`가 text 대상이라면 `<i>`는 '아이콘'이나 '특수기호' 대상 	// 	기본적으로 Italic type	 // 	두 태그 모두 css로 더 시각적으로 명확히 나타낼 수 있지만, 이 태그들을 사용함으로써 browser에게 중요하다는 메세지를 전달한다는 점이 point다.
+- **icon**
+
+  `<b>`처럼 특별한 의미가 없으며 다른 태그가 적합치 않은 경우 마지막 수단으로 사용. `<b>`가 text 대상이라면 `<i>`는 '아이콘'이나 '특수기호' 대상 // 기본적으로 Italic type // 두 태그 모두 css로 더 시각적으로 명확히 나타낼 수 있지만, 이 태그들을 사용함으로써 browser에게 중요하다는 메세지를 전달한다는 점이 point다.
 
   ```html
-  <p>The Latin phrase <i>Veni, vidi, vici</i> is often
-  mentioned in music, art, and literature.</p>
+  <p>
+    The Latin phrase <i>Veni, vidi, vici</i> is often mentioned in music, art,
+    and literature.
+  </p>
   ```
 
 &nbsp;
 
-- **underline** 	css를 쓰지 못하는 경우에만 사용하자 
+- **underline**
+
+  css를 쓰지 못하는 경우에만 사용하자
 
   ```html
-  <span style="text-decpration: underline;">
+  <span style="text-decpration: underline;"></span>
   ```
-  
+
   &nbsp;
   &nbsp;
 
-3 ) **`<p> <hr> <br>`**
+#### 3 ) `<p> <hr> <br>`
 
 &nbsp;
 
-- **paragraph** 	문단 나눌 때 	
+- **paragraph**
+
+  문단 나눌 때
 
   ```html
-<p>This is the first paragraph of text. </p>
-  <p>This is the second paragraph. </p>
-```
-  
+  <p>This is the first paragraph of text.</p>
+  <p>This is the second paragraph.</p>
+  ```
+
   위,아래 static margin이 생김
-  
-  하나의 문단을 설정 	cf) 문장같은 경우에는 보통 `<span>` 많이 쓴다
-  
+
+  하나의 문단을 설정 cf) 문장같은 경우에는 보통 `<span>` 많이 쓴다
+
   일반적으로 정보통신보조기기 등은 다음 문단`<p>`으로 넘어갈 수 있는 단축키 제공
-  
+
   대표적인 block 요소
 
 &nbsp;
 
-- **horizontal rule** 	문단의 분리(주제에 의한)를 위해 설정
+- **horizontal rule**
+
+  문단의 분리(주제에 의한)를 위해 설정
 
   ```html
-<p>This is the first paragraph of text. </p>
-  
-<hr>
-  
-  <p>This is the second paragraph. </p>
+  <p>This is the first paragraph of text.</p>
+  <hr />
+  <p>This is the second paragraph.</p>
   ```
-  
+
   단, 수평선을 만들어내기 위한 용도로만 사용해서는 안됨. 이는 어디까지나 의미론적 접근이 아닌 시각적 요소일 뿐임
-  
+
   물론, `<hr>`을 쓰고 css로 가려줄 수는 있음 - `border: none`
-  
+
   또한, 모든 요소는 사각형의 성질을 가지고 있는데 `<hr>` 요소 또한 자세히 들여다보면 상하좌우를 가진 사각형이다. 이 부분은 직접 padding값을 넣어보면 시각적으로 확인할 수 있을 것이다. 실제로, `border: 2px`을 입력한다면 위 아래 선에 모두 적용되어 4px만큼 두께가 길어진다. 그러므로`border: none;`에 `border-top` 또는 `border-bottom` 즉, 위나 아래 중 하나만 넣자. 쉽게 말해, 원래 있던 border를 없애고 선을 하나 새로 만든다고 생각하자. `border: none;`은 `<hr>`을 입력할 때 항상 같이 쓰는 습관을 기르자.
 
 &nbsp;
 
-- **break a line** 	단순 줄바꿈
+- **break a line** 단순 줄바꿈
 
   ```html
-  동해물과 백두산이 마르고 닳도록<br>
+  동해물과 백두산이 마르고 닳도록<br />
   하느님이 보우하사 우리나라 만세
   ```
-  
+
   선의 간격(줄 높이)을 늘리고 싶을때
-  
-   `<br>`을 여러번 쓰는 것은 html의 의미론적 접근에 벗어나는 행위이다. 이하의 방법으로 대체하자.
-  
+
+  `<br>`을 여러번 쓰는 것은 html의 의미론적 접근에 벗어나는 행위이다. 이하의 방법으로 대체하자.
+
   ```css
   p {
-      line-height: 50px
+    line-height: 50px;
   }
   ```
+
+  cf ) 16px(보통 기본폰트크기) x 1.4 - 일반적인 줄 높이
+
+  &nbsp;
+  &nbsp;
   
-  cf )	16px(보통 기본폰트크기) x 1.4	-	일반적인 줄 높이
+  #### 4 ) `<a>`		-		inline
+
+현재 문서에서 외부 문서 불러오기
+
+```html
+<a href="Link"> 홈으로 가기 </a>
+```
+
+inline 요소이기 때문에 `display: block`이나 button안에 코드를 작성해서 layout을 쉽게 하는 방법도 있다
+
+anchor. 항상 `href` 라는 attribute가 따른다. (html로 넘어오면서 생략이 가능해졌지만 거의 필수임)
+
+hypertext reference : 링크 주소값
+
+페이지 외 이동 : `a href="주소값" or ".html"` 등
+
+페이지 내 이동 : 이동하고 싶은 section의 attrtibute 값으로 id값을 준다. // a href = #id값 -> 브라우저 url창에도 '주소#id값'입력하면 해당 섹션의 페이지가 나온다
+
+tip ) 메일 쓰기
+
+```html
+a href="mailto:mail address"
+```
+
+tip ) 전화 걸기
+
+```html
+a href="tel:phone number"
+```
+
+&nbsp;
+
+- **`target`**
+
+링크 url의 표시위치
+
+value : \_self(현재창.기본값), \_blank
+
+cf ) 새로운 탭에서 링크 열기
+
+```html
+<a href="link" target="_blank"> ... </a>
+```
+
+target="\_blank" 을 사용한다.
+
+&nbsp;
+
+- **`download`**
+
+이 요소가 리소스를 다운로드하는 용도로 사용됨을 의미
+
+value : boolean형식
+
+&nbsp;
+
+- **`hreflang`**
+
+링크 url의 언어
+
+value : ko, en 등
+
+&nbsp;
+
+- **`rel`**
+
+현재 문서와 링크 url의 관계
+
+value : license, prev, next
+
+&nbsp;
+
+- **`type`**
+
+링크 url MIME 타입
+
+value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하기 때문에 생략 가능하다
+
+&nbsp;
+
+&nbsp;
+
+#### 5-1 ) `<img>` 		-		inline
+
+````html
+<img src="image주소" alt="대체 텍스트"/>
+````
+
++ 반드시 따라 오는 속성 2가지
+
+  + `src`  - source
+
+    + 절대 경로 : 인터넷에서 가져오는 것. 가지고 오는 이미지는 절대적으로 하나다.그러므로 img a에 대한 b와c의 절대경로는 모두 같다. 도메인과 작업 환경의 위치가 같다면 도메인 생략하고 나머지 주소만 적으면 됨.
+
+    <img src="C:\Users\Seok\Desktop\coding\concepts\Html\images\absolute-path.png" alt="image" style="zoom:50%;" />
+
+    + 상대 경로 : 나에게 저장되어 있는 것
+
+    <img src="C:\Users\Seok\Desktop\coding\concepts\Html\images\relative-path.png" alt="image" style="zoom:50%;" />
+
+  + `art` - alternative text 대체 텍스트
+
+    네트워크가 원할하지 않을 때나, 시각 장애를 가진 분들에게 도움을 줄 수 있음
+
+    크기 줄이려면 `width` or `height` 둘 중 하나만 손봐주면 일정 비율로 변경가능. 물론 css로도 변경 가능
+
+    &nbsp;
+
++ 그 외 속성들
+
+  + `srcset`, `sizes`
+
+    viewport에 따른 image 크기
+
+    [참조링크](https://heropy.blog/2019/06/16/html-img-srcset-and-sizes/)
+
+  + `crossorigin`
+
+    특정 페이지, 사이트에서 음악이나 영상 가져올 때 동일한 출처인지 확인 (video 태그도 동일) by CORS 동일출처정책
+
+    &nbsp;
+
++ 유의점
+
+  inline요소지만 height와 weight값이 먹히는데, 이는 이미지 자체에 있는 사이즈 때문이다
+
+  그래도 css법칙에 맞게 block으로 변환 후 사용하자
+
+  또한, 이미지 자체 크기때문에 부모 요소가 크기를 조정해도 영향을 받지않는다. 그래서 부모 요소의 크기를 지정하고 이미지의 크기를 부모에게 맞추는 작업을 많이한다
+
+  `width : 100%`   부모 요소의 width 값에서 %차지
+
+  `height : auto;`  본래 가지고 있던 비율에 맞게 알아서 조정
+
+&nbsp;
+
+&nbsp;
+
+#### 5-2 ) `<figure> <figcaption>`
+
+````html
+<figure>
+    <img src="/media/cc0-images/elephant-660-480.jpg"
+         alt="Elephant at sunset">
+    <figcaption>An elephant at sunset</figcaption>
+</figure>
+````
+
++ `<figure>`  
+
+  이미지, 삽화, 도표, 시 등의 영역 설정
+
+&nbsp;
+
++ `<figcaption>`
+
+  `<figure>`에 포함되어 이미지나 삽화 등의 설명을 표시
+
+
+  사람이 아닌 브라우저에게 설명하는 tag
+
+&nbsp;
+
+&nbsp;
+
+#### 6-1 ) `<ul> <ol> <li>`		-		block
+
++ **`ol`** 
+
+  ````html
+  <ol>
+      <li>first item</li>
+      <li>second item</li>
+      <li>third item</li>
+  </ol>
+  ````
+
+  + ordered list 
+
+  + 순서가 중요할 때 쓰며 이 항목의 순서는 중요도를 의미할 수도 있다
+
+  + attribute
+
+    + `start` - 항목에 매겨지는 번호의 시작 값
+
+    + `type` - 항목에 매겨지는 번호의 유형 ex) a, A, i, I, 1
+
+    + `reversed` - 항목에 매겨지는 번호 역순 배열
+
+      tip ) attr와 val이 같을 때 reversed="reversed" 이런 것은 그냥 attr만 적어도 적용된다 (boolean형식) reversed 
+
++ **`ul`**
+
+  ````html
+  <ul>
+      <li>first item</li>
+      <li>second item</li>
+      <li>third item</li>
+  </ul>
+  ````
+
+  + unordered list
+  + 순서는 중요하지 않을 때 쓴다
+
++ **`li`**
+
+  + `<li>`를 `<ul>`이나 `<ol>`로 감싸서 출력한다
+
+    '부모 자식 관계' `<ul>`과 `<ol>`의 직계 자손은 오직 `<li>`만 가능하다. 
+
+    ex) list마다 link를 걸고 싶으면 위계 ol -> a -> li (x) ol -> li -> a (o)
+
+    ol과 ul은 서로를 부모자식관계로 유동적으로 가질 수 있다.
+
+  + `display: list-item` 의 형태를 가지며 이는 block element에 속한다고 봐도 무방하다
+
+  &nbsp;
+
+  &nbsp;
+
+#### 5-2 ) `<dl>`
+
+````html
+<dl>
+  <dt>Name</dt>
+  <dd>Sharpcoder</dd>
+  <dt>Born</dt>
+  <dd>1997</dd>
+  <dt>Birthplace</dt>
+  <dd>Korea</dd>
+  <dt>Color</dt>
+  <dd>Black</dd>
+</dl>
+````
+
++ description list 정의 목록
+
++ 사용 용도
+
+  + 용어 정의 	ex) 사전 용어 정의
+  + key - value로 정보 제공 `{ key: value }`       ex) `이름: 샤프코더`, `직업: 프론트엔드 개발자`
+
++ 하위태그
+
+  + **`<dt>`** 
+
+    description term
+
+    key값을 나타내며 보이지않게 하는한이 있더라도 무조건 dl을 쓸 때, 존재 해야한다.
+
+  + **`<dfn>`** 
+
+    define 말 그대로 정의된 용어 표시
+
+    `<dt>`와 `<dd>`와는 달리 필수 자식 tag가 아니다
+
+    `<dfn>`는 독자적으로 `<dl>` 없이도 언제나 사용가능하다.
+
+  + **`<dd>`** 
+
+    description data 	- 	value값 (설명)
+
++ 특징
+
+  + `<dl>`의 하위 태그로는 `<div>, <dt>, <dfn>, <dd>`만 가능하다.
+
+  + `<dt>`와 `<dd>`는 항상 같이 다녀야한다. 단독 출현 x 이중 출현 o 
+
+    ex) 2개의 연속적 dt, 2개의 연속적 `<dd>` 사용 모두 가능
+
+  + `<dl> <dt> <dd>` 형식에 css요소를 입히고 싶다면 다른 태그로 대체하여 style을 줄 수도 있다
+
+    ex) ul ol 활용 
+
+    <img src="C:\Users\Seok\Desktop\coding\concepts\Html\images\dl-ulol.png" alt="image" style="zoom:80%;" />
+
+    
+
+  
+
+
+
