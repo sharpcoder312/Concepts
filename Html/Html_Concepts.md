@@ -5,6 +5,7 @@
    2. Tag's Attribute and Value
    3. Doctype & Document Structure
 2. Head Structure
+   
    1. Meta data
 3. Title, Link, Style & Script
 4. Html's various Tags
@@ -17,6 +18,11 @@
    7. `<blockquote> <q> <cite>`
    8. `<div> <span>`
    9. `<form>`
+      1. `<input>`
+      
+      2. `<label>`
+      
+         
 
 &nbsp;  
 &nbsp;  
@@ -806,3 +812,143 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
       &nbsp;
       &nbsp;
+
+#### 9-1 ) `<input>` - inline block
+
+```html
+<input type=" " />
+```
+
+- `input` ? 입력창. input field
+
+- input 자체는 style 적용 안됨
+
+  - 테두리 자체가 border가 아니라 'outline'으로 형성되어있다
+
+- 여러가지 속성들
+
+  - `placeholder`
+
+    - 안내문구 삽입
+
+    - ```html
+      <input type="text" placeholder="이름을 입력하세요" />
+      ```
+
+  - `minlength, maxlength`
+
+    - 제한길이 설정
+    - 입력가능 최솟값, 최댓값 : min, max
+
+  - `required`
+
+    - 필수 기입 설정
+
+  - `disabled`
+
+    - 사용 금지 설정
+
+  - `value`
+
+    - 초기값 설정
+    - 일종의 text 취급
+
+  - `accept`
+
+    - ```html
+      accept=".jpg" accept="img/png" 등등
+      ```
+
+  - `name`
+
+    - 데이터 전송시 데이터의 이름 설정
+
+  - 그 외
+
+    - `autofocus` 자동 포커스
+
+    - `form` form 범위에 없어도 form과 연결 form의 id값 삽입
+
+    - `readonly` 읽기전용
+
+    - `pattern` 고정 양식
+
+      ```html
+      <input pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" />
+      ```
+
+  - `type`
+
+    - 종류
+
+      - `number, text, email, tel, radio, file, password, reset, search, image(단순 image가 아닌 제출의 의미까지 겸비) 등`
+
+    - 알아두면 좋은 속성들
+
+      - ```html
+        <input type="number" step="일정 범위씩 값을 변하게 할 숫자" />
+        ```
+
+      - ```html
+        <input type="checkbox" checked="checked" />
+        ```
+
+      - ```html
+        <input type="file" multifle="file 개수" />
+        ```
+
+    - '선택'과 관련된 속성들
+
+      - `radio`
+
+        ```html
+        <input type="radio" name="subscription" value="1" id="subscribed" />
+        ```
+
+        - 단일 선택
+        - 필수 속성
+          - `name` : class와 유사. 선택 항목들의 집합체. 단 하나의 pick을 위함
+          - `value` : id와 유사. 선택 후 server 전송시, '1 or 2' 'on or off' 등의 각기 다른 값으로 server에게 전송 // 서버에 전송 된것은 url창에서 확인 가능하다.
+
+      - `checkbox`
+      
+        ````html
+        <input type="checkbox" name="chk_info" value="HTML">HTML
+        ````
+      
+        + 복수 선택
+        + `radio`와 사용 방법 동일
+
+&nbsp;
+&nbsp;
+
+#### 9-2 ) `<label>` - inline
+
+````html
+<label for="input's id value"> .. </label>
+<label><input type="chekcbox"/>동의하십니까?</label>
+````
+
++ id값 입력시 #을 쓰지않는다. #이 for로 바뀌었다고 생각하자.
+
++ 폼 양식에 이름을 붙이는 태그. 어떠한 input과 연결 되어있는지 반드시 명시해야한다.
+
++ `sr-only`에도 많이 쓰임
+
+  + `sr-only` ? 
+
+    스크린 리더에는 들리되, 시각적으로는 보이지 않는 요소
+
+  + 암묵적으로 통용되는 class value // 시각 장애인들을 위함
+
+  + 이하의 예시는 눈에 보이진 않지만 스크린 리더로 읽게 되면 'final'라고 읽어준다
+
+    ````html
+    <a href='#'>
+        <span class='sr-only'>
+            final
+        </span>
+    </a>
+    ````
+
+  + 속성 `display: none`은 screen reader도 읽을 수 없기에 사용 불가
