@@ -12,8 +12,11 @@
    2. `<em> <strong> <mark> <b> <i> <u>`
    3. `<p> <hr/> <br/>`
    4. `<a>`
-   5. `<img>`      //      `<figure> <figcaption>`
-   6. `<ul> <ol> <li>`      //      `<dl>`
+   5. `<img>` // `<figure> <figcaption>`
+   6. `<ul> <ol> <li>` // `<dl>`
+   7. `<blockquote> <q> <cite>`
+   8. `<div> <span>`
+   9. `<form>`
 
 &nbsp;  
 &nbsp;  
@@ -409,8 +412,8 @@ ex) `text/css, image/png, audio/ogg, video/mp4` 등등 => `<style type="text/css
 
   &nbsp;
   &nbsp;
-  
-  #### 4 ) `<a>`		-		inline
+
+  #### 4 ) `<a>` - inline
 
 현재 문서에서 외부 문서 불러오기
 
@@ -492,25 +495,25 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
 &nbsp;
 
-#### 5-1 ) `<img>` 		-		inline
+#### 5-1 ) `<img>` - inline
 
-````html
-<img src="image주소" alt="대체 텍스트"/>
-````
+```html
+<img src="image주소" alt="대체 텍스트" />
+```
 
-+ 반드시 따라 오는 속성 2가지
+- 반드시 따라오는 속성들
 
-  + `src`  - source
+  - `src` - source
 
-    + 절대 경로 : 인터넷에서 가져오는 것. 가지고 오는 이미지는 절대적으로 하나다.그러므로 img a에 대한 b와c의 절대경로는 모두 같다. 도메인과 작업 환경의 위치가 같다면 도메인 생략하고 나머지 주소만 적으면 됨.
+    - 절대 경로 : 인터넷에서 가져오는 것. 가지고 오는 이미지는 절대적으로 하나다.그러므로 img a에 대한 b와c의 절대경로는 모두 같다. 도메인과 작업 환경의 위치가 같다면 도메인 생략하고 나머지 주소만 적으면 됨.
 
     <img src="C:\Users\Seok\Desktop\coding\concepts\Html\images\absolute-path.png" alt="image" style="zoom:50%;" />
 
-    + 상대 경로 : 나에게 저장되어 있는 것
+    - 상대 경로 : 나에게 저장되어 있는 것
 
     <img src="C:\Users\Seok\Desktop\coding\concepts\Html\images\relative-path.png" alt="image" style="zoom:50%;" />
 
-  + `art` - alternative text 대체 텍스트
+  - `art` - alternative text 대체 텍스트
 
     네트워크가 원할하지 않을 때나, 시각 장애를 가진 분들에게 도움을 줄 수 있음
 
@@ -518,21 +521,21 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
     &nbsp;
 
-+ 그 외 속성들
+- 그 외 속성들
 
-  + `srcset`, `sizes`
+  - `srcset`, `sizes`
 
     viewport에 따른 image 크기
 
     [참조링크](https://heropy.blog/2019/06/16/html-img-srcset-and-sizes/)
 
-  + `crossorigin`
+  - `crossorigin`
 
     특정 페이지, 사이트에서 음악이나 영상 가져올 때 동일한 출처인지 확인 (video 태그도 동일) by CORS 동일출처정책
 
     &nbsp;
 
-+ 유의점
+- 유의점
 
   inline요소지만 height와 weight값이 먹히는데, 이는 이미지 자체에 있는 사이즈 때문이다
 
@@ -540,9 +543,9 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
   또한, 이미지 자체 크기때문에 부모 요소가 크기를 조정해도 영향을 받지않는다. 그래서 부모 요소의 크기를 지정하고 이미지의 크기를 부모에게 맞추는 작업을 많이한다
 
-  `width : 100%`   부모 요소의 width 값에서 %차지
+  `width : 100%` 부모 요소의 width 값에서 %차지
 
-  `height : auto;`  본래 가지고 있던 비율에 맞게 알아서 조정
+  `height : auto;` 본래 가지고 있던 비율에 맞게 알아서 조정
 
 &nbsp;
 
@@ -550,24 +553,22 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
 #### 5-2 ) `<figure> <figcaption>`
 
-````html
+```html
 <figure>
-    <img src="/media/cc0-images/elephant-660-480.jpg"
-         alt="Elephant at sunset">
-    <figcaption>An elephant at sunset</figcaption>
+  <img src="/media/cc0-images/elephant-660-480.jpg" alt="Elephant at sunset" />
+  <figcaption>An elephant at sunset</figcaption>
 </figure>
-````
+```
 
-+ `<figure>`  
+- `<figure>`
 
   이미지, 삽화, 도표, 시 등의 영역 설정
 
 &nbsp;
 
-+ `<figcaption>`
+- `<figcaption>`
 
   `<figure>`에 포함되어 이미지나 삽화 등의 설명을 표시
-
 
   사람이 아닌 브라우저에게 설명하는 tag
 
@@ -575,56 +576,56 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
 &nbsp;
 
-#### 6-1 ) `<ul> <ol> <li>`		-		block
+#### 6-1 ) `<ul> <ol> <li>` - block
 
-+ **`ol`** 
+- **`ol`**
 
-  ````html
+  ```html
   <ol>
-      <li>first item</li>
-      <li>second item</li>
-      <li>third item</li>
+    <li>first item</li>
+    <li>second item</li>
+    <li>third item</li>
   </ol>
-  ````
+  ```
 
-  + ordered list 
+  - ordered list
 
-  + 순서가 중요할 때 쓰며 이 항목의 순서는 중요도를 의미할 수도 있다
+  - 순서가 중요할 때 쓰며 이 항목의 순서는 중요도를 의미할 수도 있다
 
-  + attribute
+  - attribute
 
-    + `start` - 항목에 매겨지는 번호의 시작 값
+    - `start` - 항목에 매겨지는 번호의 시작 값
 
-    + `type` - 항목에 매겨지는 번호의 유형 ex) a, A, i, I, 1
+    - `type` - 항목에 매겨지는 번호의 유형 ex) a, A, i, I, 1
 
-    + `reversed` - 항목에 매겨지는 번호 역순 배열
+    - `reversed` - 항목에 매겨지는 번호 역순 배열
 
-      tip ) attr와 val이 같을 때 reversed="reversed" 이런 것은 그냥 attr만 적어도 적용된다 (boolean형식) reversed 
+      tip ) attr와 val이 같을 때 reversed="reversed" 이런 것은 그냥 attr만 적어도 적용된다 (boolean형식) reversed
 
-+ **`ul`**
+- **`ul`**
 
-  ````html
+  ```html
   <ul>
-      <li>first item</li>
-      <li>second item</li>
-      <li>third item</li>
+    <li>first item</li>
+    <li>second item</li>
+    <li>third item</li>
   </ul>
-  ````
+  ```
 
-  + unordered list
-  + 순서는 중요하지 않을 때 쓴다
+  - unordered list
+  - 순서는 중요하지 않을 때 쓴다
 
-+ **`li`**
+- **`li`**
 
-  + `<li>`를 `<ul>`이나 `<ol>`로 감싸서 출력한다
+  - `<li>`를 `<ul>`이나 `<ol>`로 감싸서 출력한다
 
-    '부모 자식 관계' `<ul>`과 `<ol>`의 직계 자손은 오직 `<li>`만 가능하다. 
+    '부모 자식 관계' `<ul>`과 `<ol>`의 직계 자손은 오직 `<li>`만 가능하다.
 
     ex) list마다 link를 걸고 싶으면 위계 ol -> a -> li (x) ol -> li -> a (o)
 
     ol과 ul은 서로를 부모자식관계로 유동적으로 가질 수 있다.
 
-  + `display: list-item` 의 형태를 가지며 이는 block element에 속한다고 봐도 무방하다
+  - `display: list-item` 의 형태를 가지며 이는 block element에 속한다고 봐도 무방하다
 
   &nbsp;
 
@@ -632,7 +633,7 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
 #### 5-2 ) `<dl>`
 
-````html
+```html
 <dl>
   <dt>Name</dt>
   <dd>Sharpcoder</dd>
@@ -643,24 +644,24 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
   <dt>Color</dt>
   <dd>Black</dd>
 </dl>
-````
+```
 
-+ description list 정의 목록
+- description list 정의 목록
 
-+ 사용 용도
+- 사용 용도
 
-  + 용어 정의 	ex) 사전 용어 정의
-  + key - value로 정보 제공 `{ key: value }`       ex) `이름: 샤프코더`, `직업: 프론트엔드 개발자`
+  - 용어 정의 ex) 사전 용어 정의
+  - key - value로 정보 제공 `{ key: value }` ex) `이름: 샤프코더`, `직업: 프론트엔드 개발자`
 
-+ 하위태그
+- 하위태그
 
-  + **`<dt>`** 
+  - **`<dt>`**
 
     description term
 
     key값을 나타내며 보이지않게 하는한이 있더라도 무조건 dl을 쓸 때, 존재 해야한다.
 
-  + **`<dfn>`** 
+  - **`<dfn>`**
 
     define 말 그대로 정의된 용어 표시
 
@@ -668,27 +669,140 @@ value : text/html 등 html5에서는 type을 자동으로 체크하고 해석하
 
     `<dfn>`는 독자적으로 `<dl>` 없이도 언제나 사용가능하다.
 
-  + **`<dd>`** 
+  - **`<dd>`**
 
-    description data 	- 	value값 (설명)
+    description data - value값 (설명)
 
-+ 특징
+- 특징
 
-  + `<dl>`의 하위 태그로는 `<div>, <dt>, <dfn>, <dd>`만 가능하다.
+  - `<dl>`의 하위 태그로는 `<div>, <dt>, <dfn>, <dd>`만 가능하다.
 
-  + `<dt>`와 `<dd>`는 항상 같이 다녀야한다. 단독 출현 x 이중 출현 o 
+  - `<dt>`와 `<dd>`는 항상 같이 다녀야한다. 단독 출현 x 이중 출현 o
 
     ex) 2개의 연속적 dt, 2개의 연속적 `<dd>` 사용 모두 가능
 
-  + `<dl> <dt> <dd>` 형식에 css요소를 입히고 싶다면 다른 태그로 대체하여 style을 줄 수도 있다
+  - `<dl> <dt> <dd>` 형식에 css요소를 입히고 싶다면 다른 태그로 대체하여 style을 줄 수도 있다
 
-    ex) ul ol 활용 
+    ex) ul ol 활용
 
     <img src="C:\Users\Seok\Desktop\coding\concepts\Html\images\dl-ulol.png" alt="image" style="zoom:80%;" />
 
-    
+&nbsp;
 
-  
+&nbsp;
 
+#### 7 ) `<blockquote> <q> <cite>`
 
+- 인용 // 출처와 관련 ex ) quotation
 
+- **`blackquote`**
+
+  - 문장 or 내용 전체가 인용문일 경우
+
+  ```html
+  <blockquote cite="https://www.huxley.net/bnw/four.html">
+    <p>
+      Words can be like X-rays, if you use them properly—they’ll go through
+      anything. You read and you’re pierced.
+    </p>
+  </blockquote>
+  ```
+
+  &nbsp;
+
+- **`q`**
+
+  - 문장 내에 인용문 삽입 경우
+
+    ```html
+    <p>
+      When Dave asks HAL to open the pod bay door, HAL answers:
+      <q cite="https://www.imdb.com/title/tt0062622/quotes/qt0396921"
+        >I'm sorry, Dave. I'm afraid I can't do that.</q
+      >
+    </p>
+    ```
+
+    &nbsp;
+
+- **`cite`**
+
+  - 보통 출처 or 화자를 밝힐 경우 ex ) 책, 논문, 영화, tv프로, 노래, 게임 등의 제목
+
+    ```html
+    <blockquote cite="http://~~"></blockquote>
+    ```
+
+    &nbsp;
+    &nbsp;
+
+#### 8 ) `<div> <span>`
+
+- css, js 적용 시에 요소를 묶을때 자주 사용
+
+- `<div>`가 좀 더 큰 범위에서 사용
+
+- `<span>`
+
+  - 영어로 쪼개진 조각을 의미. 본질적으로 아무것도 나태내지 않는 콘텐츠 영역 설정
+  - 주로 `<div>`와 `<p>`와 함께 웹페이지의 일부분에 스타일 적용시키기 위해 사용 多
+
+- 뉘앙스
+
+  - `<div>` : block // layout
+
+  - `<span>` : inline // text
+
+&nbsp;
+&nbsp;
+
+#### 9 ) `<form>` - block
+
+```html
+<form action="	" method="	"></form>
+```
+
+- 다른 tag들과는 반대로 정보를 주기위해서가 아닌, 정보를 받기위해서 존재한다.
+
+- 반드시 따라오는 속성들
+
+  - `action`
+
+    - API주소
+    - 사용자의 input을 받을 때는 이를 처리해야할 과정이 잇따라야한다.
+    - 즉, form을 받아서 server에 전달 해야한다. 이 정보(form)를 처리할 수 있는 url(주소) 기입한다.
+
+  - `method`
+
+    - GET|POST
+
+    - 소량 사용 - GET(얻어갈때만)기본값
+
+    - 대량 사용 - POST(정보수정)
+
+      &nbsp;
+
+- 그 외 속성들
+
+  - `autocomplete`
+
+    - 사용자가 이전에 입력한 값으로 자동 완성 기능을 사용할 것인지 여부
+
+    - value : `on` (default값)
+
+  - `name`
+
+    - 고유한 양식의 이름 (중요 attr)
+
+  - `novalidate`
+
+    - 서버로 전송시 양식 데이터의 유효성을 검사하지 않도록 지정
+
+  - `target`
+
+    - 서버로 전송 후 응답받을 방식을 지정
+
+    - value : `_self` (default값), `_blank`
+
+      &nbsp;
+      &nbsp;
