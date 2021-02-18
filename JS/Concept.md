@@ -439,7 +439,7 @@ const sum = (a, b) => a + b;
 
   ````js
   // constructor function
-  // 일반적으로 대문자로 네이밍 한다
+  // 일반적으로 함수 이름의 첫 글자를 대문자로 네이밍 한다
   function Song(title, singer) {			//	song (x) Song(o)
   	this.title = title;			// this.title의 title이 object의 property가 된다
       this.singer = singer;		//	this는 현재 이 object를 말한다
@@ -467,7 +467,7 @@ const sum = (a, b) => a + b;
     또한 document는 많은 key(.~)를 가지고 있다.
 
     ````js
-    console.log(document)
+    console.log({ document })
     ````
 
     이것으로 객체화된 document 내에 있는 요소들을 볼 수 있다
@@ -500,9 +500,10 @@ const sum = (a, b) => a + b;
 
       ````js
       addEventListener구문
-      target.addEventListener(type, listener);
-      ````
-
+      target.addEventListener("type", listener);
+      target.addEventListener("행위", 함수);
+````
+      
       ````js
       function handleResize(){
       	console.log("I have been resized")
@@ -510,8 +511,8 @@ const sum = (a, b) => a + b;
       
       
       window.addEventListener("resize", handleResize);
-      ````
-
+````
+      
       **코드 맨 마지막줄에 handleResize()라고 적지 않는 것은 바로 함수를 호출해버리기 때문이다. 우리는 우리가 원할때 이 함수를 호출할 수 있다**
 
 #### Tip
