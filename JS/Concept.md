@@ -1,10 +1,32 @@
 #### 특성
 
-+ 인터프리터 (컴파일 할 필요x)
-  + 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용
++ 브라우저와 JS
 
-+ 클라이언트 => 확장 ex) node.js 서버 // electron 데스크탑 앱 제작 // react native 모바일 앱 제작 등등
-  + 자바스크립트 엔진이 브라우저 밖을 나오는 것을 의미함
+  + 각 브라우저가 사용하는 JS 엔진
+    + 크롬, 엣지, 오페라 : VB (오픈소스 엔진)
+    + 파이어폭스 : 스파이더몽키
+    + 사파리 : 웹킷
+  + JS 실행 원리
+    + interpreter 방식으로 실행
+      + Tip) `interpreter` vs `complie`
+        + interpreter
+          + 코드를 한 덩어리씩 실행
+          + 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용
+          + ex) Java Script
+        + complie
+          + 우리가 작성한 소스코드들을 머신코드로 변환하는 과정을 거친 후 한 번에 실행
+          + ex) C, C++
+
+  + 클라이언트 => 확장 
+
+    + 자바스크립트 엔진이 브라우저 밖을 나오는 것을 의미함
+
+    + ex) node.js 서버 // electron 데스크탑 앱 제작 // react native 모바일 앱 제작 등등
+
+  + 참고사항
+
+    + 브라우저의 console 기능
+      + REPL(Read-Eval-Print Loop) 원리 사용
 
 #### 변수 Variable
 
@@ -502,6 +524,7 @@ const sum = (a, b) => a + b;
       addEventListener구문
       target.addEventListener("type", listener);
       target.addEventListener("행위", 함수);
+      ````
 ````
       
       ````js
@@ -512,7 +535,7 @@ const sum = (a, b) => a + b;
       
       window.addEventListener("resize", handleResize);
 ````
-      
+
       **코드 맨 마지막줄에 handleResize()라고 적지 않는 것은 바로 함수를 호출해버리기 때문이다. 우리는 우리가 원할때 이 함수를 호출할 수 있다**
 
 #### Tip
