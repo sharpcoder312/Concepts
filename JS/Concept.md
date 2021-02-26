@@ -45,6 +45,191 @@
     
       
 
+#### 데이터 타입(자료형)
+
++ string
+
+  + 문자열
+
+  + " "  or ' 'or``사용
+
+  + 이스케이핑
+
+    + 문자가 다르게 해석되게 하는 행위
+
+      ````js
+      <콘솔창>
+      
+      > '작은따옴표는(\') 이렇게 표시한다'
+      => 따옴표를 이스케이핑한 예시이다. " ' 앞에 \(백슬래시) 붙여준다
+      > '작은따옴표는(') 이렇게 표시한다'
+      => 콘솔에 오류가 나는 예시
+      
+      물론 이스케이핑을 사용하지 않고
+      > "작은따옴표는(')로 표시한다"
+      이렇게 입력할 수도 있다
+      ````
+
+  + 문자열 합치기
+
+    + 두 개의 문자열 사이에 `+` 기호 붙이기
+
+      ````js
+      <콘솔창>
+          
+      > '문자열이 긴 경우 문자열을 ' + '이렇게 쪼갠 뒤 다시 합칠 수 있다'
+      < "문자열이 긴 경우에는 문자열을 이렇게 쪼갠 뒤 다시 합칠 수 있다"
+      
+      // 유의사항 : 두 문자열을 합칠 때에는 '띄어쓰기'가 정말 중요하다
+      // 첫번째 문장 맨 마지막에 여백을 두어야한다
+      > '문자열이 긴 경우 문자열을' + '이렇게 쪼갠 뒤 다시 합칠 수 있다'
+      < "문자열이 긴 경우에는 문자열을이렇게 쪼갠 뒤 다시 합칠 수 있다"
+      // 이런 식으로 문자열이 원하는 방향대로 제대로 표현되지 않는다
+      ````
+
+      
+
+  + 관련 기본 함수(메서드)
+
+    + substring 함수
+
+      ````js
+      const user = "Maison Mount";
+      console.log(user.substring(0, 8))
+      => `Maison M` 출력 0번째에서 8번째 문자까지 출력 (띄어쓰기. 공백까지 character로 취급)
+      ````
+
+    + join // split 함수
+
+      + 각각의 글자를 합쳐 출력 // 쪼개서 **배열의 형태**로 출력
+
+      ````js
+      const hobbies = ["game", "programming", "tv"];
+      console.log(hobbies.join(""))
+      => `gameprogrammintv`
+      console.log(hobbies.split(""))
+      => `"g","a","m", ~~`
+      "" 내에는 자르는 기준을 입력할 수 있다
+      ex) " " 공백을 기준
+      ex) "," 쉼표를 기준
+      
+      심화)
+      const homework = "eng+kor+math"
+      console.log(homework.split("+")[0])
+      => `eng`		//		여기서 split 하지 않고 [0]만 입력했다면 e가 출력되었을 것이다
+      ````
+
+    + toUpperCase // toLowerCase 함수
+
+      + 대소문자로 변환
+
++ boolean
+
++ true // false
+
++ Number
+
+  + 양수 표기
+
+    ````js
+    3;
+    ````
+
+  + 음수 표기
+
+    ````js
+    -3;
+    ````
+
+  + 지수 표기 (exponential notation)
+
+    원래 숫자 거듭제곱 지수를 `e`뒤에 써준다
+
+    ````js
+    3e4;	// 3 * 10000(10^4) = 30000
+    3e+4;	// 3 * 10000(10^4)  = 30000
+    3e-2;	// 3 * (1/100) or (10^-2) = 0.03
+    ````
+
+  + 2진법 8진법 16진법 표기
+
+    ````js
+    // 2진법 (숫자 0, 소문자 b, 2진수)
+    let age = 0b11;
+    console.log(age);
+    => `3`
+    
+    // 8진법 (숫자 0, 소문자 o, 8진수)
+    let age = 0o15;
+    console.log(age);
+    => `13`
+    
+    // 16진법 (숫자 0, 소문자 x, 16진수)
+    // 0x 뒤에 숫자가 0부터 9까지 밖에 없기 때문에 10~15는 각각 알파벳 a, b, c, d, e, f로 표현
+    let age = 0x1c;
+    console.log(age);
+    => `28`
+    ````
+
++ Float
+
+  + Floating number
+  + 떠돌이 소수점
+
++ null
+
+  + 선언되었고 null로 값 지정(빈 값)
+
++ undefined
+
+  + 선언 자체 x (선언 자체는 됐는데 값이 지정되어 있지않다고도 볼 수 있음)
+
+  + 적든 적지않든 결과는 같다
+
+    ````js
+    const girlFriend = undefined;
+    const girlFreind;		//		두 코드는 같음
+    ````
+
+  + `undefined` 콘솔창에서 많이 볼 수 있는데, 보통 반환할 결괏값이 없을 때 나온다. 변수를 선언하거나 `console.log` 명령어 등으로 콘솔에 무언가를 출력하지만, 그 자체로는 결괏값을 가지기 않기 때문에 `undefined`가 반환된다.
+
+    물론 일반적인 식에서는 결괏값이 반환된다
+
+    ````js
+    <콘솔창>
+        
+    > let hello = "안녕";
+    < undefined
+    
+    > console.log(hello);
+    < "안녕"
+    < undefined
+    
+    > hello = "안녕하세요"; 	// 일반적인 식
+    < "안녕하세요"
+    ````
+
++ symbol
+
++ type 확인법
+
+````js
+let weight = 19;
+console.log(typeof weight)
+=> `number`
+
+<콘솔창> 에서도 가능
+    
+> typeof "Hello";
+< "string"
+> typeof ``;
+< "string"
+````
+
+`typeof`은 타입을 확인하는 명령이다
+
+
+
 #### 변수
 
 + 변수와 상수의 차이
@@ -295,214 +480,140 @@
   
   console.log(group)
   
-  => junior
+  => `junior`
       
       
   // 두 3항 연산자 식과 if문은 결괏값이 같다.
   
   
-  // if (x > 20) {
-  //   group = "senior"
-  // } else {
-  //   group = "junior"
-  // }
+  if (x > 20) {
+     group = "senior"
+   } else {
+     group = "junior"
+   }
   
   console.log(group)
   
-  => junior
+  => `junior`
   ````
 
   
 
-#### 데이터 타입(자료형)
+#### 반복문
 
-+ string
-  + 문자열
++ **while문**
 
-  + " "  or ' 'or``사용
+  + 조건식이 참인 동안 반복하여 동작문을 실행
 
-  + 이스케이핑
-
-    + 문자가 다르게 해석되게 하는 행위
-
-      ````js
-      <콘솔창>
-      
-      > '작은따옴표는(\') 이렇게 표시한다'
-      => 따옴표를 이스케이핑한 예시이다. " ' 앞에 \(백슬래시) 붙여준다
-    > '작은따옴표는(') 이렇게 표시한다'
-      => 콘솔에 오류가 나는 예시
-    
-      물론 이스케이핑을 사용하지 않고
-    > "작은따옴표는(')로 표시한다"
-      이렇게 입력할 수도 있다
-      ````
-  
-  + 문자열 합치기
-  
-    + 두 개의 문자열 사이에 `+` 기호 붙이기
-  
-      ````js
-      <콘솔창>
-          
-      > '문자열이 긴 경우 문자열을 ' + '이렇게 쪼갠 뒤 다시 합칠 수 있다'
-      < "문자열이 긴 경우에는 문자열을 이렇게 쪼갠 뒤 다시 합칠 수 있다"
-    
-      // 유의사항 : 두 문자열을 합칠 때에는 '띄어쓰기'가 정말 중요하다
-    // 첫번째 문장 맨 마지막에 여백을 두어야한다
-    > '문자열이 긴 경우 문자열을' + '이렇게 쪼갠 뒤 다시 합칠 수 있다'
-    < "문자열이 긴 경우에는 문자열을이렇게 쪼갠 뒤 다시 합칠 수 있다"
-    // 이런 식으로 문자열이 원하는 방향대로 제대로 표현되지 않는다
-      ````
-  
-      
-    
-  + 관련 기본 함수(메서드)
-  
-    + substring 함수
-  
-      ````js
-      const user = "Maison Mount";
-      console.log(user.substring(0, 8))
-      => `Maison M` 출력 0번째에서 8번째 문자까지 출력 (띄어쓰기. 공백까지 character로 취급)
-      ````
-  
-    + join // split 함수
-  
-      + 각각의 글자를 합쳐 출력 // 쪼개서 **배열의 형태**로 출력
-  
-      ````js
-      const hobbies = ["game", "programming", "tv"];
-      console.log(hobbies.join(""))
-      => `gameprogrammintv`
-      console.log(hobbies.split(""))
-      => `"g","a","m", ~~`
-      "" 내에는 자르는 기준을 입력할 수 있다
-      ex) " " 공백을 기준
-      ex) "," 쉼표를 기준
-      
-      심화)
-      const homework = "eng+kor+math"
-      console.log(homework.split("+")[0])
-      => `eng`		//		여기서 split 하지 않고 [0]만 입력했다면 e가 출력되었을 것이다
-      ````
-  
-    + toUpperCase // toLowerCase 함수
-  
-      + 대소문자로 변환
-  
-+ boolean
-  
-+ true // false
-  
-+ Number
-
-  + 양수 표기
+  + 무한 반복시 많이 사용
 
     ````js
-    3;
-    ````
-
-  + 음수 표기
-
-    ````js
-    -3;
-    ````
-
-  + 지수 표기 (exponential notation)
-
-    원래 숫자 거듭제곱 지수를 `e`뒤에 써준다
-
-    ````js
-    3e4;	// 3 * 10000(10^4) = 30000
-    3e+4;	// 3 * 10000(10^4)  = 30000
-    3e-2;	// 3 * (1/100) or (10^-2) = 0.03
-    ````
-
-  + 2진법 8진법 16진법 표기
-
-    ````js
-    // 2진법 (숫자 0, 소문자 b, 2진수)
-    let age = 0b11;
-    console.log(age);
-    => `3`
+    // 기본 형식
+    while (조건식)	{
+        동작문;				
+    }		
     
-    // 8진법 (숫자 0, 소문자 o, 8진수)
-    let age = 0o15;
-    console.log(age);
-    => `13`
-    
-    // 16진법 (숫자 0, 소문자 x, 16진수)
-    // 0x 뒤에 숫자가 0부터 9까지 밖에 없기 때문에 10~15는 각각 알파벳 a, b, c, d, e, f로 표현
-    let age = 0x1c;
-    console.log(age);
-    => `28`
+    // 예시
+    let i = 0;		// 프로그래밍에서는 보통 숫자를 0부터 세기 때문에 변수에 첫번째 값으로 1이 아닌 0을 많이 넣는다.
+    while (i < 100) {
+        console.log('Hello');
+        i++;
+    }
     ````
 
     
 
-+ Float
++ **for문**
+
+  + while문과 원리 같음
+
+  ````js
+  // 기본 형식
+  for (변수 선언; 조건식; 종료식) {
+      동작문;
+  }			// 실행 순서 : 변수 선언 => 조건식 => 동작문 => 종료식
   
-  + Floating number
-  + 떠돌이 소수점
   
-+ null
+  
+  // 예시
+  for (let i = 0; i < 100; i++) {
+      console.log('Hello');
+  }
+  
+  => 'Hello' 100번 출력
+  
+  
+  for (let i = 0; i < 100; i++) {
+      console.log(i + 1);
+  }
+  
+  => 1 ~ 100 까지 출력
+  
+  ````
 
-  + 선언되었고 null로 값 지정(빈 값)
+  
 
-+ undefined
++ **break문**으로 반복문 멈추기
 
-  + 선언 자체 x (선언 자체는 됐는데 값이 지정되어 있지않다고도 볼 수 있음)
-
-  + 적든 적지않든 결과는 같다
+  + 반복문을 돌리다가 원하는 값을 찾을 경우 반복문을 멈출 때 유용
 
     ````js
-    const girlFriend = undefined;
-    const girlFreind;		//		두 코드는 같음
-    ````
-
-  + `undefined` 콘솔창에서 많이 볼 수 있는데, 보통 반환할 결괏값이 없을 때 나온다. 변수를 선언하거나 `console.log` 명령어 등으로 콘솔에 무언가를 출력하지만, 그 자체로는 결괏값을 가지기 않기 때문에 `undefined`가 반환된다.
-
-    물론 일반적인 식에서는 결괏값이 반환된다
-
-    ````js
-    <콘솔창>
-        
-    > let hello = "안녕";
-    < undefined
+    let i = 0;
+    while (true) {
+        if (i === 5) break;
+        console.log(i);
+        i++;
+    }
     
-    > console.log(hello);
-    < "안녕"
-    < undefined
+    => 0 ~ 4까지 출력
     
-    > hello = "안녕하세요"; 	// 일반적인 식
-    < "안녕하세요"
+    
     ````
 
     
 
-+ symbol
++ **continue문**으로 특정 코드 실행 스킵하기
 
-+ type 확인법
+  ````js
+  let i =0:
+  while (i < 7) {
+      i++;
+      if (i % 2 === 0) {
+          continue;				// continue문이 실행되면 그 뒤의 동작문은 실행되지 않는다.
+      }
+      console.log(i)
+  }
+  
+  => 1, 3, 5 출력
+  ````
 
-````js
-let weight = 19;
-console.log(typeof weight)
-=> `number`
+  
 
-<콘솔창> 에서도 가능
-    
-> typeof "Hello";
-< "string"
-> typeof ``;
-< "string"
-````
++ **다중 반복문**
 
-`typeof`은 타입을 확인하는 명령이다
+  ````js
+  for (let i = 0; i < 3; i++)         //          열(row)에 관함
+  {
+      for (let j = 0; j < 3; j++)         //          행(column)에 관함
+      {
+          console.log("#");
+    }
+    console.log("\n");
+  }
+  
+  // 위 코드에서 #을 게임에서의 블록이라고 가정한다면
+  // ###
+  // ###
+  // ###
+  // 이런 형태의 블록을 형성할 수 있을 것이다.
+  // 반복문의 중첩은 변수 값 변화를 유심히 추적해보는 것이 중요하다.
+  ````
+
+  
 
 
 
-#### Array
+#### Array (배열)
 
 + 데이터 저장과 정렬
 
@@ -510,37 +621,68 @@ console.log(typeof weight)
 
 + [] 안에는 문자열, 문자, 숫자, 정의한 변수 등이 들어갈 수 있다. 물론 혼용하여 같이 들어갈 수도 있음
 
-+ n번째의 데이터를 출력 원할시 `배열명[n-1]`로 출력한다
++ n번째의 데이터를 출력 원할시 `배열명[n-1]`로 출력한다 
 
   ````js
-  심화 )
-  const users = ["june", "seok", "kim"];
+  // 이차원 배열
+  const arrayArray = [[1,2],[3,4,5]];
+  arrayArray[0];			//  여기서 n번째의 데이터를 '자릿수' 즉 '인덱스(index)'라고 한다.
+  => [1,2]				//	물론, 이 index값은 0부터 시작한다.
+  arrayArray[1];
+  => [3,4,5]
+  
+  
+  // tip) 배열의 요소 개수 구하기
+  const users = ["june", "seok", "", "kim"];
   console.log(users.length);
-  => `3`		//		users 배열의 길이를 length object를 통해 알 수 있다
+  => `4`		//		users 배열의 길이를 length 객체를 통해 알 수 있다.
+  			//		빈 값 또한 유효하기 때문에 요소 개수에 포함된다.
+  
+  // tip) 맨 마지막 요소 구하기
+  const users = ["june", "seok", "", "kim"];
   console.log(users[users.length - 1]);
   => `kim`	//		users라는 배열의 [배열의 길이-1](맨 마지막 요소)을 출력하는 것이다
-  			// 		여기서는 [3(배열의길이)-1] 즉 [2]의 값을 출력한다
+  			// 		여기서는 [4(배열의길이)-1] 즉 [3]의 값을 출력한다
+  
+  // tip) 배열에 요소 추가 or 변경
+  const users = ["june", "seok", "kim"];
+  users[0] = soo	// 배열 첫번째 요소 "june"을 "soo"로 변경
+  users[3] = soo  // index 0, 1, 2 이후에 3번째 요소(맨 마지막 요소)로 "soo"를 추가
+  
+  // Problem
+  // 이렇게 값 변경 or 추가를 할 수 있지만 요소가 엄청 많을 경우 현실적으로 요소가 몇번 째 값인지 다 기억하고 작업할 수 없다.
+  
+  // Solution
+  // 중간에 있는 요소 변경하기
+  const users = ["june", "seok", "kim", ... , "mike", ... ];
+  users[users.indexOf("mike")] = "michael" 로 변경하는 방법도 있다
+  "mike"의 자릿수가 48이라면 48과 users.indexOf("mike")가 동일한 의미를 지닌다는 것을 알 수 있다
+  // indexOf 메서드는 아래의 기본메서드 섹션에서 설명한다.
+  
+  
+  // 맨 마지막 요소 변경하기
+  const array = ['안','녕','하','세','요'];
+  array[array.length] = '!'
+  console.log(array);
+  
+  => '안','녕','하','세','요','!'
   ````
 
 + 기본 메서드
 
   + push
 
-    + 배열 맨 마지막에 추가
+    + 배열 맨 마지막에 요소 추가
 
       ````js
       const users = ["june", "seok", "kim", ... , "mike"];
-      users.push("soo")
+      users.push("soo");
       => 배열의 마지막에 soo 추가
-      users[0] = soo	// 배열 첫번째 요소 "june"을 "soo"로 변경
-      users[99] = soo 등으로 값 변경 or 추가를 할 수 있지만 현실적으로 요소가 몇번 째 값인지 다 기억하고 작업할 수 없다
-      users[users.indexOf("mike")] = "michael" 로 변경하는 방법도 있다
-      99와 users.indexOf("mike")가 동일한 의미를 지닌다는 것을 알 수 있다
       ````
 
   + unshift
 
-    + 배열 맨 앞에 추가
+    + 배열 맨 앞에 요소 추가
 
       ````js
       users.unshift("kan");
@@ -552,11 +694,13 @@ console.log(typeof weight)
     + 배열에서 특정 요소 빼내기
 
       ````js
+      // pop메서드는 배열 맨 뒤에서부터 하나씩 빼는 개념이다.
+      
       const users = ["june", "seok", "kim"];
-      users.pop()
-      users.pop()
-      console.log(users)
-      => pop매서드를 두번 실행했기에 june추출 (배열 맨 뒤에서부터 하나씩 빼는 개념)
+      users.pop();
+      users.pop();
+      console.log(users);
+      => pop매서드를 두번 실행했기에 "june"만 출력 
       ````
 
   + splice
@@ -564,20 +708,40 @@ console.log(typeof weight)
     + 배열 특정 구간에서 자르기
 
       ````js
+      // users.splice(특정구간지정, 특정구간부터 n개 제거)
+      // = users.splice(시작 index, 제거할 요소의 개수)
+      
       const users = ["june", "seok", "kim"];
-      users.splice(1, 2)
+      users.splice(0, 2);
       => ["kim"] 출력
-      users.splice(특정구간지정, 특정구간부터n개제거)
+      
+      // 여기서 시작 index값만 넣을 경우, 해당 index부터 끝까지 모든 요소를 제거한다.
+      const users = ["june", "seok", "kim"];
+      users.splice(1);
+      => ["june"] 출력
+      
+      // 특정 요소들을 제거한 뒤, 제거한 자리에 다른 특정 값들을 넣을 수도 있다.
+      const users = ["june", "seok", "kim"];
+      users.splice(0,2,"mount","pulisic");
+      => ["mount","pulisic","kim"] 출력
       ````
 
-  + indexOf
+  + indexOf  //  lastIndexOf
 
     + 배열 내에서 특정 요소의 index값(순서) 구하기
 
       ````js
+      // indexOf	앞에서부터 주어진 값 검색
       const users = ["june", "seok", "kim"];
-      console.log(users.indexOf("seok"))
+      console.log(users.indexOf("seok"));
       => 1
+      console.log(users.indexOf("soo"));
+      => -1			//	배열에 존재하지 않는 요소는 index 값이 -1로 출력된다.
+      
+      // lastIndexOf	뒤에서부터 주어진 값 검색
+      const users = ["seok, ""june", "seok", "kim"];
+      console.log(users.lastIndexOf("seok"));
+      => 2
       ````
 
   + isArray
@@ -585,9 +749,9 @@ console.log(typeof weight)
     + Array인지 판단
 
       ````js
-      console.log(Array.isArray(users))
+      console.log(Array.isArray(users));
       => true
-      console.log(Array.isArray(hello))
+      console.log(Array.isArray(hello));
       => false
       ````
 
@@ -596,13 +760,28 @@ console.log(typeof weight)
     + 배열의 값들만 가져옴
 
       ````js
-      console.log(users)
+      console.log(users);
       => {"june", "seok", "kim"}
-      console.log(...users)
+      console.log(...users);
       => june seok kim
       ````
 
+
+  + includes
+
+    + 배열에서 특정 요소 찾기
+
+      ````js
+      const users = ["june", "seok", "kim"];
+      const result01 = target.includes('seok');
+      const result02 = target.includes('soo');
       
+      console.log(seok);
+      console.log(soo);
+      
+      => true			// 존재
+      => false		// 비존재
+      ````
 
 + 위의 Array 예시들에서 const로 정의했지만 에러가 나지않고
 
@@ -616,103 +795,55 @@ console.log(typeof weight)
 
   
 
-#### Object
++ 배열의 반복
 
-+ Array와 달리 각 value에 이름을 줄 수 있다. 쉽게 말해, data에 label을 주는 것이다
-
-+ 생성(정의)시 {} 컬리 브라켓 사용
-
-+ **Method(메서드)** : object 안에 선언된 함수
-
-+ 특정 데이터 출력 원할시 `객체명.데이터` 로 출력한다
-
-+ 특정 데이터만 가져와서 Update(변경) 가능
-
-  ````js
-  const SeokInfo = {
-      name:"Seok",
-      gender: "Male"
-  }
-  SeokInfo.gender = "Female";
-  ````
-
-+ Object와 Array는 서로 종속 시킬 수 있다
-
-  ````js
-  const myInfo = {
-      name: "Seok",
-      age: 25,
-      gender: "Male",
-      favLiquor: [
-          {
-              name: "on the rocks",
-              coke: false
-          },
-          {
-              name: "Jack Coke",
-              coke: true
-          }
-      ]
-  }
-  ````
-
-  위 코드에서 favFood의 fatty를 출력할 시,
-
-  ````js
-  console.log(myInfo.favLiquor[0].coke)
-  => `false`
-  이런 식으로 출력 가능
-  ````
-+ JSON
-
-  + 서버와의 데이터 송수신 시 갖게되는 데이터 형식이며 object와 비슷한 구조를 가지고 있지만 사실상 문자이다.
+  + 'while문'과 'for문' 모두 사용 가능
 
     ````js
-    name: "Seok"		// object		
-    "name": "monkey"	// JSON
+    // 기본 예시
+    
+    const korean = ["가", "나", "다", "라"];
+    let i = 0;
+    while (i < korean.length) {
+        console.log(target[i]);
+        i++;
+    }
+    
+    => "가", "나", "다", "라" 출력
+    
+    for (let i = 0; i < korean.length, i++;) {
+        console.log(target[i]);
+    }
+    
+    => "가", "나", "다", "라" 출력
     ````
 
-  + Object <=> Array 변환 메서드
+    
 
-    + stringify (Object => Array)
+#### Function 함수
 
-      ````js
-      const myInfoJSON = JSON.stringify(myInfo);
-      console.log(myInfoJSON)
-      =>	"name": "Seok",
-          "age": "25",
-          ~~~
-      ````
-
-    + parse (Array => Object)
-
-      ````js
-      여기서 myInfoJSON은 외부에서 받아온 JSON파일이라 가정한다
-          
-      console.log(JSON.parse(myInfoJSON).name)
-      => Seok
-      parsing의 의미를 모른다면 직접 검색하여 공부해보길 바란다.
-      
-      console.log(myInfoJSON.name)
-      => undefined
-      이는 성립되지 않는다 JSON파일은 property로 접근할 수 없기 때문이다.
-      ````
-
-      
-
-#### Function
++ 개념
+  + 일정한 동작을 수행하는 코드
 
 + 함수 선언과 실행
 
 ````js
-함수 선언
+// 함수 선언
 function add(){}
-function키워드 함수이름(parameter매개변수){실행문}
+function키워드 함수이름(parameter매개변수){동작문}	// 함수 선언문 (function declaration statement)
 
-함수 실행
+const add = function() {};	// 함수 표현식 (function expression)
+
+const add = () => {};	// 화살표 함수 (arrow function)
+
+
+// 위의 '함수 표현식'과 '화살표 함수'는 같은 의미이다. 하지만 '함수 선언문'은 add를 변수라고 착각할 수 있는데
+// add는 그저 함수의 이름을 지어준 것 뿐이다. 함수를 변수에 넣는 것은 밑에서 따로 배울 것이다.
+
+// 함수 실행
 함수이름(argument전달인자);
 
-예시
+// 예시
 function add(a,b) {
     return a + b;
 }
@@ -728,6 +859,36 @@ function add(a = 0, b = 1) {
 }
 console.log(add())		// 이렇게 아무 값을 넣지않으면 초기값이 반환된다
 expected output : 1
+````
+
++ 함수의 반환
+
+````js
+// return문 추가
+> funtion a() {
+    return 5;
+}
+
+> a();
+< 10
+
+// 함수를 호출하면 항상 결괏값이 나온다. 이때 기본적으로 'undefined'가 출력된다.
+// 이 값을 반환값(return value)라고 한다.
+// console.log함수를 호출할 때마다 콘솔에서 undefined가 출력되는 것을 기억하는가?
+// console.log함수의 반환값이 undefined이기 때문이다.
+
+
+// 물론. return문은 함수의 특정 위치에서 실행을 중지 시키는 역할도 할 수 있다.
+
+function a() {
+    console.log('Hello');
+    return;
+    console.log('Hi');
+}
+
+a();
+
+=> `Hello` 만 출력
 ````
 
 + 변수에 함수 넣기
@@ -812,6 +973,20 @@ const plus = calculator.plus(5, 5)
 console.log(plus)
 ````
 
++ 함수에 들어온 인수(전달 인자) 개수 구하기
+
+```js
+function a(w, x, y, z) {
+    console.log(arguments);
+}
+
+a('hi','hello','bye');
+
+=> Arguments(3) ['hi','hello','bye', callee: f, Symbol...]
+// 함수 내에서 arguments라는 값을 사용
+// callee: 부터는 신경쓰지 않아도된다.
+```
+
 + Arrow 함수
   + 일반 function과 다르게 지정한 변수(객체)에 함수를 담기 때문에 window 객체 안에 들어가지않고 안정적이다
   + this(scope)가 고정이 되면서 혼동이 일어날 일이 적어진다
@@ -828,7 +1003,125 @@ const sum = (a, b) => a + b;
 
 
 
+#### Object 객체
 
++ 자료형의 일종. 다양한 값을 모아둔 또 다른 값. 객체의 종류를 크게 본다면 '배열'과 '함수'로 나눌 수 있다.
+  + 배열과 함수도 객체라 부를 수 있는 것은 배열과 함수 모두 객체의 성질을 사용할 수 있기 때문이다.
+
++ Array와 달리 각 value에 이름을 줄 수 있다. 쉽게 말해, data에 label을 주는 것이다
+
++ 생성(정의)시 {} 컬리 브라켓 사용 // {}을 사용하여 객체를 나타내는 것은 **객체 리터럴** 이라고 한다.
+
++ **Method(메서드)** 
+
+  + 객체 안에 선언된 함수
+
+  + 객체의 속성 값으로 함수를 넣은 경우를 말한다
+
+    ````js
+    const main = {
+        log: (value) {
+        console.log(value;);
+    	}
+    }
+    main.log('Hello, Method');
+    
+    // 위 코드에서 log는 main객체의 메서드이다. 우리가 항상 써왔던 console.log와 매우 비슷하다.
+    // 물론, console.log는 브라우저에 기본 탑재 되어있는 객체이므로 따로 선언하지 않고 사용할 수 있다.
+    ````
+
+    
+
++ 특정 데이터 출력 원할시 `객체명.속성` or `객체명['속성']`로 출력한다. []로 출력 시에는 반드시 [] 내부에 문자열을 넣어야한다.
+
+  + 여기서 [ ]로 속성에 잘 접근하지 않지만 속성에 띄어쓰기나 .이 들어가는 경우 유용히 쓸 수 있다.
+  + `객체명['속성 명']` or `객체명['속성.명']` 
+  + 
+
++ 특정 속성 값변경 or 속성 제거
+
+  ````js
+  const seokInfo = {		// 변수(객체명)
+      name:"Seok",		// 속성 명: 속성값  // 속성 명은 '문자열'이어야 하며 속성 값은 'JS의 모든 값'이 사용가능하다.
+      gender: "Male"
+  }
+  SeokInfo.gender = "Female";
+  
+  const kimInfo = {
+      name:"Kim",
+      gender: "Female"
+  }
+  delete kimInfo.gender;
+  
+  console.log(kimInfo.gender);
+  
+  => undefined
+  ````
+
++ Object와 Array는 서로 종속 시킬 수 있다
+
+  ````js
+  const myInfo = {
+      name: "Seok",
+      age: 25,
+      gender: "Male",
+      favLiquor: [
+          {
+              name: "on the rocks",
+              coke: false
+          },
+          {
+              name: "Jack Coke",
+              coke: true
+          }
+      ]
+  }
+  ````
+
+  위 코드에서 favFood의 fatty를 출력할 시,
+
+  ````js
+  console.log(myInfo.favLiquor[0].coke)
+  => `false`
+  이런 식으로 출력 가능
+  ````
+  
++ JSON
+
+  + 서버와의 데이터 송수신 시 갖게되는 데이터 형식이며 object와 비슷한 구조를 가지고 있지만 사실상 문자이다.
+
+    ````js
+    name: "Seok"		// object		
+    "name": "monkey"	// JSON
+    ````
+
+  + Object <=> Array 변환 메서드
+
+    + stringify (Object => Array)
+
+      ````js
+      const myInfoJSON = JSON.stringify(myInfo);
+      console.log(myInfoJSON)
+      =>	"name": "Seok",
+          "age": "25",
+          ~~~
+      ````
+
+    + parse (Array => Object)
+
+      ````js
+      여기서 myInfoJSON은 외부에서 받아온 JSON파일이라 가정한다
+          
+      console.log(JSON.parse(myInfoJSON).name)
+      => Seok
+      parsing의 의미를 모른다면 직접 검색하여 공부해보길 바란다.
+      
+      console.log(myInfoJSON.name)
+      => undefined
+      이는 성립되지 않는다 JSON파일은 property로 접근할 수 없기 때문이다.
+      ````
+
+      
 
 #### DOM
 
