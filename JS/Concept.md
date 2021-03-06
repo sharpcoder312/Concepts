@@ -12,11 +12,13 @@
         + interpreter
           + 코드를 한 덩어리씩 실행
           + 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용
+          + runtime에서 type이 정해짐 - error 발생 확률 높아짐
+            + 해결방안 : type script
           + ex) Java Script
         + complie
-          + 우리가 작성한 소스코드들을 머신코드로 변환하는 과정을 거친 후 한 번에 실행
+      + 우리가 작성한 소스코드들을 머신코드로 변환하는 과정을 거친 후 한 번에 실행
           + ex) C, C++
-
+  
   + 클라이언트 => 확장 
 
     + 자바스크립트 엔진이 브라우저 밖을 나오는 것을 의미함
@@ -24,10 +26,14 @@
     + ex) node.js 서버 // electron 데스크탑 앱 제작 // react native 모바일 앱 제작 등등
 
   + 참고사항
-
+  
     + 브라우저의 console 기능
       
       + REPL(Read-Eval-Print Loop) 원리 사용
+      + console창에 입력원리는 console이 통상적으로 많이 쓰이기 때문에 Node.js와 Web 모두 console에 관련된 API들이 있다. 또한, 이 API들의 인터페이스가 둘다 동일하다.
+      + JS에 포함된 것이 아닌 웹 API중 하나. 즉, 브라우저에서 기능 제공.
+      + console창에서도 JS 실행이 가능하기 때문에, 동적으로 요소 검사 가능.
+      + Sources 탭에서 break point를 이용하여 디버깅 기능도 사용 가능
       
     + 줄바꿈 기능
     
@@ -92,21 +98,35 @@
     + substring 함수
 
       ````js
-    const user = "Maison Mount";
+      const user = "Maison Mount";
       console.log(user.substring(0, 8))
       => `Maison M` 출력 0번째에서 8번째 문자까지 출력 (띄어쓰기. 공백까지 character로 취급)
       ````
-  
-    + join // split 함수
 
-      + 각각의 글자를 합쳐 출력 // 쪼개서 **배열의 형태**로 출력
+    + join 함수
+
+      + **배열의** 글자를 합쳐 **문자열의 형태**출력
 
       ````js
-    const hobbies = ["game", "programming", "tv"];
+      const hobbies = ["game", "programming", "tv"];
       console.log(hobbies.join(""))
       => `gameprogrammintv`
       console.log(hobbies.split(""))
       => `"g","a","m", ~~`
+      "" 내에는 자르는 기준을 입력할 수 있다
+      ex) " " 공백을 기준
+      ex) "," 쉼표를 기준
+      ````
+      
+    + split 함수
+    
+      + **문자열을** 쪼개서 **배열의 형태**로 출력
+      
+    ````js
+      const hobbies = ["game", "programming", "tv"];
+    console.log(hobbies.split(""))
+      => `"g","a","m", ~~`
+      
       "" 내에는 자르는 기준을 입력할 수 있다
       ex) " " 공백을 기준
       ex) "," 쉼표를 기준
@@ -115,10 +135,10 @@
       const homework = "eng+kor+math"
       console.log(homework.split("+")[0])
       => `eng`		//		여기서 split 하지 않고 [0]만 입력했다면 e가 출력되었을 것이다
-      ````
-  
+    ````
+    
     + toUpperCase // toLowerCase 함수
-
+    
       + 대소문자로 변환
 
 + Boolean
@@ -132,11 +152,14 @@
     < true				// true는 false보다 크다
     ````
 
-    + 거짓인 값 (falsy value)
+    + 거짓같은 값 (falsy value)
 
       ````js
       // false, ''(빈 문자열), 0, NaN, undefined, null, document.all 등
-      // 단지 '거짓인 값'일 뿐이다. false와 undefined, null 등은 같지 않다.
+      // undefined와 unll은 거짓같은 값일 뿐이지, 다른 거짓같은 값들과 같지는 않다.
+      
+      // 0, '', null,undefined,Nan은 불린형으로 변환 시에 모두 false가 된다.
+      // 불린형과 자료형을 헷갈려 하지말자. ex) '' - 불린형 : false // 자료형 : string
       ````
 
       
@@ -204,8 +227,6 @@
         < NaN
         ````
 
-  
-
 + Float
 
   + Floating number
@@ -225,9 +246,23 @@
 
     
 
++ bigint
+
+  + 최근 추가
+
+  + 엄청나게 큰 수 표현 over (-2^53) ~ (2^53)
+
+    ````js
+    const bigint = 46213158498462168463216846879864123168796516n;
+    ````
+
+    
+
+    
+
 + null
 
-  + 선언되었고 null로 값 지정(빈 값)
+  + 선언되었고 null로 값 지정(비었다는 뜻으로 많이 씀)
 
   
 
@@ -263,7 +298,51 @@
   
 
 + symbol
-  
+
+  + 동시다발적으로 일어날 수 있는 코드에서 고유한 식별자가 필요할때 쓰임
+
+  + 즉, 주어진 string값에 상관없이 고유한 식별자를 만들때 사용
+
+    ````js
+    const symbol1 = Symbol('id');
+    const symbol2 = Symbol('id');
+    console.log(symbol1 === symbol2); // false
+    
+    // 동일한 Symbol 만들고 싶을 때
+    const symbol1 = Symbol.for('id');
+    const symbol2 = Symbol.for('id');
+    // 주어진 string에 맞는 Symbol을 만들어 달라는 뉘앙스
+    console.log(symbol1 === symbol2); // true
+    // 유의 사항
+    // 바로 출력할 수 없기에 .description을 붙여 출력한다.
+    console.log(`value: ${symbol1.description}`); // value: id;
+    ````
+
+    
+
++ Set
+
+  + 중복이 불가능한 데이터의 집합
+
+    ````js
+    // 선언
+    new Set([iterable]);
+    
+    
+    // ()내에 아무리 중복되는 값들이 오더라도 Set이 알아서 중복되는 값들 중 맨 앞의 값만을 남기고 무시한다.
+    const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
+    console.log(essence);
+    => Set { 1, 2, 3, 4, 5 }
+    
+    
+    // Set내의 요소 개수 구하기
+    // 일반적인 함수들과 달리 length가 아닌 size를 사용한다.
+    const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
+    console.log(essence.size);
+    => 5
+    ````
+
+    
 
 + type 확인법
 
@@ -286,7 +365,7 @@ console.log(typeof weight)
 
 + 메서드를 이용하여 자료형 바꾸기(형변환)
 
-  + `parseInt`
+  + `parseInt`()
 
     + 문자열 => 숫자
 
@@ -308,6 +387,15 @@ console.log(typeof weight)
       
       > parseInt(110, 7)
       < 56					// 111을 7진법으로 해석하여 56으로 출력
+      ````
+
+  + `string()`
+
+    + ( ) 내의 값을 문자열로 변환
+
+      ````js
+      > String(true)
+      < "true"
       ````
 
       
@@ -350,9 +438,9 @@ console.log(typeof weight)
     let string3 = string2;
     ````
 
-    
-
 +  `let`  
+  
+  + added in ES6
   
   + 처음 **변수**를 선언 하거나 초기화 할 때 선언 (선언문)
   + 업데이트 가능
@@ -369,10 +457,14 @@ console.log(typeof weight)
   + 사용빈도가 현재 엄청 낮다
   + 단점
     + let과 const와 달리 window 객체 안에 저장된다. 반면 let과 const는 ES6부터 따로 저장소가 생겼다 (window객체는 건드리지 않는 것이 좋다)
-    
     + let과 const와 달리 코드블럭 안에서 선언한 것도 밖으로 끄집어 낼 수 있다 (변수의 중복 선언 가능)
-    
-      
+    + 변수의 hoisting - 선언된 변수를 코드 맨 위로 올림
+
++ Global Variable
+
+  + { } 밖에서 선언된 변수
+
+  + app을 실행하는 순간부터 끝날 때까지 항상 메모리에 탑재되어있기 때문에 최소한으로 쓰는 것이좋다. 가능하면 필요한 부분에서만 쓰자.
 
 #### 조건문
 
@@ -463,7 +555,19 @@ console.log(typeof weight)
     
     + || (or)
     
-    + !  (참을 거짓으로, 거짓을 참으로 변환)
+    + !  (참을 거짓으로, 거짓을 참으로 변환)  //  !! (true 또는 false로 형변환)
+    
+      ````js
+      //전제 word는 빈 값
+        
+      //(word) 값이 비어있나 ?
+      //- 빈 값. 즉, undefined이기에 비어있다고 해석할 수 있다. 하지만 bool값을 따지면 false가 나온다. 결론은 값이 비지않은 것이 된다. (비어있다 -> false) 
+      
+      //(!word) 값이 비어있나 ?
+      //- 위와 같은 논리지만 마지막 과정이 !false - true 를 거친다. 그러므로 값이 빈 것이 된다.
+      ````
+    
+      
     
       
 
@@ -551,6 +655,44 @@ console.log(typeof weight)
   // 위 예제처럼 if 조건문을 중첩으로 사용할 수도 있다. 어렵지 않다. 조건문의 특성인 위에서 아래로 순차적으로 내려오다보면
   // 첫번째 조건문의 조건식은 true이기에 if문이 실행될 것이며 두번째 조건문의 조건식은 false 이기에 else문이 실행된다.
   // 사실, 중첩 if문은 중첩될수록 코드 읽기가 어려워지기 때문에 'if-else if-else'문으로 변환하여 코드의 가독성을 높이자.
+  
+  // if문 중첩 제거 단계
+  // 1. 공통된 절차를 각 분기점 내부에 넣는다.
+  // 2. 분기점에서 짧은 절차부터 실행하게 if문을 작성한다.
+  // 3. 짧은 절차가 끝나면 return(함수 내부의 경우)이나 break(for문 내부의 경우)로 중단한다.
+  // 4. else를 제거한다. (이때 중첩 하나가 제거된다.)
+  // 5. 다음 중첩된 분기점이 나올 때 1~4의 과정을 반복한다.
+  
+  // 예시
+  function test() {
+  	let result = '';
+  	if (a) {
+  	    if (!b) {
+  	        result = 'c'
+  	    }
+  	} else {
+  	    result = 'a'
+  	}
+  	reult += 'b';
+  	return result;
+  }
+  
+  // 위 코드는 아래의 코드로 중첩을 피하여 표현할 수 있다.
+  
+  function test() {
+       let result = '';
+  
+       if (!a) {
+           result = 'a';
+           }
+  
+       if (!b) {
+           result = 'c';
+           }
+  
+        result += 'b';
+        return result;
+  }
   ````
 
 
@@ -902,27 +1044,40 @@ console.log(typeof weight)
       console.log(users.indexOf("soo"));
       => -1			//	배열에 존재하지 않는 요소는 index 값이 -1로 출력된다.
       
-      // lastIndexOf	뒤에서부터 주어진 값 검색
-      const users = ["seok, ""june", "seok", "kim"];
-      console.log(users.lastIndexOf("seok"));
-      => 2
+      // 여기서 값의 존재 여부를 조금 더 직관적으로 bool값으로 값을 반환하는 메서드도 있다.
+      // includes
+      '1234'.includes(2) === true;
+      ['1', '2', '3', '4'].includes(7) === false;
+      
       ````
-
+  
+    // lastIndexOf	뒤에서부터 주어진 값 검색
+      const users = ["seok, ""june", "seok", "kim"];
+    console.log(users.lastIndexOf("seok"));
+      => 2
+  
+    ````
+    
+    ````
+  
   + isArray
-
+  
     + Array인지 판단
-
+  
       ````js
-      console.log(Array.isArray(users));
+    console.log(Array.isArray(users));
       => true
-      console.log(Array.isArray(hello));
+    console.log(Array.isArray(hello));
       => false
       ````
-
+    ````
+    
+    ````
+  
   + ... spread operator
-
+  
     + 배열의 값들만 가져옴
-
+  
       ````js
       console.log(users);
       => {"june", "seok", "kim"}
@@ -982,6 +1137,48 @@ console.log(typeof weight)
     => "가", "나", "다", "라" 출력
     ````
 
+  + 메서드를 통하여 반복문 효과 내기
+  
+    + `forEach`
+  
+    ````js
+    // 인수로 함수를 넣고, 이 함수가 각각의 배열 요소들에 순서대로 적용되는 구조
+    // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백)
+    // 아무것도 return(반환)하지않음. (undefined)
+    const array = [1,2,3,4];
+    array.forEach((number, index) => {
+        console.log(number, index);
+    });
+    => 1 0 // number index
+       2 1
+       3 2
+       4 3
+    
+    // 다른 예시
+    const animals = ["lion", "tiger"];
+    animals.forEach(animal => {
+      console.log(animal);
+    });
+    => lion
+       tiger
+    ````
+  
+    + `map`
+  
+    ````js
+    // 배열을 순회하면서 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
+    // 그래서 map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
+    const animals = ["lion", "tiger"];
+    zoo = animals.map(animal => {
+      console.log(animal);
+      return "big " + animal
+    });
+    console.log(zoo);
+    => lion
+       tiger
+       ["mammal lion", "mammal tiger"]
+    ````
+  
     
 
 #### Function 함수
@@ -1040,6 +1237,7 @@ expected output : 1
 // 이 값을 반환값(return value)라고 한다.
 // console.log함수를 호출할 때마다 콘솔에서 undefined가 출력되는 것을 기억하는가?
 // console.log함수의 반환값이 undefined이기 때문이다.
+// return 명령문 => 함수 실행을 종료하고 주어진 값을 함수 호출 지점으로 반환한다.
 
 
 // 물론. return문은 함수의 특정 위치에서 실행을 중지 시키는 역할도 할 수 있다.
@@ -1161,8 +1359,40 @@ const sum = (a, b) => {
     return a + b;
 }
 // 함수의 인자가 1개 이면 중괄호()를 빼고 쓸 수 있으며
-// return값이 1줄 이면 return과 대괄호{}를 빼고 쓸 수 있다
+// return값이 1줄(하나) 이면 return과 대괄호{}를 빼고 쓸 수 있다
 const sum = (a, b) => a + b;
+````
+
++ 고차 함수(high order function)
+  + 함수를 만들어내는 함수
+
+````js
+const func = (msg) => {		// 고차 함수
+    return () => {
+        console.log(msg);
+    }
+}
+
+const innerFunc1 = func();
+innerFunc1();
+
+=> `hello`
+
+// 예제
+const hof = (a) => {
+  return (b) => {
+    return (c) => {
+      return a + (b * c)
+    }
+  }
+}
+
+const first = hof(3);
+const second = first(4);
+const third = second(5);
+console.log(third);
+
+// third의 값을 유추 해보자.
 ````
 
 
@@ -1174,6 +1404,8 @@ const sum = (a, b) => a + b;
 + 배열과 함수도 객체라 부를 수 있는 것은 배열과 함수 모두 객체의 성질을 사용할 수 있기 때문이다.
   
 + Array와 달리 각 value에 이름을 줄 수 있다. 쉽게 말해, data에 label을 주는 것이다
+
+  + 배열 : 단순한 값들의 나열 // 객체 : 값에 이름을 붙임
 
 + 생성(정의)시 {} 컬리 브라켓 사용 // {}을 사용하여 객체를 나타내는 것은 **객체 리터럴** 이라고 한다.
 
@@ -1307,8 +1539,6 @@ const sum = (a, b) => a + b;
   // new 키워드를 통해 기존 인스턴스를 삭제하고 새로운 인스턴스를 생성한다
   ````
 
-    
-
 + 자바스크립트에서 html에 있는 요소(태그)를 객체로 바꾸어서 변경(사용)할 수 있다. 한 마디로 js에서 html 내용 조작이 가능하다
 
   또한 JS가 html을 제어하기 위해 필요한 것이 DOM이라 할 수 있다
@@ -1339,48 +1569,393 @@ const sum = (a, b) => a + b;
   document.title = "I own you now";
   ````
 
-  ````js
-  document.queryselector()	//	정의 : queryselector는 특정 name이나 id를 제한하지 않고 css선택자를 사용하여 요소를 찾을 수 있다. 객체를id로 찾고싶다면 "#title"  class로 찾고 싶다면 ".title"
-  document.getElementById		//	gets only by ID
-  document.getElementsByClassName		//	 gets MANY elements by classname
-  ````
++ DOM `event` 객체
 
+  + DOM과 관련된 이벤트가 발생하면 관련 정보는 모두 event객체에 저장된다.
+
+    ex) event 발생 요소, type, 관련 데이터 등등
+
+  ````js
+// event객체에 저장된 정보를 가져오는 방법
+  event.target.~ // ~에는 target을 따르는 어떠한 하위 요소들도 올 수 있다.
+event.target.style 등
+  // 여기서 함수의 매개 변수로 event를 불러올 때, e나 event로 많이 표기한다.
+  ````
+  
++ **선택자**
+
+  ````js
+document.querySelector()	//	정의 : queryselector는 특정 name이나 id를 제한하지 않고 css선택자를 사용하여 요소를 찾을 수 있다. 객체를 id로 찾고싶다면 "#title"  class로 찾고 싶다면 ".title"
+  document.querySelectorAll()		// 태그 모두 선택 ex) button태그 모두 선택
+document.getElementById		//	gets only by ID
+  document.getElementsByClassName		//	 gets MANY elements by classname
+
+  // 심화
+// 상황 : div 태그 안에 들어 있는 id값이 order인 태그 선택
+  document.querySelector('부모태그 자식태그')
+  document.querySelector('div #order')			// 띄어 쓰기(공백)으로 구분
+  ````
+  
 + **Event와 Event handlers**
 
-  + Event : 웹사이트에서 발생하는 것들
+  + Event : 웹사이트에서 사용자가 태그와 상호작용 할 때 발생하는 것들 ex) button 클릭 시, click 이벤트 발생
 
-  + Event 예시
+  + 태그에 Event 달기
 
     + addEventListener
 
-      자바스크립트가 우리의 이벤트를 받기 기다리는 것을 Listen to event라 칭한다. 여기서 우리는 event가 무엇인지 정해야한다. listener는 우리가 이벤트에서 다룰 함수를 의미한다. `type`은 target이 기다리는 event 행위를 말한다.
+      + type 종류 링크
 
+        [MDN에서 종류 보기](https://developer.mozilla.org/ko/docs/Web/Events)
+      
       ````js
-      addEventListener구문
+      // 기본 문법
       target.addEventListener("type", listener);
-      target.addEventListener("행위", 함수);
-      ````
-````
+      target.addEventListener("event 행위", 리스너 함수);
       
-      ````js
+      // 자바스크립트는 자동으로 이벤트를 감지할 수는 없다. 그래서 우리는 이를 감지할 수 있게 만들어 줘야 한다.
+      // 자바스크립트가 우리의 이벤트를 받기 기다리는 것을 Listen to event라 칭한다. 
+      // 여기서 우리는 event가 무엇인지 정해야 하는데, listener는 우리가 이벤트에서 다룰 함수를 의미한다.
+      // `type`은 target이 기다리는 event 행위를 말한다.
+      
+      
+      
+      // 예시 1)
       function handleResize(){
-      	console.log("I have been resized")
+          console.log("I have been resized")
       }
-      
-      
+            
       window.addEventListener("resize", handleResize);
-````
+      
+      // 코드 맨 마지막줄에 handleResize()라고 적지 않는 것은 resize 이벤트 행위와는 상관 없이 바로 함수를 호출해버리기 때문이다. 
+      // 이제 우리는 우리가 원할때 이 함수를 호출할 수 있다.
+      
+      
+      
+      // 예시 2)
+      const onInput = (e) => {
+          console.log(e.target.value);
+      };
+      
+      const $input = document.querySelector('input');
+      $input.addEventListener('input', onInput);
+      // addEventListene에 넣는 함수에는 매겨변수를 통해서 이벤트에 관한 정보가 제공된다.
+      // 위에서는 이벤트에 관한 정보 매개변수로 'e'로 넣었는데, 말그대로 매개변수이므로 아무 이름을 지어도 된다.
+      // 보통 'e'나 'event'를 많이 쓴다. 다른 사람이 보기에 헷갈리지 않게 하기 위해서다.
+      // 한마디로 위의 'e'는 input event가 발생했을 때 발생한 event의 정보를 담고있다.
+      // event객체의 대표적인 속성
+      // target : 이벤트가 발생한 요소 || type : 발생한 이벤트의 종류
+      
+      
+      
+      // tip) 입력창에 이벤트를 걸 때에는 버튼에 click 이벤트 보다는 form으로 감싸서 submit 이벤트를 사용하는 것이 좋다. 그 이유는 버튼을 클릭하지 않아도 [Enter]키를 눌러 값 제출도 가능해지기 때문이다.
+      
+      
+      
+      // addEventListener 연결 함수 제거방법
+      removeListener
+      
+      // 사용법
+      tag.addEventLinstener('event', func);
+      tag.removeEventLinstener('event', func);
+      ````
+      
+      
 
-      **코드 맨 마지막줄에 handleResize()라고 적지 않는 것은 바로 함수를 호출해버리기 때문이다. 우리는 우리가 원할때 이 함수를 호출할 수 있다**
+#### 자주 쓰이는 기본 메서드와 객체
 
-#### Tip
++ `prompt`
 
-+ `console.log`() 는 console 이라는 object안에 log 함수를 뜻한다 
+  + 사용자에게 필요한 정보(값)를 얻기 위해 사용. 즉, 사용자로부터 값을 전달 받음
 
-  log 또한 console 안에 속해있기 때문에 함수임과 동시에 object라 할 수 있다
+    ````js
+    // 기본 문법
+    prompt('사용자에게 표시할 메세지');
+    
+    // 예시
+    prompt('참가 인원을 말해주세요');
+    ````
 
-+ 자바스크립트는 html과 css를 바꾸는 기능을 하지만 이벤트에 반응하기 위해 만들어졌다.
+  + `prompt`함수로 입력받은 값은 모두 ''문자열''이 된다.
 
-  이벤트란? 웹사이트에서 발생하는 것들을 말한다.
-  click,resize,submit,input, change, load, before, closing, printing 같은 것들
+    ````js
+    // 따라서 숫자, 불리언 등이 문자열로 변환되면 우리는 다시 바꿀 필요가 있다.
+    // 이때, Number함수를 사용한다.
+    
+    const number = prompt('참가 인원을 말해주세요');
+    const realNumber = Number(number);	// const number = Number(prompt('참가 인원을 말해주세요'));
+    console.log(typeof realNumber);
+    ````
+
+    
+
++ `alert`
+
+  + 사용자에게 경고하거나 메세지를 알릴 때 사용
+
+    ````js
+    // 기본 문법
+    alert('사용자에게 표시할 메세지');
+    
+    // 예시
+    const goOut = confirm('접근할 수 없습니다');
+    ````
+
+    
+
++ `confirm`
+
+  + 사용자에게 의사를 물어볼 때 사용
+
+    ````js
+    // 기본 문법
+    confirm('사용자에게 표시할 메세지');
+    
+    // 예시
+    const yesOrNo = confirm('확인 또는 취소를 누르시오');
+    console.log(yesOrNo);
+    ````
+
+    
+
++ `.focus`
+
+  + 입력 태그 내부에 커서 위치하게함 (입력 태그 선택)
+
+    ````js
+    // 기본 문법
+    입력창.focus()	// 입력창 하이라이트
+    
+    // 예시
+    input.focus();
+    ````
+
+
+
++ `eval`
+
+  + 문자열을 자바스크립트 코드처럼 실행할 수 있다.
+
+    ````js
+    eval('1+2');
+    => 3
+    
+    // 사실 eval 함수는 아주 간편하지만 그에 따른 문제점이 크다. 
+    // eval함수에 문자열을 입력하면 그대로 실행되므로 해커가 이를 통해
+    // 우리의 프로그램에 위험한 코드를 실행할 수도 있다.
+    // 이러한 이유로 실무에서는 쓰지 않는 것이 보안상 안전하다.
+    ````
+
+
+
++ `Math.(random)`
+
+  + 0이상 1미만의 수를 무작위 생성
+
+    ````js
+    // 무작위의 자연수 생성하기
+    // 예시) 1부터 100까지의 자연수 얻어내기
+    
+    // 사고 논리
+    Math.(random)		-		0 <= x < 1
+    Math.(random) * 100		-		0 <= x < 100
+    Math.(random) * 100 + 1		-		1 <= x < 101
+    Math.floor(Math.random() * 100 + 1)		-		x = {1, 2, 3, ... , 100}
+    
+    // 여기서 Math.floor()는 숫자 '내림'의 메서드이다.
+    // cf) Math.ceil() '올림'	//	Math.round() '반올림'
+    // 이 중 Math.floor()를 사용한 이유
+    // 1 <= x < 101는 자연수가 아닌 단순히 '범위'이다. 이 범위에서 자연수를 얻기 위해서 ex) 100.3 과 같은 수를
+    // '내림' 함으로써 우리가 원하는 100이라는 자연수를 얻을 수 있을 것이다.
+    
+    // cf) Math.(random)함수는 암호학적으로는 완전한 무작위라 할 수 없다. 따라서 보안에 취약하기에
+    // 이와 관련된 일에서는 window.crypto.getRandomValues() 객체를 사용하자
+    
+  // 숫자를 무작위를 섞는 알고리즘으로
+    // Fisher-Yates shuffle algorithm를 많이 사용한다.
+    ````
+    
+    
+
++ `event.preventDefault()`
+
+  + `form` 태그의 기본 동작을 취소하는 코드
+
+    + 기본 동작의 예시 : `submit` 이벤트가 발생할 시, 브라우저 새로고침
+
+    + 데이터를 계속 유지하고 싶을 때 사용 용이
+
+      
+
++ `.createElemet()`
+
+  + 문서 내에 새로운 요소 추가
+
+    ````js
+    .createElement( 'h1' )
+    
+    => <h1></h1> 코드 생성
+    ````
+
+    
+
++ `.createTextNode()`
+
+  + 선택한 요소에 텍스트 추가
+
+    ```js
+    .createTextNode('hello')
+    
+    => hello 라는 문자열 추가
+    ```
+
+    
+
++ `.appendChild()`
+
+  + 선택한 요소에 하나의 자식 요소 추가 (DOM 함수)
+
+    ````js
+    const $button = document.createElement( 'button' );
+    document.body.appendChild( $button )
+    
+    // body의 자식 요소로 $button 추가
+    // 결과적으로 body 내에 button 요소가 추가된다.
+    ````
+
+    
+
++ `append()`
+
+  + `.appendChild()`와 달리 선택한 요소의 내용 끝에 
+
+    여러 개의 자식 요소 추가 가능 + 문자열 삽입 가능(JS 함수)
+
+    ````js
+    ul.appendChild(li); 
+    li.append(span, p); // 여러 개의 요소 추가
+    
+    span.append('hello'); 
+    => <span>hello</span>
+    ````
+
+    
+
++ `sort()`
+
+  + 배열을 정렬
+
+    ````js
+    // 비교 함수 : 함수에 적힌 규칙에 따라 배열이 정렬됨
+    (a, b) => a - b
+    // a - b > 0이면 b, a 순서로 정렬
+    // a - b < 0이면 a, b 순서로 정렬
+    
+    let score = [5, 11, 2, 10, 3, 1]; 
+    
+    // 오름차순 정렬
+    score.sort(function(a, b) {
+        return a - b;
+        // 1, 2, 3, 5, 10, 11
+    });
+    
+    // 내림차순 정렬
+    score.sort(function(a, b) {
+        return b - a;
+        // 11, 10, 5, 3, 2, 1
+    });
+    ````
+
+    
+
++ `setTimeout()`
+
+  + 코드나 함수를 일정 시간 뒤에 한번 실행
+
+    ````js
+    // 기본 문법
+    setTimeout(() => {
+        	...
+        }, delay);
+    // delay의 단위는 ms ex) 3000ms - 3s
+    
+    // 예제
+    setTimeout(() => {
+      console.log('hi!');
+    }, 3000);
+    // 3초 후 함수가 실행됨
+    
+    // 종료 방법
+     clearTimeout(NAME);
+    
+    // 사용 case
+    // 1) 접속 후 몇 초 후에 팝업 또는 배너창 띄우기
+    // 2)방문자의 스크롤이 브라우저 일정 위치에 올 경우 몇 초 뒤에 애니메이션 실행
+    // 3) 검색창 또는 일부 섹션 몇 초 뒤에 사라질 경우
+    // 4)방문자 접속 후 20-30초가 지난 뒤 메일 구독을 신청하는 팝업창을 띄울 경우
+    ````
+
+  
+
++ `setInterval`
+
+  + 코드나 함수를 일정 시간마다 반복 실행
+
+    ````js
+    // 기본 문법
+    setInterval(() => {
+        ... 
+    }, delaytime);
+        
+    // 예제
+    setInterval(() => {
+      console.log('hi!');
+    }, 3000);
+    // 3초 마다 함수 실행
+    
+    // setInterval함수를 setTimeout함수를 사용하여 나타내기
+    const myInterval = () => {
+        setTimeout(() => {
+            console.log('hi!')
+            myInterval()
+        }, 3000);
+    }
+    myInterval();
+    
+    // 종료 방법
+     clearInterval(NAME);
+    
+    // 사용 case
+    // 1) 갤러리 형식의 뷰를 만들어 이미지를 정해진 시간 간격으로 바꾸어 적용하는 경우
+    // 2) 일정 시간 간격으로 배너광고를 바꾸면서 보여줄 경우
+    // 3) 일정 주기로 계속해서 서버와 통신이 필요한 경우
+    ````
+
+    
+
++ `textContent`
+
+  + 태그 내부의 값을 얻거나 수정할 때 사용
+
+  + 무조건 문자열로 출력. 그러므로 빈 값이라면 undefinded가 아니라 ' '이 출력
+
+    ````js
+    태그.textContent // 태그 내부의 문자열 가져옴
+    태그.textContent = 값 // 태그 내부의 문자열을 해당 값으로 설정
+    ````
+
+    
+
++ `value`
+
+  + 기본적으로 태그 내부의 값을 선택할 때는 `textContent`를 사용하는 것이 맞으나
+
+    입력태그는 value를 사용한다. ex) input, select, textarea
+
+    ```js
+    입력창.value // 입력창의 값을 가져옴
+    입력창.value = 값 // 입력창에 값을 넣음
+    ```
+
+    
 
