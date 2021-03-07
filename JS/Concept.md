@@ -74,6 +74,10 @@
       물론 이스케이핑을 사용하지 않고
       > "작은따옴표는(')로 표시한다"
       이렇게 입력할 수도 있다
+      
+      // tip)
+      // 줄바꿈 : \n
+      // 탭 : \t
       ````
 
   + 문자열 합치기
@@ -160,8 +164,15 @@
       
       // 0, '', null,undefined,Nan은 불린형으로 변환 시에 모두 false가 된다.
       // 불린형과 자료형을 헷갈려 하지말자. ex) '' - 불린형 : false // 자료형 : string
+      
+  console.log(0 == false);	// true
+      console.log(0 === false);	// false
+      console.log('' == false);	// true
+      console.log('' === false);	// false
+      console.log(null == undefined);		// true
+      console.log(null === undefined);	// false
       ````
-
+      
       
 
 + Number
@@ -468,7 +479,7 @@ console.log(typeof weight)
 
 #### 조건문
 
-+ 연산자
++ 연산자(operator)
 
   + 산술 연산자
 
@@ -569,7 +580,35 @@ console.log(typeof weight)
     
       
     
-      
+  + Increment and decrement operators
+
+    ````js
+    // preIncrement
+    // 예시
+    let counter = 2;
+    const preIncrement = ++counter;
+    
+    // 연산 순서
+    // counter = counter + 1;
+    // preIncrement = counter;
+    // 즉, preIncrement는 값이 3, counter도 값으로 3을 가지게 된다.
+    
+    
+    // postIncrement
+    // 예시
+    let counter = 2;
+    const preIncrement = counter++;
+    
+    // 연산 순서
+    // preIncrement = counter;
+    // counter = counter + 1;
+    // 즉, preIncrement는 값이 2, counter는 값으로 3을 가지게 된다.
+    
+    
+    // predecrement와 postdecrement 또한 같은 논리이다.
+    ````
+
+    
 
 + **if문** 기본 형식과 예제
 
@@ -713,8 +752,6 @@ console.log(typeof weight)
   
   switch (animal) {
     case "lion":
-      console.log("big");
-      break;
     case "tiger":
       console.log("big");
       break;
@@ -825,8 +862,16 @@ console.log(typeof weight)
         console.log('Hello');
         i++;
     }
+    
+  // do while문
+    // 먼저 block 실행 후 조건 검사
+    do {
+        console.log(`do while: ${1}`);
+        i--;
+    }	while (i > 0);
+    => do while: 0
     ````
-
+    
     
 
 + **for문**
@@ -1049,16 +1094,11 @@ console.log(typeof weight)
       '1234'.includes(2) === true;
       ['1', '2', '3', '4'].includes(7) === false;
       
+      // lastIndexOf	뒤에서부터 주어진 값 검색
+        const users = ["seok, ""june", "seok", "kim"];
+      console.log(users.lastIndexOf("seok"));
+        => 2
       ````
-  
-    // lastIndexOf	뒤에서부터 주어진 값 검색
-      const users = ["seok, ""june", "seok", "kim"];
-    console.log(users.lastIndexOf("seok"));
-      => 2
-  
-    ````
-    
-    ````
   
   + isArray
   
@@ -1070,9 +1110,6 @@ console.log(typeof weight)
     console.log(Array.isArray(hello));
       => false
       ````
-    ````
-    
-    ````
   
   + ... spread operator
   
@@ -1185,11 +1222,12 @@ console.log(typeof weight)
 
 + 개념
   + 일정한 동작을 수행하는 코드
+  + 하나의 함수는 하나의 일만 할 수 있다.
 
 + 함수 선언과 실행
 
 ````js
-// 함수 선언
+// 함수 선언 (함수 표현 expression과 달리 hoisting 기능이 있다.)
 function add(){}
 function키워드 함수이름(parameter매개변수){동작문}	// 함수 선언문 (function declaration statement)
 
@@ -1198,10 +1236,10 @@ const add = function() {};	// 함수 표현식 (function expression)
 const add = () => {};	// 화살표 함수 (arrow function)
 
 
-// 위의 '함수 표현식'과 '화살표 함수'는 같은 의미이다. 하지만 '함수 선언문'은 add를 변수라고 착각할 수 있는데
-// add는 그저 함수의 이름을 지어준 것 뿐이다. 함수를 변수에 넣는 것은 밑에서 따로 배울 것이다.
+// 위의 '함수 표현식'과 '화살표 함수'는 같은 의미이다. 하지만 '함수 선언문'은 add를 변수라고 착각할 수 있는데 add는 그저 함수의 이름을 지어준 것 뿐이다. 함수의 이름을 정할 때는 verb 형태로 짓도록하자. 또한, 함수에 이름을 지어주는 것은 디버깅 시에 편리하다.
 
-// 함수 실행
+
+// 함수 실행(호출)
 함수이름(argument전달인자);
 
 // 예시
@@ -1214,12 +1252,24 @@ add(5, 6);
 console.log(add(5, 6))
 => `11`
 
-tip) ES6부터는 초기값 설정도 가능
+tip) ES6부터는 초기값 설정도 가능 (Default parameters)
 function add(a = 0, b = 1) {
     return a + b;
 }
 console.log(add())		// 이렇게 아무 값을 넣지않으면 초기값이 반환된다
 expected output : 1
+
+// IIFE: Immediately Invoked Function Expression
+// 예시
+function hello() {
+    console.log('IIFE');
+}
+hello();
+// 아래로 변환 가능
+// 함수를 선언함과 동시에 실행
+(function hello() {
+    console.log('IIFE');
+})();
 ````
 
 + 함수의 반환
@@ -1233,6 +1283,7 @@ expected output : 1
 > a();
 < 10
 
+// 함수 실행을 종료하고, 주어진 값을 함수 호출 지점으로 반환한다.
 // 함수를 호출하면 항상 결괏값이 나온다. 이때 기본적으로 'undefined'가 출력된다.
 // 이 값을 반환값(return value)라고 한다.
 // console.log함수를 호출할 때마다 콘솔에서 undefined가 출력되는 것을 기억하는가?
@@ -1275,6 +1326,36 @@ function sayHello(name, age){
 }
 
 sayHello("Nicolas", 15)
+
+
+
+// Default parameters
+function show(message, from = 'unknown') { // = 'unknown' 부분에 해당
+    console.log(`${message} by ${from}`);
+}
+show('Hi');	// Hi! by unknown
+
+// Rest parameters
+// 배열 형태로 전달
+function printAll(...args) {
+    for (let i =0; i < args.length; i++) {
+        console.log(args[i]);
+    }
+}
+printAll('dream', 'coding', 'ellie');
+=> dream coding ellie
+
+
+// 위 Rest parameters 코드는 아래와 같음
+function printAll(...args) {
+	for (const arg of args) {	// args에 있는 값들이 차례차례로 지정
+	    console.log(arg);
+	}
+}
+// 또는
+function printAll(...args) {
+	args.forEach((arg) => console.log(arg));
+}
 ````
 
 위 코드에서 `name`과 `age`는 **매개변수(parameter)** `Nicolas`와 `15`는 **전달인자(argument)**라 부를 수 있다.
@@ -1349,53 +1430,68 @@ a('hi','hello','bye');
 // callee: 부터는 신경쓰지 않아도된다.
 ```
 
-+ Arrow 함수
-  + 일반 function과 다르게 지정한 변수(객체)에 함수를 담기 때문에 window 객체 안에 들어가지않고 안정적이다
-  + this(scope)가 고정이 되면서 혼동이 일어날 일이 적어진다
++ 함수의 종류
 
-````js
-// function(){} = ()=>{}
-const sum = (a, b) => {
-    return a + b;
-}
-// 함수의 인자가 1개 이면 중괄호()를 빼고 쓸 수 있으며
-// return값이 1줄(하나) 이면 return과 대괄호{}를 빼고 쓸 수 있다
-const sum = (a, b) => a + b;
-````
+  + Callback 콜백함수
 
-+ 고차 함수(high order function)
-  + 함수를 만들어내는 함수
+    + 말 그대로 나중에 호출되는 함수 (호출되기 원할 때 전달된 함수를 부른다.)
 
-````js
-const func = (msg) => {		// 고차 함수
-    return () => {
-        console.log(msg);
-    }
-}
+    + 어떤 이벤트가 발생했거나 특정 시점에 도달했을 때 시스템에서 호출
+    + ex) 이벤트 핸들러
 
-const innerFunc1 = func();
-innerFunc1();
+  + recursions 재귀함수
 
-=> `hello`
+    + 함수 안에서 자신 스스로를 호출
+    + 정말 필요할 때만 사용하도록 한다.
 
-// 예제
-const hof = (a) => {
-  return (b) => {
-    return (c) => {
-      return a + (b * c)
-    }
+  + Arrow 함수
+    + 일반 function과 다르게 지정한 변수(객체)에 함수를 담기 때문에 window 객체 안에 들어가지않고 안정적이다
+    + this(scope)가 고정이 되면서 혼동이 일어날 일이 적어진다
+
+  ````js
+  // function(){} = ()=>{}
+  const sum = (a, b) => {
+      return a + b;
   }
-}
+  // 함수의 인자가 1개 이면 중괄호()를 빼고 쓸 수 있으며
+  // return값이 1줄(하나) 이면 return과 대괄호{}를 빼고 쓸 수 있다
+  const sum = (a, b) => a + b;
+  ````
 
-const first = hof(3);
-const second = first(4);
-const third = second(5);
-console.log(third);
+  + 고차 함수(high order function)
 
-// third의 값을 유추 해보자.
-````
+    + 함수를 만들어내는 함수
 
+    ````js
+    const func = (msg) => {		// 고차 함수
+        return () => {
+            console.log(msg);
+        }
+    }
+    
+    const innerFunc1 = func();
+    innerFunc1();
+    
+    => `hello`
+    
+    // 예제
+    const hof = (a) => {
+      return (b) => {
+        return (c) => {
+          return a + (b * c)
+        }
+      }
+    }
+    
+    const first = hof(3);
+    const second = first(4);
+    const third = second(5);
+    console.log(third);
+    
+    // third의 값을 유추 해보자.
+    ````
 
+    
 
 #### Object 객체
 
@@ -1403,11 +1499,133 @@ console.log(third);
   
 + 배열과 함수도 객체라 부를 수 있는 것은 배열과 함수 모두 객체의 성질을 사용할 수 있기 때문이다.
   
++ 객체 선언시 항상 새로운 reference를 가져온다.
+  
+  ````js
+  const hi1 = { name: 'hi' };
+  const hi2 = { name: 'hi' };
+  const hi3 = ellie1;
+  console.log(ellie1 == ellie2);  // false 같아보이지만 서로 다른 ref를 가진다.
+  console.log(ellie1 === ellie2); // false
+  console.log(ellie1 === ellie3);	// true
+  ````
+  
 + Array와 달리 각 value에 이름을 줄 수 있다. 쉽게 말해, data에 label을 주는 것이다
 
   + 배열 : 단순한 값들의 나열 // 객체 : 값에 이름을 붙임
 
 + 생성(정의)시 {} 컬리 브라켓 사용 // {}을 사용하여 객체를 나타내는 것은 **객체 리터럴** 이라고 한다.
+
++ **생성자 함수**
+
+  ````js
+  // 생성자 함수 이름의 첫문자는 대문자로 작성하도록 한다.
+  
+  // 사용법
+  // 1. JS에서 제공하는 Object 함수 이용
+  // 'new' 예약어로 객체 생성 후 속성(property)와 method 정의
+  // or {} 사용
+  // 예시
+  const car = new Object(); // 객체 생성
+  car.name = 'Jeep';	// 속성 정의
+  car.color = 'red';
+  car.speedup = function() {	// 메소드 정의
+      return this.speed+10;
+  }
+  
+  // 2. 생성자 함수 정의
+  // 붕어빵 틀을 한번 만들어 놓고 계속해서 붕어빵을 만드는 원리
+  // 생성자 함수를 이용하여 속성과 메소드를 정의 해놓고 필요할 때마다 new 예약어로 새로운 객체 생성
+  // 즉, 생성자 함수로 정의한 객체를 new 예약어로 instance화 하여 사용한다.
+  // tip) instance : 정의된 객체 모형에 따라 실제로 메모리에 생성된 객체
+  // 예시
+  constructor Car(name, color, speed) {
+      this.name = name;	
+      this.color = color;
+      this.speedup = function() {
+          return this.speed+;
+      }
+  }
+  
+  const Mycar = new Car('Sonata', ' blue', 100);
+  ````
+
+  
+
++ **Class**
+
+  ````js
+  // 개념
+  // 연관된 것들끼리 묶어놓은 컨테이너
+  // data가 들어있지 않고 template만 정의
+  
+  // 구성
+  // Fields, method
+  // Fields만 들어있는 경우를 data Class라 부른다.
+  
+  // 사용
+  // 이 class를 이용하여 실제로 data를 넣어서 만드는 것이 object이다.
+  
+  // 예시
+  class Person {
+      // constructor
+      constructor(name, age) {
+          // fields
+          this.name = name;
+          this.age = age;
+      }
+      // methods
+      speak() {
+          console.log(`${this.name}: hello!`);
+      }
+  }
+  
+  const user1 = new User('Steve', 20);
+  console.log(user1.age);		// 20
+  
+  // 생성자(constructor)는 객체를 만드는 역할을 하며 new를 붙이면 객체가 된다.
+  // new 예약어로 생성자 함수 호출 가능
+  // this는 생성된 해당 object or class를 의미
+  
+  // cf) 객체 생성 시, new Object와 객체 리터럴 방식의 차이
+  // 객체 리터럴 방식도 내부적으로는 new Object를 호출한다는 점은 같다.
+  // 하지만 객체 리터럴 방식이 가독성이 좋으며 속도가 빠르다. 또한 오버라이딩도 방지할 수 있다.
+  
+  
+  
+  // Getter and setters
+  // 예시
+  class Person {
+      constructor(name, age) {
+          this.name = name;
+          this.age = age;
+      }
+      
+      get age() {	
+          // 값 return
+          return this._age;
+      }
+      
+      set age(value) {		// set은 값을 설정하기에 value를 꼭 받아와야한다.
+          // 값 설정
+          if (value < 0) {
+              throw Error('age can not be negative');
+          }	// throw를 통해 사용자 정의 오류를 만들 수 있다.
+          this._age = value;
+      }
+  
+  
+  const user1 = new User('Steve', -1);
+  // 여기서 -1은 age의 값으로 적절하지않다.
+  // 그래서 우리는 getter and setter를 통해 사용자의 이런 실수를 방지할 수 있다.
+  // 또한 _age 처럼 getter와 setter안에 쓰이는 변수를 따로 설정해주는 것이 좋다.
+  // 그 이유는 계속 setter를 호출함으로써 call stack이 다 차는 문제가 생기기 때문이다.
+  // 논리 : this.age = age -> set age -> this._age 만약 _age가 age라면 계속 반복하여 setter가 호출될 것이다.
+  console.log(user1.age);
+  // 또한, 여기서 field는 _age가 있지만 .age를 사용하고 값을 할당할 수 있는것은 내부적으로 getter와 setter를 이용하기 때문이다.
+  ````
+
+  
 
 + **Method(메서드)** 
 
@@ -1518,7 +1736,53 @@ console.log(third);
       이는 성립되지 않는다 JSON파일은 property로 접근할 수 없기 때문이다.
       ````
 
-      
+
++ 상속과 다양성
+
+  ```js
+  // 하나의 공통적인 속성을 찾아서 extends 클래스를 통해 재사용한다. - 유지, 보수 용이
+  // 예시
+  class Shape {
+      function (width, height, color) {
+          this.width = width;
+          this.height = height;
+          this.color = color;
+      }
+      draw() {
+          console.log(`drawing ${this.color} color of`);
+      }
+      getArea() {
+          return this.width * this.height;
+      }
+  }
+  
+  class Rectangle extends Shape {}
+  class Triangle extends Shape {
+      draw() {
+          super.draw();	// 공통적으로 정의한 draw도 출력하고 싶다면 super메소드를 사용하여 호출한다.
+          console.log('세모');	// 세모 출력
+      }	
+      getArea() {
+          return (this.width * this.height) / 2;
+      }		// 필요한 함수들만 overridng해서 다양성을 부여할 수 있다.
+  }
+  const rectangle = new Rectangle(20, 20, 'blue');
+  rectangle.draw();
+  console.log(rectangle.getArea());
+  const triangle = new Triangle(20, 20, 'red');
+  triangle.draw();
+  console.log(rectangle.getArea());
+  // 이렇게 상속을 이용하면 공통된 아이들을 일일이 작성하지않아도 동일한 것들을 계속 재사용 할 수 있다.
+  
+  // Class checking: instanceOf
+  console.log(rectangle instanceof Rectangle);	// t
+  console.log(triangle instanceof Rectangle);		// f
+  console.log(triangle instanceof Triangle);		// t
+  console.log(triangle instanceof Shape);			// t	
+  console.log(triangle instanceof Object);		// t
+  ```
+
+  
 
 #### DOM
 
