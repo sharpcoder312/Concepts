@@ -165,6 +165,8 @@
       // 0, '', null,undefined,Nan은 불린형으로 변환 시에 모두 false가 된다.
       // 불린형과 자료형을 헷갈려 하지말자. ex) '' - 불린형 : false // 자료형 : string
       
+      ````
+
   console.log(0 == false);	// true
       console.log(0 === false);	// false
       console.log('' == false);	// true
@@ -863,16 +865,16 @@ console.log(typeof weight)
         i++;
     }
     
-  // do while문
-    // 먼저 block 실행 후 조건 검사
-    do {
-        console.log(`do while: ${1}`);
-        i--;
-    }	while (i > 0);
-    => do while: 0
+    // do while문
+      // 먼저 block 실행 후 조건 검사
+      do {
+          console.log(`do while: ${1}`);
+          i--;
+      }	while (i > 0);
+      => do while: 0
     ````
-    
-    
+
+  
 
 + **for문**
 
@@ -1516,38 +1518,40 @@ a('hi','hello','bye');
 
 + 생성(정의)시 {} 컬리 브라켓 사용 // {}을 사용하여 객체를 나타내는 것은 **객체 리터럴** 이라고 한다.
 
-+ **생성자 함수**
++ **객체 생성법** 
 
   ````js
-  // 생성자 함수 이름의 첫문자는 대문자로 작성하도록 한다.
+  // 생성자 함수는 이름의 첫문자를 대문자로 작성하도록 한다.
   
   // 사용법
-  // 1. JS에서 제공하는 Object 함수 이용
+  // 1. JS에서 제공하는 Object 함수 이용 
   // 'new' 예약어로 객체 생성 후 속성(property)와 method 정의
-  // or {} 사용
+  
   // 예시
-  const car = new Object(); // 객체 생성
+  const car = new Object(); // 객체 생성 (object literal)
   car.name = 'Jeep';	// 속성 정의
   car.color = 'red';
   car.speedup = function() {	// 메소드 정의
       return this.speed+10;
   }
+  // 2. {} 사용 (object literal)
   
-  // 2. 생성자 함수 정의
+  // tip) 객체 property 삭제
+  // delete 사용
+  delete 객체명.요소명;
+  
+  // 3. 생성자 함수 정의
   // 붕어빵 틀을 한번 만들어 놓고 계속해서 붕어빵을 만드는 원리
   // 생성자 함수를 이용하여 속성과 메소드를 정의 해놓고 필요할 때마다 new 예약어로 새로운 객체 생성
   // 즉, 생성자 함수로 정의한 객체를 new 예약어로 instance화 하여 사용한다.
   // tip) instance : 정의된 객체 모형에 따라 실제로 메모리에 생성된 객체
   // 예시
-  constructor Car(name, color, speed) {
-      this.name = name;	
+  function Car(name, color, speed) {
+      this.name = name;		// this = {};
       this.color = color;
-      this.speedup = function() {
-          return this.speed+;
-      }
-  }
+  }		// return this
   
-  const Mycar = new Car('Sonata', ' blue', 100);
+  const Mycar = new Car('Sonata', ' blue');
   ````
 
   
@@ -1650,12 +1654,13 @@ a('hi','hello','bye');
 + 특정 데이터 출력 원할시 `객체명.속성` or `객체명['속성']`로 출력한다. []로 출력 시에는 반드시 [] 내부에 문자열을 넣어야한다.
 
   + 여기서 [ ]로 속성에 잘 접근하지 않지만 속성에 띄어쓰기나 .이 들어가는 경우 유용히 쓸 수 있다.
-  + `객체명['속성 명']` or `객체명['속성.명']` 
-  + 
+  + ex) `객체명['속성 명']` or `객체명['속성.명']` 
+  + 실시간으로 원하는 key의 값을 받아오고 싶을 때 자주 쓴다. (동적으로 key관련 값 획득)
 
-+ 특정 속성 값변경 or 속성 제거
++ 속성 관련
 
   ````js
+  // 1) 특정 속성 값 변경 or 속성 제거
   const seokInfo = {		// 변수(객체명)
       name:"Seok",		// 속성 명: 속성값  // 속성 명은 '문자열'이어야 하며 속성 값은 'JS의 모든 값'이 사용가능하다.
       gender: "Male"
@@ -1671,6 +1676,49 @@ a('hi','hello','bye');
   console.log(kimInfo.gender);
   
   => undefined
+  
+  
+  
+  // 2) 특정 속성의 객체 내 포함 여부
+  // in 사용
+  console.log('property' in 객체명);
+  // true || false
+  
+  
+  
+  // 3) 객체 내의 속성 나열
+  // for..in vs for ..of
+  // for (key in obj)
+  for (key in 객체명) {
+      console.log(key);
+  }
+  
+  // for (value of iterable)
+  // 배열에 있는 모든 값들이 value에 할당되면서 block안에서 출력 or 값 계산
+  // 예시
+  const array = [1, 2, 4, 5];
+  
+  // 기존
+  for(let i = 0; i < array.length; i++) {
+      console.log(array[i]);
+  }
+  => 1, 2, 4, 5 출력
+  
+  // easy
+  for(value of array) {
+      console.log(value);
+  }
+  => 1, 2, 4, 5 출력
+  
+  
+  
+  // 4) 복제 (Fun cloning)
+  // 같은 ref를 가지고있다는 것을 전제
+  // 예시
+  const user01 = { name: 'ellie', age: '20' };
+  const user02 = user01;
+  user02.name = 'coder';
+  console.log(user01);
   ````
 
 + Object와 Array는 서로 종속 시킬 수 있다
@@ -2035,11 +2083,14 @@ document.getElementById		//	gets only by ID
     // cf) Math.(random)함수는 암호학적으로는 완전한 무작위라 할 수 없다. 따라서 보안에 취약하기에
     // 이와 관련된 일에서는 window.crypto.getRandomValues() 객체를 사용하자
     
+    ````
+
   // 숫자를 무작위를 섞는 알고리즘으로
     // Fisher-Yates shuffle algorithm를 많이 사용한다.
     ````
     
     
+    ````
 
 + `event.preventDefault()`
 
