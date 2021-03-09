@@ -165,17 +165,17 @@
       // 0, '', null,undefined,Nan은 불린형으로 변환 시에 모두 false가 된다.
       // 불린형과 자료형을 헷갈려 하지말자. ex) '' - 불린형 : false // 자료형 : string
       
+      // console.log(0 == false);	// true
+      // console.log(0 === false);	// false
+      // console.log('' == false);	// true
+      // console.log('' === false);	// false
+      // console.log(null == undefined);		// true
+      // console.log(null === undefined);	// false
+      
+      // 빈 배열 []과 빈 객체 {}, 문자열 'false'는 ture이다. 유의하자
       ````
 
-  console.log(0 == false);	// true
-      console.log(0 === false);	// false
-      console.log('' == false);	// true
-      console.log('' === false);	// false
-      console.log(null == undefined);		// true
-      console.log(null === undefined);	// false
-      ````
-      
-      
+  
 
 + Number
 
@@ -566,6 +566,22 @@ console.log(typeof weight)
   + 피 연산자
     + && (and)
     
+      + 조건문으로도 사용가능하다.
+    
+      + 앞이 true여야 뒤가 실행된다.
+    
+        ````js
+        let num; // undefined
+        num && console.log(num);
+        => 실행되지않음
+        
+        let num = 9; 
+        num && console.log(num);
+        => 9
+        ````
+    
+        
+    
     + || (or)
     
     + !  (참을 거짓으로, 거짓을 참으로 변환)  //  !! (true 또는 false로 형변환)
@@ -630,7 +646,7 @@ console.log(typeof weight)
       console.log('Hello');
   }
   // 조건식이 false 면 거짓인 값이기에 콘솔에 값이 실행결과가 출력되지 않는다.
-  
+  // false 일 때, false에 해당하는 동작문이 실행되는 것이 아니라 동작문 자체가 실행이 되지않는다. 반드시 유의하자.
   
   // 예제
   const x = "10";
@@ -734,6 +750,10 @@ console.log(typeof weight)
         result += 'b';
         return result;
   }
+  
+  // tip)
+  // if문은 &&로 대체 가능하다.
+  // 예시는 &&파트에서 보도록하자.
   ````
 
 
@@ -1418,6 +1438,29 @@ const plus = calculator.plus(5, 5)
 console.log(plus)
 ````
 
++ 함수를 다른 함수에 인자로 전달
+
+````js
+function add(num1, num2) {
+    return num1 + num2;
+}
+
+function divide(num1, num2) {
+    return num1 +num2;
+}
+
+function surprise(operate) {	// 함수 add의 ref가 함수 surprise의 인자로 전달
+    const result = operator(2, 3);		// add(2, 3)
+    console.log(result);
+}
+
+surprise(add);
+
+// 함수를 전달한다는 것은 사실 함수가 가리키고 있는 ref가 복사되어 전달되는 것이다.
+````
+
+
+
 + 함수에 들어온 인수(전달 인자) 개수 구하기
 
 ```js
@@ -1562,6 +1605,7 @@ a('hi','hello','bye');
   // 개념
   // 연관된 것들끼리 묶어놓은 컨테이너
   // data가 들어있지 않고 template만 정의
+  // 다양한 Object를 만들기 위한 청사진
   
   // 구성
   // Fields, method
@@ -1570,30 +1614,103 @@ a('hi','hello','bye');
   // 사용
   // 이 class를 이용하여 실제로 data를 넣어서 만드는 것이 object이다.
   
-  // 예시
-  class Person {
+  // 예시1 (문제점)
+  class User {
       // constructor
       constructor(name, age) {
           // fields
           this.name = name;
           this.age = age;
       }
-      // methods
+      // methods				
       speak() {
           console.log(`${this.name}: hello!`);
-      }
-  }
+      }	// 여기서 문제가 생길 수 있는 것이 class에서 console이라는 행위를 정해버리면 new로 object를 만들 때
+  }		// 행위의 제한성이 생긴다. 그러므로 인자에 콜백함수를 호출하여 사용하자.
   
   const user1 = new User('Steve', 20);
   console.log(user1.age);		// 20
+  user1.speak();
+  
+  // 예시1 (해결1)
+  class User {
+      // constructor
+      constructor(name, age) {
+          // fields
+          this.name = name;
+          this.age = age;
+      }
+      // methods				
+      speak(ifSay) {		// 콜백 함수 지정
+          ifSay(this.name);
+      }	
+  }		
+  
+  const user1 = new User('Steve', 20);
+  console.log(user1.age);		// 20
+  function printSomething(name) {
+      console.log(`${name}: hello!`);
+  }
+  user1.speak(printSomething);	// speak 함수 호출시 마다, 인자 전달하기가 불편하다는 문제가 있다. (중복이 많을 시 더 불편)
+  
+  // 예시1 (해결2)
+  class User {
+      // constructor
+      constructor(name, age, runEvery) {	// 콜백함수 자체에 지정
+          // fields
+          this.name = name;
+          this.age = age;
+          this.callback = runEvery;
+      }
+      // methods				
+      speak() {		
+          this.callback(this.name);
+      }	
+  }		
+  
+  const user1 = new User('Steve', 20, printSomething);
+  console.log(user1.age);		// 20
+  function printSomething(name) {
+      console.log(`${name}: hello!`);
+  }
+  user1.speak();
+  // 여기서 유의할 점이 있는데, 만약 User객체에서 함수를 콜백하지 않을 시 undefined가 되기에 function이 아니라는 type error가 나온다. 그래서 undefined이 아닐 때만 callback 함수를 불러야한다.
+  
+  // 예시1 (해결3)
+  class User {
+      // constructor
+      constructor(name, age, runEvery) {	// 콜백함수 자체에 지정
+          // fields
+          this.name = name;
+          this.age = age;
+          this.callback = runEvery;
+      }
+      // methods				
+      speak() {		
+          this.callback && this.callback(this.name);
+      }	
+  }		
+  
+  const user1 = new User('Steve', 20, printSomething);
+  console.log(user1.age);		// 20
+  function printSomething(name) {
+      console.log(`${name}: hello!`);
+  }
+  user1.speak();
+  
+  
+  
+  
   
   // 생성자(constructor)는 객체를 만드는 역할을 하며 new를 붙이면 객체가 된다.
+  // constructor와 methods는 따로 보는 것이 아니라 항상 연관성을 생각하자.
   // new 예약어로 생성자 함수 호출 가능
   // this는 생성된 해당 object or class를 의미
   
   // cf) 객체 생성 시, new Object와 객체 리터럴 방식의 차이
   // 객체 리터럴 방식도 내부적으로는 new Object를 호출한다는 점은 같다.
   // 하지만 객체 리터럴 방식이 가독성이 좋으며 속도가 빠르다. 또한 오버라이딩도 방지할 수 있다.
+  
   
   
   
@@ -1719,6 +1836,32 @@ a('hi','hello','bye');
   const user02 = user01;
   user02.name = 'coder';
   console.log(user01);
+  => {name: "coder", age: "20"}
+  
+  // old way
+  // 예시
+  const user03 = {};
+  for (key in user) {
+      user03[key] = user01[key];
+  }
+  console.log(user03);
+  => {name: "coder", age: "20"}
+  
+  // assign함수 사용
+  // 예시
+  const user04 = {};
+  Object.assign(user04, user01);
+  console.log(user04);
+  => {name: "coder", age: "20"}
+  
+  // 특징
+  // 예시
+  const fruit1 = { color: 'red' };
+  const fruit2 = { color: 'blue', size: 'big' };
+  const mixed = Object.assign({}, fruit1, fruit2); 
+  console.log(mixed.color);	// blue	
+  // blue가 나오는 이유는 뒤에 나오는 property일수록 힘이 세다. 갑을 덮어씌운다.
+  console.log(mixed.size);	// big
   ````
 
 + Object와 Array는 서로 종속 시킬 수 있다
@@ -2083,14 +2226,12 @@ document.getElementById		//	gets only by ID
     // cf) Math.(random)함수는 암호학적으로는 완전한 무작위라 할 수 없다. 따라서 보안에 취약하기에
     // 이와 관련된 일에서는 window.crypto.getRandomValues() 객체를 사용하자
     
+    // 숫자를 무작위를 섞는 알고리즘으로
+    // Fisher-Yates shuffle algorithm를 많이 사용한다.
+    
     ````
 
-  // 숫자를 무작위를 섞는 알고리즘으로
-    // Fisher-Yates shuffle algorithm를 많이 사용한다.
-    ````
-    
-    
-    ````
+  
 
 + `event.preventDefault()`
 
