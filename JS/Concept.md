@@ -1145,11 +1145,12 @@ console.log(typeof weight)
       ````
 
 
-  + includes
+  + includes // filter
 
-    + 배열에서 특정 요소 찾기
+    + 배열에서 특정 요소 찾기 or 필터링
 
       ````js
+      // 존재 여부
       const users = ["june", "seok", "kim"];
       const result01 = target.includes('seok');
       const result02 = target.includes('soo');
@@ -1159,7 +1160,38 @@ console.log(typeof weight)
       
       => true			// 존재
       => false		// 비존재
+      
+      // 필터링
+      const animals = [
+        { name: "monkey", size: "medium", weight: 100 },
+        { name: "lion", size: "big", weight: 200 },
+        { name: "tiger", size: "big", weight: 200 },
+        { name: "hippo", size: "big", weight: 300 },
+        { name: "cat", size: "small", weight: 10 }
+      ]
+      const filteredAnimals = animals.filter(animal => animal.size === "big")
+      console.log(filteredAnimals)
+      
+      const filteredAnimalss = animals.filter(animal => animal.weight >= 200 && animal.size === "big")
+      console.log(filteredAnimalss)
       ````
+
++ reduce
+
+  + 배열의 합 구하기, 새로운 형태 도출 등
+
+  ````js
+  const reducedAnimals = animals.reduce((acc, cur) => {    //    accmulate 축적하다
+    return acc + cur.weight
+  }, 0)
+  
+  console.log(reducedAnimals)
+  // 새배열 정의 = 기존배열.reduce((쌓이는값, 현재값)) => {
+  // return 쌓이는값변수 + 현재값변수.합구할요소 
+  // }, 초기값)                                      초기값(보통 0)을 넣어주는 것이 굉장히 중요하다! 오류 차단
+  ````
+
+  
 
 + 위의 Array 예시들에서 const로 정의했지만 에러가 나지않고
 
@@ -1236,8 +1268,23 @@ console.log(typeof weight)
     => lion
        tiger
        ["mammal lion", "mammal tiger"]
+    
+  // 다른 예시
+    const animals = [
+      { name: "monkey", size: "medium", weight: 100 },
+      { name: "lion", size: "big", weight: 200 },
+      { name: "tiger", size: "big", weight: 200 },
+      { name: "hippo", size: "big", weight: 300 },
+      { name: "cat", size: "small", weight: 10 }
+    ]
+    
+    const mappedAnimals = animals.map(function (animal) {
+      // return animal.name   //  배열을 재정의 하기위해서는 결과값을 return해야한다.  // name만 가진 배열 반환
+      // return { name: animal.name, size: animal.size }
+      return `${animal.name} is ${animal.size}`;
+    })
     ````
-  
+    
     
 
 #### Function 함수
