@@ -127,7 +127,7 @@
       + **문자열을** 쪼개서 **배열의 형태**로 출력
       
     ````js
-      const hobbies = ["game", "programming", "tv"];
+    const hobbies = ["game", "programming", "tv"];
     console.log(hobbies.split(""))
       => `"g","a","m", ~~`
       
@@ -990,7 +990,7 @@ console.log(typeof weight)
 
 + 데이터 저장과 정렬
 
-+ 생성(정의)시 []  브라켓 사용 
++ 생성(정의)시 `[]`  브라켓 or `new`  키워드 사용 
 
 + [] 안에는 문자열, 문자, 숫자, 정의한 변수 등이 들어갈 수 있다. 물론 혼용하여 같이 들어갈 수도 있음
 
@@ -1043,28 +1043,24 @@ console.log(typeof weight)
 
 + 기본 메서드
 
-  + push
+  + `push`, `unshift`
 
-    + 배열 맨 마지막에 요소 추가
+    + 배열에서 특정 요소 추가
 
       ````js
+      // 배열 맨 마지막에 요소 추가
       const users = ["june", "seok", "kim", ... , "mike"];
       users.push("soo");
       => 배열의 마지막에 soo 추가
-      ````
-
-  + unshift
-
-    + 배열 맨 앞에 요소 추가
-
-      ````js
+      
+      // 배열 맨 앞에 요소 추가
       users.unshift("kan");
       => 배열의 처음에 kan 추가
       ````
 
-  + pop
+  + `pop`, `shift`
 
-    + 배열에서 특정 요소 빼내기
+    + 배열에서 특정 요소 제거
 
       ````js
       // pop메서드는 배열 맨 뒤에서부터 하나씩 빼는 개념이다.
@@ -1073,33 +1069,132 @@ console.log(typeof weight)
       users.pop();
       users.pop();
       console.log(users);
-      => pop매서드를 두번 실행했기에 "june"만 출력 
-      ````
-
-  + splice
-
-    + 배열 특정 구간에서 자르기
-
-      ````js
-      // users.splice(특정구간지정, 특정구간부터 n개 제거)
-      // = users.splice(시작 index, 제거할 요소의 개수)
+      => pop메서드를 두번 실행했기에 "june"만 출력 
+      
+      // shift메서드는 배열 맨 앞에서부터 하나씩 빼는 개념이다.
       
       const users = ["june", "seok", "kim"];
-      users.splice(0, 2);
-      => ["kim"] 출력
+      users.shift();
+      users.shift();
+      console.log(users);
+      => pop메서드를 두번 실행했기에 "kim"만 출력 
+      
+      
+      // tip) shift와 unshift는 pop과 push에 비해 느리다.
+      // 뒤에서부터 특정 요소를 뺀다면 기존의 다른 요소들은 움직이지 않아도 되기 때문이다. shift - 당겨오다
+      // 가능하면 shift와 unshift 보다는 pop과 push를 쓰도록 하자.
+      ````
+
+  + `splice`, `slice`
+
+    + 배열 특정 구간에서 자르기, 제거
+
+      + 차이점 : 배열 자체 변형 vs 새로운 배열 생성
+      
+      ````js
+      // splice (배열 자체 변형)
+      // .splice(특정구간지정, 특정구간부터 n개 제거)
+      // = .splice(시작 index, 제거할 요소의 개수)
+      
+      const users = ["june", "seok", "kim"];
+      const newUsers = users.splice(0, 2);
+      console.log(newUsers)	 // 	["june", "seok"]
+      console.log(users) 		// 		["kim"]
+      // 여기서 볼 수 있듯이 배열 users의 요소들이 사라졌다. 즉, 배열 자체가 변형된 것이다.
       
       // 여기서 시작 index값만 넣을 경우, 해당 index부터 끝까지 모든 요소를 제거한다.
       const users = ["june", "seok", "kim"];
-      users.splice(1);
-      => ["june"] 출력
+      const newUsers = users.splice(1);
+      console.log(users);    // 	["june"]
       
       // 특정 요소들을 제거한 뒤, 제거한 자리에 다른 특정 값들을 넣을 수도 있다.
       const users = ["june", "seok", "kim"];
-      users.splice(0,2,"mount","pulisic");
-      => ["mount","pulisic","kim"] 출력
+      const newUsers = users.splice(0,2,"mount","pulisic");
+      console.log(users);    // 	["mount","pulisic","kim"]
+      
+      
+      
+      
+      
+      // slice (새로운 배열 생성)
+      // .slice(start요소index, end요소index+1)
+      
+      // 예시
+      // 배열 array에서 [3, 4, 5]를 출력하고 싶을 때
+      const array = [1, 2, 3, 4, 5];
+      const result = array.slice(2, 6);
+      console.log(result); // [3, 4, 5]
+      console.log(array); // [1, 2, 3, 4, 5]
+      // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있따. 즉, 새로운 배열을 형성한 것이다.
       ````
 
-  + indexOf  //  lastIndexOf
+  + `concat`
+
+    + 서로 다른 배열 결합하기
+
+      ````js
+      // 예시
+      const number = [1,2];
+      const newNumber = [3,4,5];
+      const conNumber = number.concat(newNumber);
+      console.log(conNumber);
+      -> [1,2,3,4,5]
+      ````
+    
+  + `join`
+
+    + 배열의 요소들을 문자열로 변환
+
+      ````js
+      // 예시
+      const fruits = ['apple', 'banana', 'orange'];
+      const result1 = fruits.join('');
+      console.log(result1); // applebananaorange
+      
+      const result2 = fruits.join(' and ')
+      console.log(result2); // apple and banana and orange
+      // 공백도 포함
+      
+      // ''와 같은 분리자를 넣지않으면 ,가 들어가면서 string으로 변환
+      // apple,banana,orange
+      ````
+    
+  + `split`
+
+    + 문자열을 배열로 변환
+
+      ````js
+      // 기본 문법
+      .split(구분자, limit)
+      // limit은 optional이기에 굳이 사용하지 않아도된다.
+      
+      // 예시
+      const fruits = '🍎, 🥝, 🍌, 🍒';
+      const reuslt = fruits.split(',');
+      console.log(reuslt) // ["🍎", "🥝", "🍌", "🍒"]
+      // 구분자를 넣지않으면 문자열 전체가 배열의 요소 하나로 출력된다.
+      
+      
+      const fruits = '🍎, 🥝, 🍌, 🍒';
+      const reuslt = fruits.split(',', 2);
+      console.log(reuslt) // ["🍎", "🥝"]
+      ````
+    
+  + `reverse`
+
+    + 주어진 배열의 순서를 거꾸로 바꿈
+
+      ````js
+      const array = [1, 2, 3, 4, 5];
+      const result = array.reverse();
+      console.log(result); // [5, 4, 3, 2, 1]
+      
+      // 유의점
+      // 배열 자체를 변화시킴. 즉, return 값도 변화된 배열 자체를 return함
+      console.log(array); // [5, 4, 3, 2, 1]
+      ````
+    
+  + `indexOf` ,`lastIndexOf`
 
     + 배열 내에서 특정 요소의 index값(순서) 구하기
 
@@ -1121,22 +1216,22 @@ console.log(typeof weight)
       console.log(users.lastIndexOf("seok"));
         => 2
       ````
-  
-  + isArray
-  
+
+  + `isArray`
+
     + Array인지 판단
-  
+
       ````js
     console.log(Array.isArray(users));
       => true
     console.log(Array.isArray(hello));
       => false
       ````
-  
-  + ... spread operator
-  
+
+  + `...` spread operator
+
     + 배열의 값들만 가져옴
-  
+
       ````js
       console.log(users);
       => {"june", "seok", "kim"}
@@ -1145,9 +1240,9 @@ console.log(typeof weight)
       ````
 
 
-  + includes // filter
+  + `includes`, `filter`
 
-    + 배열에서 특정 요소 찾기 or 필터링
+    + 배열에서 특정 요소 찾기(존재 여부) 필터링(반환)
 
       ````js
       // 존재 여부
@@ -1160,23 +1255,63 @@ console.log(typeof weight)
       
       => true			// 존재
       => false		// 비존재
-      
-      // 필터링
-      const animals = [
-        { name: "monkey", size: "medium", weight: 100 },
-        { name: "lion", size: "big", weight: 200 },
-        { name: "tiger", size: "big", weight: 200 },
-        { name: "hippo", size: "big", weight: 300 },
-        { name: "cat", size: "small", weight: 10 }
-      ]
-      const filteredAnimals = animals.filter(animal => animal.size === "big")
-      console.log(filteredAnimals)
-      
-      const filteredAnimalss = animals.filter(animal => animal.weight >= 200 && animal.size === "big")
-      console.log(filteredAnimalss)
       ````
 
-+ reduce
++ `filter`, `find`
+
+  + 배열에서 특정 요소 반환 (필터링)
+
+    + 차이점 :  일치하는 모든 인자 반환 vs 일치하는 값 중 제일 먼저 발견된 값 반환
+
+      ````js
+      // filter (반환)
+      // 배열의 요소 중 일치하는 모든 인자를 포함하여 '새로운 배열'을 반환함.
+      // 기본 문법
+      const newArray = arr명.filter(callbackFunction(element, index, array), thisArg);
+      //
+      // thisArg는 filter에서 사용될 this 값인데, optional이며 사용하지 않을 경우에는 undefined로 전달된다.
+      
+      class Animals {
+          constructor(name, size, weight) {
+              this.name = name;
+              this.size = size;
+              this.weight = weight;
+          }
+      }
+      const animals = [
+          new Animals('monkey', 'medium', 100),
+          new Animals('lion', 'big', 200),
+          new Animals('tiger', 'big', 200),
+          new Animals('hippo', 'big', 300),
+          new Animals('cat', 'small', 10),
+      ];
+      
+      const filteredAnimals = animals.filter(animal => animal.size === "big")
+      // const filteredAnimals = animals.filter(function(animal){  바로 위의 코드와 같은 뜻이다.
+      //     return animal.size === "big"
+      // });
+      // console.log(filteredAnimals);   
+      
+      const filteredAnimals = animals.filter(animal => animal.weight >= 200 && animal.size === "big")
+      console.log(filteredAnimals);
+      
+      
+      
+      
+      // find
+      // 기본 문법은 filter와 거의 동일
+      // 단, 값을 찾으면(callback함수가 true가 되자마자) loop를 정지하기 때문에 특정값을 찾을 시, 메모리 사용을 효율적으로 할 수 있다.
+      
+      const filteredAnimals = animals.find(function(animals) {
+          return animals.size === big;
+      });
+      console.log(filteredAnimals);
+      => size가 big인 첫번째 요소 lion줄의 요소가 출력
+      ````
+
+      
+
++ `reduce`
 
   + 배열의 합 구하기, 새로운 형태 도출 등
 
@@ -1230,16 +1365,34 @@ console.log(typeof weight)
 
   + 메서드를 통하여 반복문 효과 내기
   
-    + `forEach`
+    + `for of`,`forEach`
   
     ````js
+    // for of
+    const fruits = ['1', '2'];
+    for ( value of fruits ) {		
+    console.log(value);
+    }
+    => 1
+       2
+    
+    // value 대신 다른 값을 넣어도 상관없다.
+    // ex) let fruit
+    
+    // forEach
     // 인수로 함수를 넣고, 이 함수가 각각의 배열 요소들에 순서대로 적용되는 구조
-    // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백)
+    // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백 함수)
+    // 여기서 배열의 요소마다 한 번씩 돌아다니는 것이 중요함.
     // 아무것도 return(반환)하지않음. (undefined)
+    // 기본 구조
+    const array = [value01, value02, value03, ...];
+    array.forEach((value, index, array) => {
+        console.log(value, index, array);
+  });		// array는 foreach에서 잘 받아오지 않는다.
+    
+  // 예시
     const array = [1,2,3,4];
-    array.forEach((number, index) => {
-        console.log(number, index);
-    });
+    array.forEach((number, index) => console.log(number, index));				// 세번째로 ,array도 받아올 수 있지만 foreach에서는 잘 받아오지 않는다.
     => 1 0 // number index
        2 1
        3 2
@@ -1253,9 +1406,9 @@ console.log(typeof weight)
     => lion
        tiger
     ````
-  
+    
     + `map`
-  
+    
     ````js
     // 배열을 순회하면서 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
     // 그래서 map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
@@ -1269,23 +1422,24 @@ console.log(typeof weight)
        tiger
        ["mammal lion", "mammal tiger"]
     
-  // 다른 예시
-    const animals = [
-      { name: "monkey", size: "medium", weight: 100 },
-      { name: "lion", size: "big", weight: 200 },
-      { name: "tiger", size: "big", weight: 200 },
-      { name: "hippo", size: "big", weight: 300 },
-      { name: "cat", size: "small", weight: 10 }
-    ]
+    // 다른 예시
+      const animals = [
+        { name: "monkey", size: "medium", weight: 100 },
+        { name: "lion", size: "big", weight: 200 },
+        { name: "tiger", size: "big", weight: 200 },
+        { name: "hippo", size: "big", weight: 300 },
+        { name: "cat", size: "small", weight: 10 }
+      ]
     
-    const mappedAnimals = animals.map(function (animal) {
-      // return animal.name   //  배열을 재정의 하기위해서는 결과값을 return해야한다.  // name만 가진 배열 반환
-      // return { name: animal.name, size: animal.size }
-      return `${animal.name} is ${animal.size}`;
-    })
+      const mappedAnimals = animals.map(function (animal) {
+        // return animal.name   //  배열을 재정의 하기위해서는 결과값을 return해야한다.  // name만 가진 배열 반환
+        // return { name: animal.name, size: animal.size }
+        return `${animal.name} is ${animal.size}`;
+      })
+    
     ````
-    
-    
+  
+  
 
 #### Function 함수
 
@@ -1376,15 +1530,34 @@ a();
 + 변수에 함수 넣기
 
 ````js
-const sum = function(a,b){		//	이렇게 지칭하는 이름이 없는 함수를 '무명 함수' '익명 함수'라 한다
+const sum = function add(a,b){		//	이렇게 지칭하는 이름이 없는 함수를 '무명 함수' '익명 함수'라 한다
     return a + b;
 }
-console.log(add(5, 6))
-expected output : 11
+console.log(sum(5, 6));
+ //expected output : 11
 //  위 함수와 비교해서 
 //	function(a,b){		이렇게 지칭하는 이름이 없는 함수를 '무명 함수' '익명 함수'라 한다
 //	    return a + b;
 //	}
+
+
+// 유의점
+// 예시
+const addFun = sum; // sum이라는 함수 그 자체를 나타낸다.
+const addFun1 = sum(); // sum이라는 함수의 값을 호출한다.
+
+
+// 아래의 함수는 위와 의미가 같다.
+function add(a,b){
+    return a + b;
+}
+console.log(add(5, 6));
+
+const addFun = add; 
+const addFun1 = add();
+
+
+// 이것이 의미하는 바는 함수 호출 시 변수에 할당 된 함수는 변수명을, 함수의 이름만 가지고 있는 함수는 함수명을 입력해주면 된다.
 ````
 
 + 매개변수(parameter)와 전달인자(argument)
@@ -1859,6 +2032,7 @@ a('hi','hello','bye');
   
   // for (value of iterable)
   // 배열에 있는 모든 값들이 value에 할당되면서 block안에서 출력 or 값 계산
+  // 굳이 value라고 쓸 필요는 없다.
   // 예시
   const array = [1, 2, 4, 5];
   
