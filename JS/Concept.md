@@ -1240,9 +1240,9 @@ console.log(typeof weight)
       ````
 
 
-  + `includes`, `filter`
+  + `includes`
 
-    + 배열에서 특정 요소 찾기(존재 여부) 필터링(반환)
+    + 배열에서 특정 요소 찾기(존재 여부)
 
       ````js
       // 존재 여부
@@ -1311,7 +1311,7 @@ console.log(typeof weight)
 
       
 
-+ `reduce`
++ `reduce`,`reduceRight`
 
   + 배열의 합 구하기, 새로운 형태 도출 등
 
@@ -1324,9 +1324,52 @@ console.log(typeof weight)
   // 새배열 정의 = 기존배열.reduce((쌓이는값, 현재값)) => {
   // return 쌓이는값변수 + 현재값변수.합구할요소 
   // }, 초기값)                                      초기값(보통 0)을 넣어주는 것이 굉장히 중요하다! 오류 차단
+  
+  // reduceRight은 맨 뒤 요소부터 차례로 더한다는 차이점이 있다.
   ````
 
   
+
++ `some`, `every`
+
+  + 특정 기준 체킹 (하나의 요소 || 모든 요소)
+
+    ````js
+    // .some
+    // 배열의 요소 중 callback함수의 return이 true가 되는 요소가 있는지 체크
+    // 요소 중 하나라도 조건을 만족하는 것이 있으면 true 출력
+    // 예시
+    class Student {
+      constructor(name, age, enrolled, score) {
+        this.name = name;
+        this.age = age;
+        this.enrolled = enrolled;
+        this.score = score;
+      }
+    }
+    const students = [
+      new Student('A', 29, true, 45),
+      new Student('B', 28, false, 80),
+      new Student('C', 30, true, 90),
+      new Student('D', 40, false, 66),
+      new Student('E', 18, true, 88),
+    ];
+    
+    const result = students.some(student => student.score < 50);
+    console.log(result); 	// true
+    
+    
+    // .every
+    // 배열의 모든 요소가 callback함수의 return이 true를 만족하는지 체크
+    
+    const result2 = students.every(student => student.score >= 50);
+    console.log(result2); 	// false
+    
+    const result2 = !students.every(student => student.score >= 50);
+    console.log(result2); 	// true
+    ````
+
+    
 
 + 위의 Array 예시들에서 const로 정의했지만 에러가 나지않고
 
@@ -1390,6 +1433,8 @@ console.log(typeof weight)
         console.log(value, index, array);
   });		// array는 foreach에서 잘 받아오지 않는다.
     
+    ````
+  
   // 예시
     const array = [1,2,3,4];
     array.forEach((number, index) => console.log(number, index));				// 세번째로 ,array도 받아올 수 있지만 foreach에서는 잘 받아오지 않는다.
@@ -1397,7 +1442,7 @@ console.log(typeof weight)
        2 1
        3 2
        4 3
-    
+  
     // 다른 예시
     const animals = ["lion", "tiger"];
     animals.forEach(animal => {
@@ -1499,32 +1544,33 @@ hello();
 
 ````js
 // return문 추가
-> funtion a() {
+> function a() {
     return 5;
 }
 
-> a();
-< 10
+> console.log(a());
+< 5
 
 // 함수 실행을 종료하고, 주어진 값을 함수 호출 지점으로 반환한다.
 // 함수를 호출하면 항상 결괏값이 나온다. 이때 기본적으로 'undefined'가 출력된다.
 // 이 값을 반환값(return value)라고 한다.
 // console.log함수를 호출할 때마다 콘솔에서 undefined가 출력되는 것을 기억하는가?
 // console.log함수의 반환값이 undefined이기 때문이다.
-// return 명령문 => 함수 실행을 종료하고 주어진 값을 함수 호출 지점으로 반환한다.
 
 
-// 물론. return문은 함수의 특정 위치에서 실행을 중지 시키는 역할도 할 수 있다.
+// 물론, return문은 함수의 특정 위치에서 실행을 중지 시키는 역할도 할 수 있다.
+// "이거 들고 돌아가"
 
 function a() {
     console.log('Hello');
-    return;
+    return 100;
     console.log('Hi');
 }
 
 a();
 
-=> `Hello` 만 출력
+=> Hello
+	100	출력
 ````
 
 + 변수에 함수 넣기
@@ -2113,9 +2159,15 @@ a('hi','hello','bye');
   이런 식으로 출력 가능
   ````
   
-+ JSON
++ JSON (javaScript Object Notation)
 
-  + 서버와의 데이터 송수신 시 갖게되는 데이터 형식이며 object와 비슷한 구조를 가지고 있지만 사실상 문자이다.
+  + HTTP (Hypertext Transfer Protocal)
+    + Client와 Server가 어떻게 hypertext를 주고받을 수 있는지 규약한 프로토콜 중 하나
+    + hypertext : hyperlink, 리소스문서, 이미지파일 등등 포함
+  + independent programming language and platform
+  + object -> json(string) serialize(직렬화) // json -> object deserialize
+
+  + 서버와의 데이터 송수신 시 갖게되는 데이터 형식이며 object와 비슷한 구조를 가지고 있지만 사실상 string이다.
 
     ````js
     name: "Seok"		// object		
@@ -2574,7 +2626,7 @@ document.getElementById		//	gets only by ID
 
   
 
-+ `setInterval`
++ `setInterval()`
 
   + 코드나 함수를 일정 시간마다 반복 실행
 
@@ -2612,15 +2664,29 @@ document.getElementById		//	gets only by ID
 
 + `textContent`
 
-  + 태그 내부의 값을 얻거나 수정할 때 사용
+  + 태그 내부의 값을 얻거나 수정(추가)할 때 사용 (Node의 속성)
 
   + 무조건 문자열로 출력. 그러므로 빈 값이라면 undefinded가 아니라 ' '이 출력
 
+  + `<script>`나 `<style> `태그와 상관없이 해당 노드가 가지고 있는 텍스트 값을 그대로 읽음
+
+    + ex) 공백과 같은 모든 텍스트를 그대로 가져옴
+    
     ````js
     태그.textContent // 태그 내부의 문자열 가져옴
-    태그.textContent = 값 // 태그 내부의 문자열을 해당 값으로 설정
+  태그.textContent = 값 // 태그 내부의 문자열을 해당 값으로 설정
+    
+    HTML
+    <div id='test'>A   <strong>class</strong></div>
+                                     
+    function getTextContent()  {
+      const element = document.getElementById('test');
+      console.log(element.textContent);
+    }
+    getTextContent();
+    // A   Class (띄어쓰기 즉, 공백 그대로 반영)
     ````
-
+    
     
 
 + `value`
@@ -2636,3 +2702,76 @@ document.getElementById		//	gets only by ID
 
     
 
++ `innerText`
+
+  + `textContent`와 '텍스트 추가'라는 공통된 특성을 가지고있지만 불필요한 공백을 제거하고 텍스트로 반환한다는 차이점이 있다.
+
+  + 즉, 사람이 읽을 수 있는 요소만 처리한다.
+
+    ````js
+    HTML
+    <div id='test'>A   <strong>class</strong></div>
+    
+    // 1. 값 가져오기
+    function getInnerText()  {
+      const element = document.getElementById('test');
+      console.log(element.innerText);
+    }
+    getInnerText();
+    // A class출력 (html에서 띄어쓰기 3번 했지만 1번으로 출력)
+    
+    
+    // 2. 값 설정하기
+    function setInnerText()  {
+      const element = document.getElementById('test');
+      element.innerText = "<div style='color:red'>A</div>";
+    }
+    setInnerText();
+    // <div style='color:red'>A</div> 문자열 그대로 element 안에 포함
+    ````
+
+    
+
+    
+
++ `innerHTML`
+
+  + 텍스트를 다룬다는 점에서 `innerText`과 같지만 text element가 아닌 html element를 다룬다는 점에서 차이가 있다.
+
+    ````js
+    HTML
+    <div id='test'>A<strong>class</strong></div>
+    
+    // 1. 값 가져오기
+    function getInnerText()  {
+      const element = document.getElementById('test');
+      console.log(element.innerHTML);
+    }
+    getInnerText();
+    // A   <strong>class</strong> 출력
+    
+    
+    
+    // 2. 값 설정하기
+    function setInnerText()  {
+      const element = document.getElementById('test');
+      element.innerHTML = "<div style='color:red'>A</div>";
+    }
+    setInnerText();
+    // html태그가 해석되어 A가 빨간색을 가지고 출력 (class는 출력 안됨)
+    ````
+
+    
+
++ `classList`
+
+  + 클래스 조작을 위해 다양한 메서드 활용
+
+    ````js
+    // .add - 클래스 삽입
+    // .remove - 클래스 제거
+    // .contains - 클래스 존재 여부 체크
+    // .toggle - 클래스 존재 여부 체크 후 없으면 삽입 있으면 제거
+    ````
+
+    
