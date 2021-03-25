@@ -2775,3 +2775,24 @@ document.getElementById		//	gets only by ID
     ````
 
     
+
+#### RESTful API
+
++ fonrt-end의 핵심적인 작업
++ API?
+  +  Application Programming Interface
+  + 어떠한 요청에 대한 알맞은 응답을 돌려줌
++ 순서
+  + fatch request로 api 호출
+  + 데이터 json 형태로 받음
+  + json 가공 후 client에 표시 
+    + 가공 - 우리가 다룰 수 있는 object로 변환. 이를 통화여 화면(client) 구성
+
++ Postman
+  + 데이터를 사전에 확인해 볼 수 있는 Tool
+  + parameter 사용법
+    + key : value 검색을 통해 필요한 데이터만 골라 반환 가능
++ jsonplaceholder
+  + json api 통신을 테스트할 수 있는 가짜 데이터 무료 제공
++ axios
+  + 프론트엔드와 백엔드 사이의 json api 통신을 더 쉽게해줌
