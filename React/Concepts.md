@@ -117,9 +117,10 @@
 
 #### 4. 기본 개념
 
-1. tag에 class 주기
+1. `className`
 
 ````js
+// tag에 class주기
 <div className="클래스명"></div>
 
 // HTML이 아닌 JSX에서는 class를 줄 때에, class가 아닌 className이라고 입력한다.
@@ -130,9 +131,12 @@
 
 2. 데이터 바인딩
 
-+ `{ }` 중괄호 사용 (정적 데이터)
++ `{ }` 중괄호 사용 
 
   ````js
+  // 정적 데이터에 많이 사용하며, 동적 데이터는 state를 많이 사용한다.
+  // state에 대한 설명은 아래에 있다.
+  
   { 변수명 } { 함수 } - 공백은 취향 차이
   
   // src, id, href 등의 속성 안에도 넣어 사용 할 수 있다.
@@ -163,7 +167,9 @@
 
 + properties의 줄임말
 
-+ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용 (By parameter)
++ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용
+
++ 사실, 함수의 parameter라고 생각하면 쉽다.
 
   ````js
   // App.js
@@ -173,7 +179,7 @@
   function App() {
       return (
       	<Hello name="리액트" color="red" />
-      )
+      )	// Hello.js 에서 props인 name과 color를 받아온 뒤 값 지정
   }
   
   export default App;
@@ -187,9 +193,7 @@
   // 확인해보고 싶다면, console.log(props); 로 확인해보자.
   function Hello(props) {   
    // console.log(props); => {name: "react"}
-    	return <div style={{
-  		color:props.color
-      }}>안녕하세요 {props.name}</div>;    
+    	return <div style={{color:props.color}}>안녕하세요 {props.name}</div>;   
   }	// style에서 중괄호가 2개 겹친 것은 style 부여시 객체 형태로 입력해야 하는 것과 데이터 바인딩을 위한 중괄호이다.
   
   export default Hello;  
@@ -201,20 +205,18 @@
   import React from 'react';    
   
   function Hello({ color, name }) {    // props 미리 추출
-    	return <div style={{
-  		color
-      }}>안녕하세요 {name}</div>;    
+    	return <div style={{color}}>안녕하세요 {name}</div>;    
   }	
   export default Hello;  
   ````
-
   
-
+  
+  
 + `defaultProps`
 
   + props 기본값 설정
 
-  + 특정 값을 빠트렸을 때 기본적으로 사용(출력)할 값
+  + 특정 값을 주지않아도 기본적으로 사용(출력)할 값
 
     ````js
     // App.js
@@ -225,7 +227,7 @@
         return (
             <>
         	  <Hello name="리액트" color="red" />
-              <Hello color="pink" />   		// name 삭제
+              <Hello color="pink" />   		// name 값 주지않음
             </>
         )
     }
@@ -235,15 +237,16 @@
     // Hello.js
     import React from 'react';    
     
-    function Hello({ color, name }) {    // props 미리 추출
+    function Hello({ color, name }) {    
       	return <div style={{
     		color
         }}>안녕하세요 {name}</div>;    
     }	
     
-    Hello.defaultProps = {
+    Hello.defaultProps = {			// props 기본값 설정
         name: '이름없음'
     };
+    
     export default Hello;  
     ````
 
@@ -257,7 +260,6 @@
 
     ````js
     // Wrapper.js
-    
     import React from 'react';
     
     function Wrapper({ children }) {
@@ -281,13 +283,13 @@
         return (
             <Wrapper>
         	  <Hello name="리액트" color="red" />
-              <Hello color="pink" />   		// name 삭제
+              <Hello color="pink" />
             </Wrapper>
         )
     }
     ````
-
     
+
 
 4. **state**
 
@@ -312,9 +314,9 @@
   
   function List() {
   
-    let [theme, themeChange] = useState(['남자 지갑 추천', '남자 향수 추천', '남자 신발 추천']);
+    const [theme, themeChange] = useState(['남자 지갑 추천', '남자 향수 추천', '남자 신발 추천']);
   
-    return <>
+    return (
       <div className="list" >
         <h3> { theme[0] } </h3>
         <p>3월 11일 발행</p>
@@ -330,15 +332,60 @@
         <p>3월 11일 발행</p>
       <hr />
       </div>
-      </>
+      )
   }
   
   // useState 함수는 실행하고나면 2개의 데이터를 담고 있는 array가 하나 남게되는데 
-  // [a,b] - 여기서 a는 ''내의 데이터를 포함하고 있으며 b는 해당 state를 정정해주는 함수이다.
+  // [a,b] - 여기서 a는 ''내의 데이터를 포함하고 있으며 b는 해당 state를 정정해주는 함수이다. b는 함수라는 사실을 반드시 기억하자.
   // [state데이터, state 데이터 변경 함수]
+  // 사실 위 useState는 아래의 코드를 배열 비구조 할당(구조 분해)를 통해서 더 쉽게 쓴 것이다.
+const themeState = useState();
+  const theme = themeState[0];
+  const themeChange = themeState[1];
+  ````
+  
++ state 수정하기
+
+  + 'state 변경함수'를 사용하지 않고 그냥 state를 변경한다면 무한 재렌더링이 되므로 꼭 변경함수를 사용한다.
+  + 변경함수는 기존 데이터를 아예 갈아 엎는다.
+
+  ````js
+  const [like, likeChange] = useState(0);
+  const clickLike = () => {
+    likeChange(like + 1);	
+  }	// like가 아닌 likeChange (변경)함수를 이용하여 수정
+    
+  <h3> <span onClick={ clickLike }>👍</span> { like } </h3>
   ````
 
-  
+  + **Array, Object state 데이터 수정 방법**
+
+    ````js
+    // 가정 : 배열 내의 '남자 지갑 추천' -> '여자 지갑 추천'으로 변경
+    const [theme, themeChange] = useState(['남자 지갑 추천', '서울 맛집 추천', '리액트독학']);
+    const clickGender = () => {
+        const newGender = [...theme]	// step 1) state를 새 변수에 복사한다.
+        newGender[0] = '여자 지갑 추천'	// step 2) 카피본에 수정사항 반영
+        themeChange(newGender);			// step 3) 변경함수()에 집어넣기
+      }
+    // const newGender = theme 이렇게 쓰게되면 이것은 복사의 의미보다는 값 공유의 의미가 된다.
+    // 그러므로 deep copy를 사용하여 복사본을 만들어야 한다.
+    // '...' spread operator(ES6문법)를 사용하여 배열과 객체의 값만 가져온 뒤,
+    // [], {}를 사용하여 새로운 복사본을 만들어준다. ex) {...object}
+    // deep copy는 단순히 값 공유가 아닌 새로운 복사본(별개의 Array, object)을 만들어준다.
+    
+    // React의 state data를 이런 식으로 다루는 이유는 React에서 state data는 
+    // immutable(불가변. 직접 수정x) 하도록 의도하고 있기 때문이다. (개발자들의 의도)
+    
+    // state data를 바꿀 때 가장 중요한 것은 변경 함수에 들어갈 수 있는 건 본래 array나 object와 유사하거나 거의 같은 자료형이여야 한다는 것이다. 자료형이 숫자든 문자열이든 이런 식으로 자료형을 맞추어 똑같이 변경 함수에 넣어줘야한다.
+    // 예를 들어, state data가 배열일때 변경 함수에 문자열을 넣어서 변경해서는 안된다는 것이다.
+    
+    // tip) Hooks가 등장하면서 함수형 컴포넌트에서도 상태를 관리할 수 있게됨
+    ````
+
+    
+
+    
 
 5. `JSX에서 CSS 작성하기`
 
@@ -349,7 +396,7 @@
     + `style = {object 자료형으로 만든 스타일}`
 
       ````js
-      <div style={ color : 'blue' }> 개발 Blog</div>
+      <div style={{ color : 'blue' }}> 개발 Blog</div>
       ````
 
   + 변수에 할당
@@ -419,5 +466,23 @@
     // 이렇게 되면 .module.css에 있는 고유한 특정 class들을 가리키게됨
     ````
 
-    
 
+
+
++ Event Handling
+
+  + Event
+
+    + 사용자가 브라우저에서 특정 DOM Element와 상호 작용하는 것
+    + ex) onClick, onChange ...
+
+  + 주의사항
+
+    + camelCase로 작성
+
+    + 문자열이 아닌 함수로 eventHandler 작성
+
+      ````js
+      <span onClick={ 함수() }👍</span>
+      <span onClick={ () => {실행할 내용} }👍</span>
+      ````
