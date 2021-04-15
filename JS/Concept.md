@@ -1232,6 +1232,8 @@ console.log(typeof weight)
 
     + 배열의 값들만 가져옴
 
+    + 객체에도 사용할 수 있으며 spread operator는 대괄호, 중괄호 모두 제거 해달라는 의미를 가진다.
+    
       ````js
       console.log(users);
       => {"june", "seok", "kim"}
@@ -1407,9 +1409,9 @@ console.log(typeof weight)
     ````
 
   + 메서드를 통하여 반복문 효과 내기
-  
+
     + `for of`,`forEach`
-  
+
     ````js
     // for of
     const fruits = ['1', '2'];
@@ -1433,27 +1435,25 @@ console.log(typeof weight)
         console.log(value, index, array);
   });		// array는 foreach에서 잘 받아오지 않는다.
     
-    ````
-  
-  // 예시
-    const array = [1,2,3,4];
-    array.forEach((number, index) => console.log(number, index));				// 세번째로 ,array도 받아올 수 있지만 foreach에서는 잘 받아오지 않는다.
-    => 1 0 // number index
-       2 1
-       3 2
-       4 3
-  
-    // 다른 예시
-    const animals = ["lion", "tiger"];
-    animals.forEach(animal => {
-      console.log(animal);
-    });
-    => lion
-       tiger
+    // 예시
+      const array = [1,2,3,4];
+      array.forEach((number, index) => console.log(number, index));				// 세번째로 ,array도 받아올 수 있지만 foreach에서는 잘 받아오지 않는다.
+      => 1 0 // number index
+         2 1
+         3 2
+         4 3
+    
+      // 다른 예시
+      const animals = ["lion", "tiger"];
+      animals.forEach(animal => {
+        console.log(animal);
+      });
+      => lion
+         tiger
     ````
     
     + `map`
-    
+
     ````js
     // 배열을 순회하면서 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
     // 그래서 map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
@@ -1483,7 +1483,7 @@ console.log(typeof weight)
       })
     
     ````
-  
+
   
 
 #### Function 함수
@@ -1491,7 +1491,16 @@ console.log(typeof weight)
 + 개념
   + 일정한 동작을 수행하는 코드
   + 하나의 함수는 하나의 일만 할 수 있다.
-
++ Call Stack(콜스택)
+  + JS가 함수 실행을 핸들하는 방법 중 하나.
+  
+  + 함수를 스택 위에 올리고 차례대로 함수를 다 실행하면 스택에서 제거하는 순서로 이어진다. 
+  
+    자세한 과정은 디버깅을 통해 볼 수 있다. ex) 크롬 디버깅
+  
+  + 콜스택 = 리스트 라고 생각하면 함수는 이 리스트에 추가되는데 실행이 완료될 때 마다 리스트에서 차례로 제거된다.
+  
+     JS의 투두리스트라고도 볼수있겠다.
 + 함수 선언과 실행
 
 ````js
@@ -1552,6 +1561,7 @@ hello();
 < 5
 
 // 함수 실행을 종료하고, 주어진 값을 함수 호출 지점으로 반환한다.
+// 함수는 return이라는 말이 나오거나 실행이 완료되면 끝난다.
 // 함수를 호출하면 항상 결괏값이 나온다. 이때 기본적으로 'undefined'가 출력된다.
 // 이 값을 반환값(return value)라고 한다.
 // console.log함수를 호출할 때마다 콘솔에서 undefined가 출력되는 것을 기억하는가?
@@ -2164,30 +2174,34 @@ a('hi','hello','bye');
   + HTTP (Hypertext Transfer Protocal)
     + Client와 Server가 어떻게 hypertext를 주고받을 수 있는지 규약한 프로토콜 중 하나
     + hypertext : hyperlink, 리소스문서, 이미지파일 등등 포함
+    
   + independent programming language and platform
+
   + object -> json(string) serialize(직렬화) // json -> object deserialize
 
   + 서버와의 데이터 송수신 시 갖게되는 데이터 형식이며 object와 비슷한 구조를 가지고 있지만 사실상 string이다.
-
+  
     ````js
     name: "Seok"		// object		
-    "name": "monkey"	// JSON
+  "name": "monkey"	// JSON
     ````
 
+  + JS는 일반적으로 App의 비즈니스 로직을 담당(코드)하기 때문에 data와 섞어서 같이 보관하는 것은 좋지 않다. 그러므로 main.js에 배열로 data를 보관할 수도 있겠지만 data.json에 따로 data를 보관하는 것을 지향하도록 하자.
+
   + Object <=> Array 변환 메서드
-
+  
     + stringify (Object => Array)
-
+  
       ````js
       const myInfoJSON = JSON.stringify(myInfo);
       console.log(myInfoJSON)
-      =>	"name": "Seok",
+    =>	"name": "Seok",
           "age": "25",
-          ~~~
+        ~~~
       ````
-
+  
     + parse (Array => Object)
-
+  
       ````js
       여기서 myInfoJSON은 외부에서 받아온 JSON파일이라 가정한다
           
@@ -2246,7 +2260,41 @@ a('hi','hello','bye');
   console.log(triangle instanceof Object);		// t
   ```
 
-  
++ **this** 
+
+  + JS에서는 선언할 때 결정되는 것이 있고 호출할 때에 결정 되는 것이 있는데, JS의 핵심은 '누가 실행(호출)했냐'가 핵심이다.
+
+  + `this`는 호출할 때 결정되며 여기서 호출한 객체가 바로 `this`이다. 
+
+    다시 말해,  '누가 실행(호출)했냐'에서 '누가'에 해당하는 것이 바로 '호출한 놈(객체) === `this`'라 볼 수있다.
+
+    직접 호출한 그 코드를 살펴보자.
+
+  + 추가적으로 호출한 것과는 무관하게 `this`를 고정시키는 것이 바로 `bind`이다.
+
+    ````js
+    let someone = {
+        name : 'seok',
+        whoAmI : function() {
+            console.log(this);
+        }
+    };
+    
+    someone.whoAmI();
+    // {name: "seok", whoAmI: f}
+    
+    // 호출하는 방법에 따라 this 값이 달라진다고 했으므로 호출하는 방법을 달리 해보자
+    let myWhoAmI = someone.whoAmI;
+    myWhoAmI();
+    // Window {postMessage: f, blur: f, ...}
+    
+    // myWhoAmI는 전역 객체(Global Object) 즉, 최상위 객체인 window에서 호출되었기 때문에 Window가 나온 것이다.
+    // 사실 Window.myWhoAmI(); 라고 볼 수 있는 것이다.
+    ````
+
+    
+
+    
 
 #### DOM
 
@@ -2394,6 +2442,8 @@ document.getElementById		//	gets only by ID
 
 + `prompt`
 
+  + 브라우저 내에 포함되어있는 함수
+
   + 사용자에게 필요한 정보(값)를 얻기 위해 사용. 즉, 사용자로부터 값을 전달 받음
 
     ````js
@@ -2418,6 +2468,8 @@ document.getElementById		//	gets only by ID
     
 
 + `alert`
+
+  + 브라우저 내에 포함되어있는 함수
 
   + 사용자에게 경고하거나 메세지를 알릴 때 사용
 
@@ -2666,7 +2718,7 @@ document.getElementById		//	gets only by ID
 
   + 태그 내부의 값을 얻거나 수정(추가)할 때 사용 (Node의 속성)
 
-  + 무조건 문자열로 출력. 그러므로 빈 값이라면 undefinded가 아니라 ' '이 출력
+  + **무조건 문자열로 출력**. 그러므로 빈 값이라면 undefinded가 아니라 ' '이 출력
 
   + `<script>`나 `<style> `태그와 상관없이 해당 노드가 가지고 있는 텍스트 값을 그대로 읽음
 
