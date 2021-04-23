@@ -388,6 +388,15 @@ console.log(typeof weight)
       
       > typeof parseInt('3');
       < "number"
+      
+      // 사칙연산 중 더하기를 할 때에 유용하다. 문자열 + 문자열은 문자열 그대로 출력하지만 -,*,/ 는 문자열을 숫자로 바꾸어 출력하기 때문이다.
+      // 예시
+      switch (operator) {
+        case '+':
+          $result.value = parseInt(numOne) + parseInt(numTwo);
+          break;
+        case '-':
+          $result.value = numOne - numTwo;
       ````
 
     + 기수법 변환
@@ -2562,6 +2571,20 @@ document.getElementById		//	gets only by ID
     // eval함수에 문자열을 입력하면 그대로 실행되므로 해커가 이를 통해
     // 우리의 프로그램에 위험한 코드를 실행할 수도 있다.
     // 이러한 이유로 실무에서는 쓰지 않는 것이 보안상 안전하다.
+    
+    // 예시
+    let code = 'alert("Hi")';
+    eval(code); // Hi
+    
+    let value = eval('1+2');
+    alert(value); // 3
+    
+    let plus = eval('let i = 0; ++i');
+    alert(plus); // 1
+    
+    // 예제
+    const str = (가);
+    eval('a' + str + 't("eval은 evil이다")'); // (가) === ler
     ````
 
 
