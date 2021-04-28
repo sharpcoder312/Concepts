@@ -433,7 +433,6 @@ console.log(typeof weight)
   + 1) 선언(declaration)
     + 선언 시,  `_`, `$`를 제외한 특수문자가 들어가거나 숫자로 시작하는 변수를 선언할 수 없다
     + 선언 시, 전 세계 공용어인 영어로 선언하는 것이 좋으며 프로그래밍을 하면서 보게 되는 단어들 즉,  '예약어(reserved word)'는 사용할 수 없다. 물론 '예약어' 중, 변수명으로 가능한 것도 있지만 쓰지 않는 것을 지향하자.
-    + 보통
   + 2) 초기화(initialization)
   + 3) 사용 or 업데이트(modify)
   
@@ -931,6 +930,7 @@ console.log(typeof weight)
   
   => 1 ~ 100 까지 출력
   
+  // tip) i의 범위를 정할 때 쉽게 정하는 법은 몇 개의 숫자를 뽑을지를 생각해보면 된다.
   ````
 
   
@@ -1062,15 +1062,21 @@ console.log(typeof weight)
       users.push("soo");
       => 배열의 마지막에 soo 추가
       
-      // 배열 맨 앞에 요소 추가
+      // 다른 예시
+      const numbers = [];
+      for (let n = 0; n < 9; n += 1) {
+          numbers.push(n + 1);
+    }
+      
+    // 배열 맨 앞에 요소 추가
       users.unshift("kan");
-      => 배열의 처음에 kan 추가
+    => 배열의 처음에 kan 추가
       ````
-
+  
   + `pop`, `shift`
-
+  
     + 배열에서 특정 요소 제거
-
+  
       ````js
       // pop메서드는 배열 맨 뒤에서부터 하나씩 빼는 개념이다.
       
@@ -1087,17 +1093,17 @@ console.log(typeof weight)
       users.shift();
       console.log(users);
       => pop메서드를 두번 실행했기에 "kim"만 출력 
+    
       
-      
-      // tip) shift와 unshift는 pop과 push에 비해 느리다.
+    // tip) shift와 unshift는 pop과 push에 비해 느리다.
       // 뒤에서부터 특정 요소를 뺀다면 기존의 다른 요소들은 움직이지 않아도 되기 때문이다. shift - 당겨오다
-      // 가능하면 shift와 unshift 보다는 pop과 push를 쓰도록 하자.
+    // 가능하면 shift와 unshift 보다는 pop과 push를 쓰도록 하자.
       ````
-
+  
   + `splice`, `slice`
-
+  
     + 배열 특정 구간에서 자르기, 제거
-
+  
       + 차이점 : 배열 자체 변형 vs 새로운 배열 생성
       
       ````js
@@ -1130,30 +1136,30 @@ console.log(typeof weight)
       
       // 예시
       // 배열 array에서 [3, 4, 5]를 출력하고 싶을 때
-      const array = [1, 2, 3, 4, 5];
+    const array = [1, 2, 3, 4, 5];
       const result = array.slice(2, 6);
-      console.log(result); // [3, 4, 5]
+    console.log(result); // [3, 4, 5]
       console.log(array); // [1, 2, 3, 4, 5]
-      // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있따. 즉, 새로운 배열을 형성한 것이다.
+    // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있다. 즉, 새로운 배열을 형성한 것이다.
       ````
-
+  
   + `concat`
-
+  
     + 서로 다른 배열 결합하기
-
+  
       ````js
       // 예시
       const number = [1,2];
       const newNumber = [3,4,5];
-      const conNumber = number.concat(newNumber);
+    const conNumber = number.concat(newNumber);
       console.log(conNumber);
-      -> [1,2,3,4,5]
+    -> [1,2,3,4,5]
       ````
     
   + `join`
-
+  
     + 배열의 요소들을 문자열로 변환
-
+  
       ````js
       // 예시
       const fruits = ['apple', 'banana', 'orange'];
@@ -1163,15 +1169,15 @@ console.log(typeof weight)
       const result2 = fruits.join(' and ')
       console.log(result2); // apple and banana and orange
       // 공백도 포함
-      
+    
       // ''와 같은 분리자를 넣지않으면 ,가 들어가면서 string으로 변환
-      // apple,banana,orange
+    // apple,banana,orange
       ````
     
   + `split`
-
+  
     + 문자열을 배열로 변환
-
+  
       ````js
       // 기본 문법
       .split(구분자, limit)
@@ -1184,29 +1190,29 @@ console.log(typeof weight)
       // 구분자를 넣지않으면 문자열 전체가 배열의 요소 하나로 출력된다.
       
       
-      const fruits = '🍎, 🥝, 🍌, 🍒';
+    const fruits = '🍎, 🥝, 🍌, 🍒';
       const reuslt = fruits.split(',', 2);
-      console.log(reuslt) // ["🍎", "🥝"]
+    console.log(reuslt) // ["🍎", "🥝"]
       ````
     
   + `reverse`
-
+  
     + 주어진 배열의 순서를 거꾸로 바꿈
-
+  
       ````js
       const array = [1, 2, 3, 4, 5];
       const result = array.reverse();
       console.log(result); // [5, 4, 3, 2, 1]
       
-      // 유의점
+    // 유의점
       // 배열 자체를 변화시킴. 즉, return 값도 변화된 배열 자체를 return함
-      console.log(array); // [5, 4, 3, 2, 1]
+    console.log(array); // [5, 4, 3, 2, 1]
       ````
     
   + `indexOf` ,`lastIndexOf`
-
+  
     + 배열 내에서 특정 요소의 index값(순서) 구하기
-
+  
       ````js
       // indexOf	앞에서부터 주어진 값 검색
       const users = ["june", "seok", "kim"];
@@ -1219,28 +1225,28 @@ console.log(typeof weight)
       // includes
       '1234'.includes(2) === true;
       ['1', '2', '3', '4'].includes(7) === false;
-      
+    
       // lastIndexOf	뒤에서부터 주어진 값 검색
-        const users = ["seok, ""june", "seok", "kim"];
+      const users = ["seok, ""june", "seok", "kim"];
       console.log(users.lastIndexOf("seok"));
-        => 2
+      => 2
       ````
-
+  
   + `isArray`
-
+  
     + Array인지 판단
-
-      ````js
+  
+    ````js
     console.log(Array.isArray(users));
-      => true
+    => true
     console.log(Array.isArray(hello));
-      => false
+    => false
       ````
-
+  
   + `...` spread operator
-
+  
     + 배열의 값들만 가져옴
-
+  
     + 객체에도 사용할 수 있으며 spread operator는 대괄호, 중괄호 모두 제거 해달라는 의미를 가진다.
     
       ````js
@@ -2617,13 +2623,17 @@ document.getElementById		//	gets only by ID
     
     ````
 
+  + `Math` 객체
+    + 수학 관련 메서드
+    + ex) `.min`(최솟값), `.round`(반올림),`.pow`(제곱) 등
+
   
 
 + `event.preventDefault()`
 
-  + `form` 태그의 기본 동작을 취소하는 코드
+  + html 태그의 기본 동작을 취소하는 코드
 
-    + 기본 동작의 예시 : `submit` 이벤트가 발생할 시, 브라우저 새로고침
+    + 기본 동작의 예시 : `form`에서 `submit` 이벤트가 발생할 시, 브라우저 새로고침
 
     + 데이터를 계속 유지하고 싶을 때 사용 용이
 
