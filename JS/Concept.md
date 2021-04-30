@@ -333,30 +333,6 @@
 
     
 
-+ Set
-
-  + 중복이 불가능한 데이터의 집합
-
-    ````js
-    // 선언
-    new Set([iterable]);
-    
-    
-    // ()내에 아무리 중복되는 값들이 오더라도 Set이 알아서 중복되는 값들 중 맨 앞의 값만을 남기고 무시한다.
-    const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
-    console.log(essence);
-    => Set { 1, 2, 3, 4, 5 }
-    
-    
-    // Set내의 요소 개수 구하기
-    // 일반적인 함수들과 달리 length가 아닌 size를 사용한다.
-    const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
-    console.log(essence.size);
-    => 5
-    ````
-
-    
-
 + type 확인법
 
 ````js
@@ -1050,6 +1026,32 @@ console.log(typeof weight)
   => '안','녕','하','세','요','!'
   ````
 
+  
+
++ Set
+
+  + 중복을 허용하지 않는 특수한 배열
+
+    ````js
+  // 선언
+    new Set([iterable]);
+    
+    
+    // ()내에 아무리 중복되는 값들이 오더라도 Set이 알아서 중복되는 값들 중 맨 앞의 값만을 남기고 무시한다.
+    const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
+    console.log(essence);
+    => Set { 1, 2, 3, 4, 5 }
+    
+    
+    // Set내의 요소 개수 구하기
+  // 일반적인 함수들과 달리 length가 아닌 size를 사용한다.
+    const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
+  console.log(essence.size);
+    => 5
+  ````
+  
+    
+  
 + 기본 메서드
 
   + `push`, `unshift`
