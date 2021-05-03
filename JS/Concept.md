@@ -1217,32 +1217,37 @@ console.log(typeof weight)
   
       ````js
       // indexOf	앞에서부터 주어진 값 검색
-      const users = ["june", "seok", "kim"];
+      const users = ["seok", "june", "kim"];
       console.log(users.indexOf("seok"));
-      => 1
+      => 0
       console.log(users.indexOf("soo"));
       => -1			//	배열에 존재하지 않는 요소는 index 값이 -1로 출력된다.
       
-      // 여기서 값의 존재 여부를 조금 더 직관적으로 bool값으로 값을 반환하는 메서드도 있다.
-      // includes
-      '1234'.includes(2) === true;
-      ['1', '2', '3', '4'].includes(7) === false;
+      // 유의점
+      // 요소의 자료형까지 같아야 한다.
+      ['2', '3', '4', '5'].indexOf('5') === 3;
+      ['2', '3', '4', '5'].indexOf(5) === -1;
     
+      // 여기서 값의 존재 여부를 조금 더 직관적으로 bool값으로 값을 반환하는 메서드도 있다.
+    // includes
+      '1234'.includes(2) === true;
+    ['1', '2', '3', '4'].includes(7) === false;
+      
       // lastIndexOf	뒤에서부터 주어진 값 검색
-      const users = ["seok, ""june", "seok", "kim"];
+        const users = ["seok, ""june", "seok", "kim"];
       console.log(users.lastIndexOf("seok"));
-      => 2
+        => 2
       ````
-  
+
   + `isArray`
-  
+
     + Array인지 판단
-  
-    ````js
+
+      ````js
     console.log(Array.isArray(users));
-    => true
+      => true
     console.log(Array.isArray(hello));
-    => false
+      => false
       ````
   
   + `...` spread operator
@@ -1423,9 +1428,18 @@ console.log(typeof weight)
     }
     
     => "가", "나", "다", "라" 출력
+    
+    // 예시
+    const numbers = [];
+    for (let n = 0; n < 9; n += 1) {
+      numbers.push(n+1);
+    }     
     ````
 
   + 메서드를 통하여 반복문 효과 내기
+
+    + 해당 메서드 모두 for문 보다 성능이 딸릴지언정 연달아 쓸수있다는 장점을 가지고있다.
+      + 예를 들어, for문을 사용한다면  `.push`와 같은 메서드로 배열에 일일히 넣어주어야 한다.
 
     + `for of`,`forEach`
 
@@ -1442,19 +1456,19 @@ console.log(typeof weight)
     // ex) let fruit
     
     // forEach
-    // 인수로 함수를 넣고, 이 함수가 각각의 배열 요소들에 순서대로 적용되는 구조
+    // 인수로 함수를 받고, 이 함수가 각각의 배열 요소들에 순서대로 적용되는 구조
     // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백 함수)
-    // 여기서 배열의 요소마다 한 번씩 돌아다니는 것이 중요함.
+    // 여기서 배열의 요소마다 한 번씩 돌아다니는 사실이 중요함. 이것이 반복문의 역할을 하게됨
     // 아무것도 return(반환)하지않음. (undefined)
     // 기본 구조
     const array = [value01, value02, value03, ...];
     array.forEach((value, index, array) => {
         console.log(value, index, array);
-  });		// array는 foreach에서 잘 받아오지 않는다.
+    });		// array는 foreach에서 일반적으로 잘 받아오지 않는다.
     
     // 예시
       const array = [1,2,3,4];
-      array.forEach((number, index) => console.log(number, index));				// 세번째로 ,array도 받아올 수 있지만 foreach에서는 잘 받아오지 않는다.
+      array.forEach((number, index) => console.log(number, index));		
       => 1 0 // number index
          2 1
          3 2
@@ -1462,28 +1476,29 @@ console.log(typeof weight)
     
       // 다른 예시
       const animals = ["lion", "tiger"];
-      animals.forEach(animal => {
+      animals.forEach((animal) => {
         console.log(animal);
       });
       => lion
          tiger
     ````
-    
+
     + `map`
 
     ````js
     // 배열을 순회하면서 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
     // 그래서 map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
     const animals = ["lion", "tiger"];
-    zoo = animals.map(animal => {
+    zoo = animals.map((animal) => {
       console.log(animal);
       return "big " + animal
     });
     console.log(zoo);
     => lion
        tiger
-       ["mammal lion", "mammal tiger"]
-    
+       ["big lion", "big tiger"]
+        // return animal.name   //  배열을 재정의 하기위해서는 결과값을 return해야한다.  // name만 가진 배열 반환
+        // return { name: animal.name, size: animal.size }
     // 다른 예시
       const animals = [
         { name: "monkey", size: "medium", weight: 100 },
@@ -1494,10 +1509,8 @@ console.log(typeof weight)
       ]
     
       const mappedAnimals = animals.map(function (animal) {
-        // return animal.name   //  배열을 재정의 하기위해서는 결과값을 return해야한다.  // name만 가진 배열 반환
-        // return { name: animal.name, size: animal.size }
         return `${animal.name} is ${animal.size}`;
-      })
+      });
     
     ````
 
@@ -1800,56 +1813,54 @@ a('hi','hello','bye');
 
   + 고차 함수(high order function)
 
-    + 함수를 만들어내는 함수
-+ 즉, 함수가 함수를 `return`
-    + 사용 이유 : 함수간의 중복을 피하기 위해
-    
-    ````js
-    // 예시1
-    const func1 = () => {		// 고차 함수
-        return () => {
-            console.log('hi');
-        }
-    }
-    // 위의 함수는 아래의 함수와 같다.
-    // 화살표 함수에서 중괄호와 return이 붙으면 생략 중괄호와 return 생략도 가능하다.
-    const func1 = () => () => {
-            console.log('hi');
-    }
-    
-    const innerFunc1 = func();
-    innerFunc1();
-    
-    => `hello`
-    
-    // 예시2
-    const func1 = (intro) => () => {
-            console.log(intro);
-    }
-    
-    const innerFunc1 = func('hi');
-    innerFunc1();
-    => 'hi'
+    + 함수를 만들어내는 함수. 즉, 함수가 함수를 `return`
 
-    
-    // 예제
-    const hof = (a) => {
-      return (b) => {
-        return (c) => {
-          return a + (b * c)
-        }
+  ````js
+  // 예시1
+  const func1 = () => {		// 고차 함수
+      return () => {
+          console.log('hi');
+      }
+  }
+  // 위의 함수는 아래의 함수와 같다.
+  // 화살표 함수에서 중괄호와 return이 붙으면 생략 중괄호와 return 생략도 가능하다.
+  const func1 = () => () => {
+          console.log('hi');
+  }
+  
+  const innerFunc1 = func1();
+  innerFunc1();
+  
+  => `hi`
+  
+  // 예시2
+  const func1 = (intro) => () => {
+          console.log(intro);
+  }
+  
+  const innerFunc1 = func1('hi');
+  innerFunc1();
+  => 'hi'
+  
+  
+  // 예제
+  const hof = (a) => {
+    return (b) => {
+      return (c) => {
+        return a + (b * c)
       }
     }
-    
-    const first = hof(3);
-    const second = first(4);
-    const third = second(5);
-    console.log(third);
-    
-    // third의 값을 유추 해보자.
-    ````
-    
-    
+  }
+  
+  const first = hof(3);
+  const second = first(4);
+  const third = second(5);
+  console.log(third);
+  
+  // third의 값을 유추 해보자.
+  ````
+
+  
 
 #### Object 객체
 
@@ -2606,10 +2617,10 @@ document.getElementById		//	gets only by ID
     // 예시) 1부터 100까지의 자연수 얻어내기
     
     // 사고 논리
-    Math.(random)		-		0 <= x < 1
-    Math.(random) * 100		-		0 <= x < 100
-    Math.(random) * 100 + 1		-		1 <= x < 101
-    Math.floor(Math.random() * 100 + 1)		-		x = {1, 2, 3, ... , 100}
+    Math.random()		-		0 <= x < 1 범위 내의 수 1개 출력
+    Math.random() * 100		-		0 <= x < 100 범위 내의 수 1개 출력
+    Math.random() * 100 + 1		-		1 <= x < 101 범위 내의 수 1개 출력
+    Math.floor(Math.random() * 100 + 1)		-		x = {1, 2, 3, ... , 100} 범위 내의 수 1개 출력
     
     // 여기서 Math.floor()는 숫자 '내림'의 메서드이다.
     // cf) Math.ceil() '올림'	//	Math.round() '반올림'
@@ -2641,9 +2652,13 @@ document.getElementById		//	gets only by ID
 
       
 
-+ `.createElemet()`
++ `.createElement()`
 
   + 문서 내에 새로운 요소 추가
+
+  + 단, 다른 태그에 `append`나 `appendChild`를 하기 전까지는 화면에 보이지 않는다.
+
+  + `createElement()`나 `.createTextNode()`는 JS로 태그를 만드는 법이라면 `append`나 `appendChild`는 실제 화면에 그리는 법이라고 생각하면 된다.
 
     ````js
     .createElement( 'h1' )
@@ -2656,6 +2671,8 @@ document.getElementById		//	gets only by ID
 + `.createTextNode()`
 
   + 선택한 요소에 텍스트 추가
+
+  + 단, 다른 태그에 `append`나 `appendChild`를 하기 전까지는 화면에 보이지 않는다.
 
     ```js
     .createTextNode('hello')
@@ -2675,8 +2692,14 @@ document.getElementById		//	gets only by ID
     
     // body의 자식 요소로 $button 추가
     // 결과적으로 body 내에 button 요소가 추가된다.
+    
+  // cf) apeendChild()는 append()와 달리 문자열을 넣기 위해서 createTextNode를 사용해야한다.
+    // 예시
+    const message = document.createTextNode('안녕');
+    $logs.appendChild(message);
+    // 이런 불편함을 append()가 해소
     ````
-
+    
     
 
 + `append()`
@@ -2691,8 +2714,10 @@ document.getElementById		//	gets only by ID
     
     span.append('hello'); 
     => <span>hello</span>
+    
+  p.append('${value}: ${name} 입니다', document.createElement('br');
     ````
-
+    
     
 
 + `sort()`
