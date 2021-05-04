@@ -109,7 +109,7 @@
 
     + join 함수
 
-      + **배열의** 글자를 합쳐 **문자열의 형태**출력
+      + **배열의** 원소를 합쳐 하나의 **문자열의 형태**출력
 
       ````js
       const hobbies = ["game", "programming", "tv"];
@@ -117,6 +117,11 @@
       => `gameprogrammintv`
       console.log(hobbies.split(""))
       => `"g","a","m", ~~`
+      
+      // 대부분 .join 예시에서 숫자는 없는데 간과하지말자!
+      const numbers = [1,2,3,4];
+      console.log(numbers.join(''))
+      => '1234'
       "" 내에는 자르는 기준을 입력할 수 있다
       ex) " " 공백을 기준
       ex) "," 쉼표를 기준
@@ -144,6 +149,8 @@
     + toUpperCase // toLowerCase 함수
     
       + 대소문자로 변환
+    + indexOf
+      + 문자열내에서 특정 문자 index 확인 (배열파트에서 자세히 설명)
 
 + Boolean
 
@@ -1213,7 +1220,7 @@ console.log(typeof weight)
     
   + `indexOf` ,`lastIndexOf`
   
-    + 배열 내에서 특정 요소의 index값(순서) 구하기
+    + 배열,문자열 내에서 특정 원소(문자열)의 index값(순서) 구하기
   
       ````js
       // indexOf	앞에서부터 주어진 값 검색
@@ -1464,7 +1471,7 @@ console.log(typeof weight)
     const array = [value01, value02, value03, ...];
     array.forEach((value, index, array) => {
         console.log(value, index, array);
-    });		// array는 foreach에서 일반적으로 잘 받아오지 않는다.
+    });		// array는 foreach에서 일반적으로 잘 받아오지 않는다. cf) map을 사용하는것이 훨씬 편리하다.
     
     // 예시
       const array = [1,2,3,4];
@@ -2539,12 +2546,14 @@ document.getElementById		//	gets only by ID
 
   + 사용자에게 경고하거나 메세지를 알릴 때 사용
 
+  + 일반적으로 `undefined`를 return(반환)함
+
     ````js
     // 기본 문법
     alert('사용자에게 표시할 메세지');
     
     // 예시
-    const goOut = confirm('접근할 수 없습니다');
+    const goOut = alert('접근할 수 없습니다');
     ````
 
     
@@ -2687,13 +2696,19 @@ document.getElementById		//	gets only by ID
   + 선택한 요소에 하나의 자식 요소 추가 (DOM 함수)
 
     ````js
-    const $button = document.createElement( 'button' );
-    document.body.appendChild( $button )
+    // return값 반환o
+    // 예시
+    const span = document.createElement('span');
+    console.log(document.body.appendChild(span)); // span(Node object)
     
+    // Node Object(요소)
+  const $button = document.createElement( 'button' );
+    document.body.appendChild( $button )
     // body의 자식 요소로 $button 추가
     // 결과적으로 body 내에 button 요소가 추가된다.
     
-  // cf) apeendChild()는 append()와 달리 문자열을 넣기 위해서 createTextNode를 사용해야한다.
+    // 문자열(DOMString)
+    // cf) apeendChild()는 append()와 달리 문자열을 넣기 위해서 createTextNode를 사용해야한다.
     // 예시
     const message = document.createTextNode('안녕');
     $logs.appendChild(message);
@@ -2709,13 +2724,21 @@ document.getElementById		//	gets only by ID
     여러 개의 자식 요소 추가 가능 + 문자열 삽입 가능(JS 함수)
 
     ````js
-    ul.appendChild(li); 
+    // return값 반환x undefined
+    const span = document.createElement('span');
+    console.log(document.body.append(span)); // undefined
+    
+    // Node object(요소)
+    const span = document.createElement('span');
+  const p = document.createElement('p');
     li.append(span, p); // 여러 개의 요소 추가
     
+    // 문자열(DOMString)
     span.append('hello'); 
     => <span>hello</span>
     
-  p.append('${value}: ${name} 입니다', document.createElement('br');
+    // 요소 + 문자열
+    p.append('${value}: ${name} 입니다', document.createElement('br'));
     ````
     
     
