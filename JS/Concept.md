@@ -132,9 +132,9 @@
       + **문자열을** 쪼개서 **배열의 형태**로 출력
       
     ````js
-    const hobbies = ["game", "programming", "tv"];
+    const hobbies = "game";
     console.log(hobbies.split(""))
-      => `"g","a","m", ~~`
+      => ["g","a","m","e"]
       
       "" 내에는 자르는 기준을 입력할 수 있다
       ex) " " 공백을 기준
@@ -1061,10 +1061,37 @@ console.log(typeof weight)
   
 + 기본 메서드
 
+  + `Array().fill()`
+
+    + 배열의 모든 원소를 하나의 정적인 값으로 채움
+
+      ````js
+      // Array(배열길이).fill(값)
+      // Array(length).fill(value, start, end)
+      Array(7) // [empty * 7]
+      Array(7).fill() // [undefined, undefined, ... , undefined]
+      Array(7).fill(0) // [0, 0, ... , 0]
+      
+      // 예시01
+      // 1~9까지의 원소를 가진 배열 만들기
+      Array(9).fill().map((element, index) => {
+        return index + 1;
+      })	// [1, 2, 3, ... , 9]
+    // .map은 아래에서 설명 예정
+      
+    // 예시02
+      const teams = ["Chelsea", "ManUnited", "Mancity"];
+      teams.fill("premier"); // ["premier", "premier", "premier"]
+      
+      // 예시03
+      const teams = ["Chelsea", "ManUnited", "Mancity"];
+      teams.fill("premier",1,3); // ["Chelsea", "premier", "premier"]
+      ````
+  
   + `push`, `unshift`
-
+  
     + 배열에서 특정 요소 추가
-
+  
       ````js
       // 배열 맨 마지막에 요소 추가
       const users = ["june", "seok", "kim", ... , "mike"];
@@ -1102,11 +1129,11 @@ console.log(typeof weight)
       users.shift();
       console.log(users);
       => pop메서드를 두번 실행했기에 "kim"만 출력 
-    
       
-    // tip) shift와 unshift는 pop과 push에 비해 느리다.
+      
+      // tip) shift와 unshift는 pop과 push에 비해 느리다.
       // 뒤에서부터 특정 요소를 뺀다면 기존의 다른 요소들은 움직이지 않아도 되기 때문이다. shift - 당겨오다
-    // 가능하면 shift와 unshift 보다는 pop과 push를 쓰도록 하자.
+      // 가능하면 shift와 unshift 보다는 pop과 push를 쓰도록 하자.
       ````
   
   + `splice`, `slice`
@@ -1118,11 +1145,11 @@ console.log(typeof weight)
       ````js
       // splice (배열 자체 변형)
       // .splice(특정구간지정, 특정구간부터 n개 제거)
-      // = .splice(시작 index, 제거할 요소의 개수)
+    // = .splice(시작 index, 제거할 요소의 개수)
       
-      const users = ["june", "seok", "kim"];
+    const users = ["june", "seok", "kim"];
       const newUsers = users.splice(0, 2);
-      console.log(newUsers)	 // 	["june", "seok"]
+    console.log(newUsers)	 // 	["june", "seok"]
       console.log(users) 		// 		["kim"]
       // 여기서 볼 수 있듯이 배열 users의 요소들이 사라졌다. 즉, 배열 자체가 변형된 것이다.
       
@@ -1133,9 +1160,9 @@ console.log(typeof weight)
       
       // 특정 요소들을 제거한 뒤, 제거한 자리에 다른 특정 값들을 넣을 수도 있다.
       const users = ["june", "seok", "kim"];
-      const newUsers = users.splice(0,2,"mount","pulisic");
+    const newUsers = users.splice(0,2,"mount","pulisic");
       console.log(users);    // 	["mount","pulisic","kim"]
-      
+    
       
       
       
@@ -1145,24 +1172,24 @@ console.log(typeof weight)
       
       // 예시
       // 배열 array에서 [3, 4, 5]를 출력하고 싶을 때
-    const array = [1, 2, 3, 4, 5];
+      const array = [1, 2, 3, 4, 5];
       const result = array.slice(2, 6);
-    console.log(result); // [3, 4, 5]
+      console.log(result); // [3, 4, 5]
       console.log(array); // [1, 2, 3, 4, 5]
-    // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있다. 즉, 새로운 배열을 형성한 것이다.
+      // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있다. 즉, 새로운 배열을 형성한 것이다.
       ````
-  
+
   + `concat`
-  
+
     + 서로 다른 배열 결합하기
   
       ````js
       // 예시
       const number = [1,2];
       const newNumber = [3,4,5];
-    const conNumber = number.concat(newNumber);
+      const conNumber = number.concat(newNumber);
       console.log(conNumber);
-    -> [1,2,3,4,5]
+      -> [1,2,3,4,5]
       ````
     
   + `join`
@@ -1172,23 +1199,23 @@ console.log(typeof weight)
       ````js
       // 예시
       const fruits = ['apple', 'banana', 'orange'];
-      const result1 = fruits.join('');
+    const result1 = fruits.join('');
       console.log(result1); // applebananaorange
-      
+    
       const result2 = fruits.join(' and ')
       console.log(result2); // apple and banana and orange
       // 공백도 포함
-    
+      
       // ''와 같은 분리자를 넣지않으면 ,가 들어가면서 string으로 변환
-    // apple,banana,orange
+      // apple,banana,orange
       ````
     
   + `split`
   
     + 문자열을 배열로 변환
-  
+
       ````js
-      // 기본 문법
+    // 기본 문법
       .split(구분자, limit)
       // limit은 optional이기에 굳이 사용하지 않아도된다.
       
@@ -1199,30 +1226,30 @@ console.log(typeof weight)
       // 구분자를 넣지않으면 문자열 전체가 배열의 요소 하나로 출력된다.
       
       
-    const fruits = '🍎, 🥝, 🍌, 🍒';
+      const fruits = '🍎, 🥝, 🍌, 🍒';
       const reuslt = fruits.split(',', 2);
-    console.log(reuslt) // ["🍎", "🥝"]
+      console.log(reuslt) // ["🍎", "🥝"]
       ````
     
   + `reverse`
   
     + 주어진 배열의 순서를 거꾸로 바꿈
-  
+
       ````js
-      const array = [1, 2, 3, 4, 5];
+    const array = [1, 2, 3, 4, 5];
       const result = array.reverse();
-      console.log(result); // [5, 4, 3, 2, 1]
+    console.log(result); // [5, 4, 3, 2, 1]
       
-    // 유의점
+      // 유의점
       // 배열 자체를 변화시킴. 즉, return 값도 변화된 배열 자체를 return함
-    console.log(array); // [5, 4, 3, 2, 1]
+      console.log(array); // [5, 4, 3, 2, 1]
       ````
     
-  + `indexOf` ,`lastIndexOf`
++ `indexOf` ,`lastIndexOf`
   
-    + 배열,문자열 내에서 특정 원소(문자열)의 index값(순서) 구하기
+  + 배열,문자열 내에서 특정 원소(문자열)의 index값(순서) 구하기
   
-      ````js
+    ````js
       // indexOf	앞에서부터 주어진 값 검색
       const users = ["seok", "june", "kim"];
       console.log(users.indexOf("seok"));
@@ -1234,22 +1261,22 @@ console.log(typeof weight)
       // 요소의 자료형까지 같아야 한다.
       ['2', '3', '4', '5'].indexOf('5') === 3;
       ['2', '3', '4', '5'].indexOf(5) === -1;
-    
+      
       // 여기서 값의 존재 여부를 조금 더 직관적으로 bool값으로 값을 반환하는 메서드도 있다.
-    // includes
+      // includes
       '1234'.includes(2) === true;
-    ['1', '2', '3', '4'].includes(7) === false;
+      ['1', '2', '3', '4'].includes(7) === false;
       
       // lastIndexOf	뒤에서부터 주어진 값 검색
         const users = ["seok, ""june", "seok", "kim"];
       console.log(users.lastIndexOf("seok"));
         => 2
       ````
-
+  
   + `isArray`
-
+  
     + Array인지 판단
-
+  
       ````js
     console.log(Array.isArray(users));
       => true
