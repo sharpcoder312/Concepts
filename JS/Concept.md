@@ -1915,26 +1915,79 @@ a('hi','hello','bye');
 
 #### Object 객체
 
-+ 자료형의 일종. 다양한 값을 모아둔 또 다른 값. 객체의 종류를 크게 본다면 '배열'과 '함수'로 나눌 수 있다.
-  
-+ 배열과 함수도 객체라 부를 수 있는 것은 배열과 함수 모두 객체의 성질을 사용할 수 있기 때문이다.
-  
-+ 객체 선언시 항상 새로운 reference를 가져온다.
-  
-  ````js
-  const hi1 = { name: 'hi' };
-  const hi2 = { name: 'hi' };
-  const hi3 = ellie1;
-  console.log(ellie1 == ellie2);  // false 같아보이지만 서로 다른 ref를 가진다.
-  console.log(ellie1 === ellie2); // false
-  console.log(ellie1 === ellie3);	// true
-  ````
-  
-+ Array와 달리 각 value에 이름을 줄 수 있다. 쉽게 말해, data에 label을 주는 것이다
++ **개념 및 특징**
 
-  + 배열 : 단순한 값들의 나열 // 객체 : 값에 이름을 붙임
+  + 자료형의 일종. 다양한 값을 모아둔 또 다른 값. 객체의 종류를 크게 본다면 '배열'과 '함수'로 나눌 수 있다.
 
-+ 생성(정의)시 {} 컬리 브라켓 사용 // {}을 사용하여 객체를 나타내는 것은 **객체 리터럴** 이라고 한다.
+  + 배열과 함수도 객체라 부를 수 있는 것은 배열과 함수 모두 객체의 성질을 사용할 수 있기 때문이다.
+
+  + 객체 선언시 **항상 새로운 reference**를 가져온다.
+
+    ````js
+    const hi1 = { name: 'hi' };
+    const hi2 = { name: 'hi' };
+    const hi3 = ellie1;
+    console.log(ellie1 == ellie2);  // false 같아보이지만 서로 다른 ref를 가진다.
+    console.log(ellie1 === ellie2); // false
+    console.log(ellie1 === ellie3);	// true
+    ````
+
+  + Array와 달리 각 value에 이름을 줄 수 있다. 쉽게 말해, data에 label을 주는 것이다
+
+    + 배열 : 단순한 값들의 나열 // 객체 : 값에 이름을 붙임
+
+  + 생성(정의)시 {} 컬리 브라켓 사용 // {}을 사용하여 객체를 나타내는 것은 **객체 리터럴** 이라고 한다.
+
+    <br>
+
++ **프로토타입(prototype)**
+
+  + 쉽게말해 **유전자**라고 할 수 있다. 즉, 프로토타입으로 상속의 기능을 사용할 수 있다.
+
+  + 자식 객체에게 데이터를 물려줄 수 있음
+
+    ````js
+    function player() {
+        this.name = 'mount';
+        this.age = 22;
+    }
+    
+    let enroll = new player()
+    
+    player.prototype.position = 'mid'	// player의 유전자에게 position이라는 객체 생성
+    enroll	// player {name: 'mount', age: 22} 
+    // 이렇게 start에 직접등록 되어있지 않아도 부모만 가지고 있어도 자식이 뽑아 쓸 수 있다.
+    enroll.position // 'mid'	
+    ````
+
+  + 원리
+
+    ````js
+    enroll.positon // enroll이 position을 가지고 있지 않기에 enroll의 부모 유전자를 뒤져서 데이터를 가져옴
+    			   // 즉, object에서 data를 꺼낼 때 여러 스탭이 있다고 할 수 있다.
+    
+    // object에서 data를 추출하는 순서
+    // 1. 직접 data를 가지고 있다면 바로 출력
+    // 2. 없다면 부모유전자 검사. 또 없다면 부모의 부모유전자까지 검사(prototype chain 시작점까지)
+    
+    
+    const array = [3,2,1];	// 인간의 방식
+    const array = new Array(3,2,1);	// 컴퓨터의 방식 (내부적) 
+    array.sort()		
+    // array에 sort()를 추가해준 적이 없음에도 불구하고 sort와 같은 기본 함수(메서드)를 쓸 수 있는 이유는 무엇일까?	
+    // 부모유전자에 sort()라는 함수를 기록해뒀기 때문이다. 콘솔창에 Array.prototype 으로 검증 가능
+    Array.prototype.sort(); // 이제 MDN사이트에서 자주 출물하는 이런 코드도 이해될 것이다.
+    
+    
+    // 응용
+    // 특정 함수를 모든 Array에 적용
+    Array.prototype.custom = function() {}	// custom이라는 함수를 Array prototype에 추가
+    const array = [3,2,1];
+    array.custom()	// undefined
+    //  undefined이 나온다고 당황할 필요없다. return값(결괏값)이 없는 일반적인 함수는 undefined를 반환하기 때문이다.
+    ````
+
+  <br>
 
 + **객체 생성법** 
 
@@ -2267,7 +2320,7 @@ a('hi','hello','bye');
   => `false`
   이런 식으로 출력 가능
   ````
-  
+
 + JSON (javaScript Object Notation)
 
   + HTTP (Hypertext Transfer Protocal)
@@ -2279,7 +2332,7 @@ a('hi','hello','bye');
   + object -> json(string) serialize(직렬화) // json -> object deserialize
 
   + 서버와의 데이터 송수신 시 갖게되는 데이터 형식이며 object와 비슷한 구조를 가지고 있지만 사실상 string이다.
-  
+
     ````js
     name: "Seok"		// object		
   "name": "monkey"	// JSON
@@ -2288,9 +2341,9 @@ a('hi','hello','bye');
   + JS는 일반적으로 App의 비즈니스 로직을 담당(코드)하기 때문에 data와 섞어서 같이 보관하는 것은 좋지 않다. 그러므로 main.js에 배열로 data를 보관할 수도 있겠지만 data.json에 따로 data를 보관하는 것을 지향하도록 하자.
 
   + Object <=> Array 변환 메서드
-  
+
     + stringify (Object => Array)
-  
+
       ````js
       const myInfoJSON = JSON.stringify(myInfo);
       console.log(myInfoJSON)
@@ -2298,9 +2351,9 @@ a('hi','hello','bye');
           "age": "25",
         ~~~
       ````
-  
+
     + parse (Array => Object)
-  
+
       ````js
       여기서 myInfoJSON은 외부에서 받아온 JSON파일이라 가정한다
           
