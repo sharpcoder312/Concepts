@@ -4,29 +4,34 @@
 
   + 각 브라우저가 사용하는 JS 엔진
     + 크롬, 엣지, 오페라 : VB (오픈소스 엔진)
+    
     + 파이어폭스 : 스파이더몽키
+    
     + 사파리 : 웹킷
+    
+      <br/>
   + JS 실행 원리
     + interpreter 방식으로 실행
       + Tip) `interpreter` vs `complie`
-        + interpreter
-          + 코드를 한 덩어리씩 실행
-          + 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용
-          + runtime에서 type이 정해짐 - error 발생 확률 높아짐
-            + 해결방안 : type script
-          + ex) Java Script
-        + complie
-      + 우리가 작성한 소스코드들을 머신코드로 변환하는 과정을 거친 후 한 번에 실행
-          + ex) C, C++
-  
+        + `interpreter`
+          + 코드를 한 덩어리씩 실행하며 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용 ex) Java Script
+          + runtime에서 type이 정해짐 - error 발생 확률 높아짐. 해결방안 : type script
+        + `complie`
+
+      + 우리가 작성한 소스코드들을 머신코드로 변환하는 과정을 거친 후 한 번에 실행 ex) C, C++
+
+          <br/>
+
   + 클라이언트 => 확장 
 
     + 자바스크립트 엔진이 브라우저 밖을 나오는 것을 의미함
 
     + ex) node.js 서버 // electron 데스크탑 앱 제작 // react native 모바일 앱 제작 등등
 
+      <br/>
+
   + 참고사항
-  
+
     + 브라우저의 console 기능
       
       + REPL(Read-Eval-Print Loop) 원리 사용
@@ -49,7 +54,7 @@
          두 줄`
       ````
     
-      
+      <br/>
 
 #### 데이터 타입(자료형)
 
@@ -1063,7 +1068,7 @@ console.log(typeof weight)
 
   + `Array().fill()`
 
-    + 배열의 모든 원소를 하나의 정적인 값으로 채움
+    + `fill()`은 채워진 배열을 return 하며 배열의 모든 원소를 하나의 정적인 값으로 채움
 
       ````js
       // Array(배열길이).fill(값)
@@ -1493,7 +1498,7 @@ console.log(typeof weight)
     // 인수로 함수를 받고, 이 함수가 각각의 배열 요소들에 순서대로 적용되는 구조
     // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백 함수)
     // 여기서 배열의 요소마다 한 번씩 돌아다니는 사실이 중요함. 이것이 반복문의 역할을 하게됨
-    // 아무것도 return(반환)하지않음. (undefined)
+    // 아무것도 return(반환)하지않음. (undefined) - .map()과 명확한 차이
     // 기본 구조
     const array = [value01, value02, value03, ...];
     array.forEach((value, index, array) => {
@@ -1521,7 +1526,19 @@ console.log(typeof weight)
 
     ````js
     // 배열을 순회하면서 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
-    // 그래서 map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
+    // return후 다음 index로 이동. 본래 배열의 마지막 index까지 순회 후 map 스코프에서 탈출
+    // 즉, 내부 원소만 상이하며 본래 배열의 length === 새로운 배열의 length
+    const inputArray = [100, 10, 20, 40];
+    const nums = inputArray.map((num) => {
+      if (num >= 40) {
+        return num;
+      }
+    });
+    console.log(nums); // [100, undefined, undefined, 40]
+    // 조건과 맞지않기에 함수는 자동으로 undefined 반환
+    
+    
+    // map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
     const animals = ["lion", "tiger"];
     zoo = animals.map((animal) => {
       console.log(animal);
