@@ -1320,6 +1320,8 @@ console.log(typeof weight)
       => false		// 비존재
       ````
 
+    <br />
+
 + `filter`, `find`
 
   + 배열에서 특정 요소 반환 (필터링)
@@ -1350,6 +1352,7 @@ console.log(typeof weight)
       ];
       
       const filteredAnimals = animals.filter(animal => animal.size === "big")
+      console.log(filteredAnimals);
       // const filteredAnimals = animals.filter(function(animal){  바로 위의 코드와 같은 뜻이다.
       //     return animal.size === "big"
       // });
@@ -1366,13 +1369,16 @@ console.log(typeof weight)
       // 단, 값을 찾으면(callback함수가 true가 되자마자) loop를 정지하기 때문에 특정값을 찾을 시, 메모리 사용을 효율적으로 할 수 있다.
       
       const filteredAnimals = animals.find(function(animals) {
-          return animals.size === big;
+          return animals.size === 'big';
       });
-      console.log(filteredAnimals);
-      => size가 big인 첫번째 요소 lion줄의 요소가 출력
-      ````
+      console.log(filteredAnimals);	// Animals {name: "lion", size: "big", weight: 200}
+      // size가 big인 첫번째 요소 lion줄의 요소가 출력
 
+      const filteredAnimals = animals.find(animals => animals.size === "big")
+      console.log(filteredAnimals);	// Animals {name: "lion", size: "big", weight: 200}
+      ````
       
+      <br />
 
 + `reduce`,`reduceRight`
 
@@ -1499,6 +1505,7 @@ console.log(typeof weight)
     // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백 함수)
     // 여기서 배열의 요소마다 한 번씩 돌아다니는 사실이 중요함. 이것이 반복문의 역할을 하게됨
     // 아무것도 return(반환)하지않음. (undefined) - .map()과 명확한 차이
+    // 그러므로 forEach가 map과 같은 기능을 하기위해서는 .push .inshift 등의 메서드가 필요하다
     // 기본 구조
     const array = [value01, value02, value03, ...];
     array.forEach((value, index, array) => {
@@ -1943,6 +1950,7 @@ a('hi','hello','bye');
 + **프로토타입(prototype)**
 
   + 쉽게말해 **유전자**라고 할 수 있다. 즉, 프로토타입으로 상속의 기능을 사용할 수 있다.
+  + JS에서 부모/자식 상속을 구현할 수 있는 방법 중 하나 (다른하나는 `class`)
 
   + 자식 객체에게 데이터를 물려줄 수 있음
 
@@ -2025,7 +2033,7 @@ a('hi','hello','bye');
   const Mycar = new Car('Sonata', ' blue');
   ````
 
-  
+  <br>
 
 + **Class**
 
@@ -2034,6 +2042,7 @@ a('hi','hello','bye');
   // 연관된 것들끼리 묶어놓은 컨테이너
   // data가 들어있지 않고 template만 정의
   // 다양한 Object를 만들기 위한 청사진
+  // JS에서 부모/자식 상속을 구현할 수 있는 방법 중 하나 (다른 하나는 prototype)
   
   // 구성
   // Fields, method
@@ -2041,11 +2050,31 @@ a('hi','hello','bye');
   
   // 사용
   // 이 class를 이용하여 실제로 data를 넣어서 만드는 것이 object이다.
+  // 과거에는 함수를 이용하여 class 사용. 물론, this가 존재해야한다.
+  // this는 class로부터 생성되는 객체. 어려운 말로 instance라고 한다.
+  // new 키워드로 해당 클래스에 영향을 받는 객체를 생성한다.
+  
+  // 예시 0
+  function User(){	// this가 존재하는 한, 함수 또한 class 역할을 할 수 있다.
+      this.name = 'jin'
+      this.age = 25
+  }
+  
+  const player01 = new User();
+  player01	// User {name: jin, age: 25}
+  
+  function User(name, age){		// parameter 생성
+      this.name = name
+      this.age = age
+  }
+  
+  const player01 = new User('jin', 25);
+  player01	// User {name: jin, age: 25}
   
   // 예시1 (문제점)
   class User {
       // constructor
-      constructor(name, age) {
+      constructor(name, age) {	// constructor는 관습적으로 적어준다고 생각하자
           // fields
           this.name = name;
           this.age = age;
