@@ -1,3 +1,7 @@
+## JavaScript Concepts
+
+
+
 #### 특성
 
 + 브라우저와 JS
@@ -357,7 +361,6 @@
     + split 함수
     
       + **문자열을** 쪼개서 **배열의 형태**로 출력
-      
     ````js
     const hobbies = "game";
     console.log(hobbies.split(""))
@@ -378,7 +381,7 @@
       + 대소문자로 변환
     + indexOf
       + 문자열내에서 특정 문자 index 확인 (배열파트에서 자세히 설명)
-
+  
 + Boolean
 
   + `true` (= 1)
@@ -892,6 +895,10 @@ console.log(typeof weight)
 
     <br />
 
+## 제어문
+
+<br />
+
 #### 조건문
 
 + **if문** 기본 형식과 예제
@@ -1144,6 +1151,8 @@ console.log(typeof weight)
 
 #### 반복문
 
+<br />
+
 + **while문**
 
   + 조건식이 참인 동안 반복하여 동작문을 실행
@@ -1172,7 +1181,7 @@ console.log(typeof weight)
       => do while: 0
     ````
 
-  
+  <br />
 
 + **for문**
 
@@ -1203,43 +1212,8 @@ console.log(typeof weight)
   // tip) i의 범위를 정할 때 쉽게 정하는 법은 몇 개의 숫자를 뽑을지를 생각해보면 된다.
   ````
 
-  
 
-+ **break문**으로 반복문 멈추기
-
-  + 반복문을 돌리다가 원하는 값을 찾을 경우 반복문을 멈출 때 유용
-
-    ````js
-    let i = 0;
-    while (true) {
-        if (i === 5) break;
-        console.log(i);
-        i++;
-    }
-    
-    => 0 ~ 4까지 출력
-    
-    
-    ````
-
-    
-
-+ **continue문**으로 특정 코드 실행 스킵하기
-
-  ````js
-  let i =0:
-  while (i < 7) {
-      i++;
-      if (i % 2 === 0) {
-          continue;				// continue문이 실행되면 그 뒤의 동작문은 실행되지 않는다.
-      }
-      console.log(i)
-  }
-  
-  => 1, 3, 5 출력
-  ````
-
-  
+<br />
 
 + **다중 반복문**
 
@@ -1261,6 +1235,213 @@ console.log(typeof weight)
   // 반복문의 중첩은 변수 값 변화를 유심히 추적해보는 것이 중요하다.
   ````
 
+<br />
+
+#### 흐름제어
+
+````js
+// flow 제어
+// 일반적으로 다른 언어에서는 goto를 사용하여 flow의 특정한 위치로 jump할 수 있지만 JS에서는 goto 구문은 존재하지 않으며
+// break와 continue만 label에 사용가능
+````
+
++ **break문**
+
+  + 더 이상 루프(반복문)를 진행하지 않고 (가장 가까운) 루프에서 탈출
+
+  ````js
+  // iteration Set과 label Set 상황에서 사용 가능
+  
+  // 예시 1
+  let i = 0;
+  while (true) {
+      if (i === 5) 
+          break;
+      	console.log(i);
+      	i++;
+  }
+  
+  // 0 ~ 4까지 출력
+  
+  // 예시 2
+  let i = 0;
+  document.write("Enter<br />");
+  while (i < 10)
+      {
+          if(i === 5) {	// x가 5일 때 break문으로 인해 바로 루프에서 탈출한다.
+              break;		
+          }				
+          i++				
+          document.write(`${i} <br>`);
+      }
+  document.write("Exit<br />")
+  
+  // Enter
+  // 1 ~ 5
+  // Exit
+  
+  // 사실 break문을 label과 같이 쓰지 않고 단독 사용 시, 자동 label(auto identify)이 형성된다.
+  // 자동 label은 iteration Set 상황에서만 발생한다. (continue문도 마찬가지다.)
+  // 그러므로 iteration Set이 아닐 경우 break문을 단독 사용할 수 없다.
+  prac: {					// prac: 뒤에 나오는 중괄호 구간(블록)이 label Set이다.
+      console.log('a');
+      break;
+      log('b')
+  }
+  log('c')
+  // error
+  
+  // 레이블을 붙인 블록이라도 iteration Set이 아니기 때문에 break를 단독 사용하는 것이 아닌 label과 함께 사용해야한다.
+  // tip) continue문은 iteration Set에서만 사용가능하다. 즉, 아무리 label을 붙인 블록이라 하더라도 사용불가
+  prac: {
+      console.log('a');
+      break prac;
+      console.log('b')
+  }
+  console.log('c')
+  // a
+  // c
+  ````
+
+  <br />
+
++ **continue문**
+
+  + `break`와는 달리 현재 실행중인 루프를 멈추고 다음 루프로 넘어간다
+
+  ````js
+  // iteration Set에서만 사용가능 (단독 사용시 auto identify인 자동 label 형성)
+  // 다음 루프라는 것은 해당 루프가 속해있는 더 큰 루프를 뜻한다기보다 해당 루프의 다음 인덱스로 넘어간다고 생각하자.
+  // 예시 1
+  let i =0:
+  while (i < 7) {
+      i++;
+      if (i % 2 === 0) {
+          continue;				// continue문이 실행되면 그 뒤의 문은 실행되지 않는다.
+      }
+      console.log(i)
+  }
+  
+  // 1, 3, 5 출력
+  
+  // 예시 2 
+  let i = 0;
+  document.write("Enter<br />");
+  while (i < 10)
+      {
+          if(i === 5) {	// x가 5일 때 continue로 인해 해당 루프를 스킵하고 다음 인덱스인 x가 6일때의 while문 실행
+              continue;		
+          }				
+          i++				
+          document.write(`${i} <br>`);
+      }
+  document.write("Exit<br />")
+  
+  // Enter
+  // 1 ~ 4	5제외 1 ~ 9 출력
+  // 6 ~ 9
+  // Exit
+  ````
+
+  <br />
+
++ **Label**
+
+  + 특정 위치 지정
+  
+  ````js
+  Label : statement(문)
+  // Label 작명시 숫자로 시작x 식별자 규칙에 어긋나기때문
+  // _, $, 알파벳으로 시작o
+  
+  // 어떠한 호출행위나 sub routine에 빠지는 행위를 하더라도 기본적으로 해당 루틴의 처음으로 보내주지만
+  // Label sub routine만이 유일하게 해당 루틴 밑으로 보내준다.
+  
+  // 변수와 마찬가지로 block이 아닌 함수 scope를 탄다.
+  prac:
+  {
+      prac:
+  }
+  // error
+  prac: () => {
+      prac: statement
+  }
+  // 정상 작동
+  
+  
+  
+  // 예시 1
+  // break문과 함께 사용
+  // break; 이후 해당 label에서 바로 탈출한다
+  document.write("Enter");
+  loop1:
+  for (let i = 0; i < 5; i++) {
+      document.write("Loop1: " +i+ "<br />");
+      loop2:
+      for (let j = 0; j < 5; j++) {
+          if (j > 3) break;
+       	if (i === 2) break loop2;
+          if (i === 4) break loop1;
+          document.write("Loop2 " +j+ "<br />");
+      }
+  }
+  document.write("Exit");
+  
+  // Enter
+  // Loop1: 0
+  // Loop2: 0
+  // Loop2: 1
+  // Loop2: 2
+  // Loop2: 3
+  // Loop1: 1
+  // Loop2: 0
+  // Loop2: 1
+  // Loop2: 2
+  // Loop2: 3
+  // Loop1: 2
+  // Loop1: 3
+  // Loop2: 0
+  // Loop2: 1
+  // Loop2: 2
+  // Loop2: 3
+  // Loop1: 4
+  // Exit
+  
+  // 예시 2
+  // continue문과 함께 사용
+  document.write("Enter <br />");
+  loop1:
+  for (let i = 0; i < 3; i++) {
+      document.write("Loop1: " +i+ "<br />");
+      for (let j = 0; j < 5; j++) {
+          if (j === 3) {
+              continue loop1;		// j가 3일때 loop1을 스킵하고 다음 인덱스(i)의 for문(루프) 실행
+          }						// loop1을 스킵하기 때문에 당연히 loop2 또한 스킵한다.
+          document.write("Loop2: " +j+ "<br />");
+      }
+  }
+  document.write("Exit");
+  
+  // Enter
+  // Loop1: 0
+  // Loop2: 0
+  // Loop2: 1
+  // Loop2: 2
+  // Loop1: 1
+  // Loop2: 0
+  // Loop2: 1
+  // Loop2: 2
+  // Loop1: 2
+  // Loop2: 0
+  // Loop2: 1
+  // Loop2: 2
+  // Exit
+  ````
+  
+  
+  
+  
+  
   
 
 
@@ -1327,7 +1508,7 @@ console.log(typeof weight)
   + 중복을 허용하지 않는 특수한 배열
 
     ````js
-  // 선언
+    // 선언
     new Set([iterable]);
     
     
@@ -1338,13 +1519,15 @@ console.log(typeof weight)
     
     
     // Set내의 요소 개수 구하기
-  // 일반적인 함수들과 달리 length가 아닌 size를 사용한다.
+    // 일반적인 함수들과 달리 length가 아닌 size를 사용한다.
     const essence = new Set([ 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5 ]);
-  console.log(essence.size);
+    console.log(essence.size);
     => 5
+    ````
   ````
   
     
+  ````
   
 + 기본 메서드
 
@@ -1364,15 +1547,20 @@ console.log(typeof weight)
       Array(9).fill().map((element, index) => {
         return index + 1;
       })	// [1, 2, 3, ... , 9]
-    // .map은 아래에서 설명 예정
+      // .map은 아래에서 설명 예정
       
+      ````
+  
     // 예시02
       const teams = ["Chelsea", "ManUnited", "Mancity"];
       teams.fill("premier"); // ["premier", "premier", "premier"]
-      
+  
       // 예시03
       const teams = ["Chelsea", "ManUnited", "Mancity"];
       teams.fill("premier",1,3); // ["Chelsea", "premier", "premier"]
+  
+      ````
+    
       ````
   
   + `push`, `unshift`
@@ -1389,11 +1577,16 @@ console.log(typeof weight)
       const numbers = [];
       for (let n = 0; n < 9; n += 1) {
           numbers.push(n + 1);
-    }
+      }
       
+      ````
+  
     // 배열 맨 앞에 요소 추가
       users.unshift("kan");
     => 배열의 처음에 kan 추가
+  
+      ````
+    
       ````
   
   + `pop`, `shift`
@@ -1432,31 +1625,33 @@ console.log(typeof weight)
       ````js
       // splice (배열 자체 변형)
       // .splice(특정구간지정, 특정구간부터 n개 제거)
-    // = .splice(시작 index, 제거할 요소의 개수)
+      // = .splice(시작 index, 제거할 요소의 개수)
       
+      ````
+  
     const users = ["june", "seok", "kim"];
       const newUsers = users.splice(0, 2);
     console.log(newUsers)	 // 	["june", "seok"]
       console.log(users) 		// 		["kim"]
       // 여기서 볼 수 있듯이 배열 users의 요소들이 사라졌다. 즉, 배열 자체가 변형된 것이다.
-      
+  
       // 여기서 시작 index값만 넣을 경우, 해당 index부터 끝까지 모든 요소를 제거한다.
       const users = ["june", "seok", "kim"];
       const newUsers = users.splice(1);
       console.log(users);    // 	["june"]
-      
+  
       // 특정 요소들을 제거한 뒤, 제거한 자리에 다른 특정 값들을 넣을 수도 있다.
       const users = ["june", "seok", "kim"];
     const newUsers = users.splice(0,2,"mount","pulisic");
       console.log(users);    // 	["mount","pulisic","kim"]
-    
+  
       
+  
       
-      
-      
+
       // slice (새로운 배열 생성)
-      // .slice(start요소index, end요소index+1)
-      
+    // .slice(start요소index, end요소index+1)
+  
       // 예시
       // 배열 array에서 [3, 4, 5]를 출력하고 싶을 때
       const array = [1, 2, 3, 4, 5];
@@ -1464,10 +1659,13 @@ console.log(typeof weight)
       console.log(result); // [3, 4, 5]
       console.log(array); // [1, 2, 3, 4, 5]
       // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있다. 즉, 새로운 배열을 형성한 것이다.
+  
       ````
-
+    
+      ````
+  
   + `concat`
-
+  
     + 서로 다른 배열 결합하기
   
       ````js
@@ -1486,9 +1684,9 @@ console.log(typeof weight)
       ````js
       // 예시
       const fruits = ['apple', 'banana', 'orange'];
-    const result1 = fruits.join('');
+      const result1 = fruits.join('');
       console.log(result1); // applebananaorange
-    
+      
       const result2 = fruits.join(' and ')
       console.log(result2); // apple and banana and orange
       // 공백도 포함
@@ -1500,38 +1698,40 @@ console.log(typeof weight)
   + `split`
   
     + 문자열을 배열로 변환
-
+  
       ````js
-    // 기본 문법
+      // 기본 문법
       .split(구분자, limit)
       // limit은 optional이기에 굳이 사용하지 않아도된다.
       
-      // 예시
+    
+    // 예시
       const fruits = '🍎, 🥝, 🍌, 🍒';
       const reuslt = fruits.split(',');
       console.log(reuslt) // ["🍎", "🥝", "🍌", "🍒"]
       // 구분자를 넣지않으면 문자열 전체가 배열의 요소 하나로 출력된다.
-      
-      
+    
+    
       const fruits = '🍎, 🥝, 🍌, 🍒';
       const reuslt = fruits.split(',', 2);
       console.log(reuslt) // ["🍎", "🥝"]
+    
       ````
     
   + `reverse`
   
     + 주어진 배열의 순서를 거꾸로 바꿈
-
+  
       ````js
-    const array = [1, 2, 3, 4, 5];
+      const array = [1, 2, 3, 4, 5];
       const result = array.reverse();
-    console.log(result); // [5, 4, 3, 2, 1]
+      console.log(result); // [5, 4, 3, 2, 1]
       
       // 유의점
       // 배열 자체를 변화시킴. 즉, return 값도 변화된 배열 자체를 return함
       console.log(array); // [5, 4, 3, 2, 1]
       ````
-    
+  
 + `indexOf` ,`lastIndexOf`
   
   + 배열,문자열 내에서 특정 원소(문자열)의 index값(순서) 구하기
@@ -1558,16 +1758,16 @@ console.log(typeof weight)
         const users = ["seok, ""june", "seok", "kim"];
       console.log(users.lastIndexOf("seok"));
         => 2
-      ````
+    ````
   
   + `isArray`
   
     + Array인지 판단
   
       ````js
-    console.log(Array.isArray(users));
+      console.log(Array.isArray(users));
       => true
-    console.log(Array.isArray(hello));
+      console.log(Array.isArray(hello));
       => false
       ````
   
@@ -1655,7 +1855,7 @@ console.log(typeof weight)
       });
       console.log(filteredAnimals);	// Animals {name: "lion", size: "big", weight: 200}
       // size가 big인 첫번째 요소 lion줄의 요소가 출력
-
+    
       const filteredAnimals = animals.find(animals => animals.size === "big")
       console.log(filteredAnimals);	// Animals {name: "lion", size: "big", weight: 200}
       ````
@@ -1667,15 +1867,31 @@ console.log(typeof weight)
   + 배열의 합 구하기, 새로운 형태 도출 등
 
   ````js
+  // 예시1
+  const inputArray = [100, 10, 20, 40];
+  const answer = inputArray.reduce((acc, cur) => {
+  	console.log(acc, cur)
+  	return acc + cur;
+  }, 0);
+  console.log(answer);
+  // 0 100
+  // 100 10
+  // 110 20
+  // 130 40
+  // 170
+  
+  
+  // 예시2
   const reducedAnimals = animals.reduce((acc, cur) => {    //    accmulate 축적하다
     return acc + cur.weight
   }, 0)
   
   console.log(reducedAnimals)
-  // 새배열 정의 = 기존배열.reduce((쌓이는값, 현재값)) => {
-  // return 쌓이는값변수 + 현재값변수.합구할요소 
+  // 새배열 정의 = 기존배열.reduce((누적값, 현재값)) => {
+  // return 누적값 + 현재값.합구할요소 
   // }, 초기값)                                      초기값(보통 0)을 넣어주는 것이 굉장히 중요하다! 오류 차단
   
+  // 현재값 = 현재 인덱스에 해당하는 값
   // reduceRight은 맨 뒤 요소부터 차례로 더한다는 차이점이 있다.
   ````
 
@@ -1787,7 +2003,7 @@ console.log(typeof weight)
     // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백 함수)
     // 여기서 배열의 요소마다 한 번씩 돌아다니는 사실이 중요함. 이것이 반복문의 역할을 하게됨
     // 아무것도 return(반환)하지않음. (undefined) - .map()과 명확한 차이
-    // 그러므로 forEach가 map과 같은 기능을 하기위해서는 .push .inshift 등의 메서드가 필요하다
+    // 그러므로 forEach가 map과 같은 기능을 하기위해서는 .push .unshift 등의 메서드가 필요하다
     // 기본 구조
     const array = [value01, value02, value03, ...];
     array.forEach((value, index, array) => {
@@ -2828,13 +3044,13 @@ a('hi','hello','bye');
 + **선택자**
 
   ````js
-document.querySelector()	//	정의 : queryselector는 특정 name이나 id를 제한하지 않고 css선택자를 사용하여 요소를 찾을 수 있다. 객체를 id로 찾고싶다면 "#title"  class로 찾고 싶다면 ".title"
+  document.querySelector()	//	정의 : queryselector는 특정 name이나 id를 제한하지 않고 css선택자를 사용하여 요소를 찾을 수 있다. 객체를 id로 찾고싶다면 "#title"  class로 찾고 싶다면 ".title"
   document.querySelectorAll()		// 태그 모두 선택 ex) button태그 모두 선택
-document.getElementById		//	gets only by ID
+  document.getElementById		//	gets only by ID
   document.getElementsByClassName		//	 gets MANY elements by classname
-
+  
   // querySelector()와 querySelectorAll()의 차이
-// querySelector()는 한 개의 요소만을 객체로 반환하며 동일 클래스명을 가진 요소들이 있을 경우 html 문서내의 첫번째 요소를 반환(지정)한다.
+  // querySelector()는 한 개의 요소만을 객체로 반환하며 동일 클래스명을 가진 요소들이 있을 경우 html 문서내의 첫번째 요소를 반환(지정)한다.
   // querySelectorAll()는 해당 선택자에 해당 하는 모든 요소를 객체 배열로 가져온다.
   // 즉, 반환 객체가 nodeList이기에 eventListen에 등록할 때 for문(for of) 또는 forEach문을 사용해야한다.
   // 예시
@@ -3110,7 +3326,7 @@ document.getElementById		//	gets only by ID
     console.log(document.body.appendChild(span)); // span(Node object)
     
     // Node Object(요소)
-  const $button = document.createElement( 'button' );
+    const $button = document.createElement( 'button' );
     document.body.appendChild( $button )
     // body의 자식 요소로 $button 추가
     // 결과적으로 body 내에 button 요소가 추가된다.
@@ -3138,7 +3354,7 @@ document.getElementById		//	gets only by ID
     
     // Node object(요소)
     const span = document.createElement('span');
-  const p = document.createElement('p');
+    const p = document.createElement('p');
     li.append(span, p); // 여러 개의 요소 추가
     
     // 문자열(DOMString)
@@ -3255,7 +3471,7 @@ document.getElementById		//	gets only by ID
     
     ````js
     태그.textContent // 태그 내부의 문자열 가져옴
-  태그.textContent = 값 // 태그 내부의 문자열을 해당 값으로 설정
+    태그.textContent = 값 // 태그 내부의 문자열을 해당 값으로 설정
     
     HTML
     <div id='test'>A   <strong>class</strong></div>
