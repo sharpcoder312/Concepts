@@ -1855,7 +1855,7 @@ console.log(typeof weight)
       });
       console.log(filteredAnimals);	// Animals {name: "lion", size: "big", weight: 200}
       // size가 big인 첫번째 요소 lion줄의 요소가 출력
-    
+      
       const filteredAnimals = animals.find(animals => animals.size === "big")
       console.log(filteredAnimals);	// Animals {name: "lion", size: "big", weight: 200}
       ````
@@ -2097,6 +2097,14 @@ function키워드 함수이름(parameter매개변수){동작문}	// 함수 선�
 const add = function() {};	// 함수 표현식 (function expression)
 
 const add = () => {};	// 화살표 함수 (arrow function)
+// tip1) 매개 변수가 하나뿐일 때는 소괄호 생략 가능하나 매개 변수가 없을 시에는 소괄호 필요
+(parameter1) => {statement}
+() => {statement}
+// tip2) 함수 내에 return구문 하나만 존재할 때는 중괄호와 return 생략도 가능하다.
+const answer = inputArray.map(num => {
+  return num + "%"
+})	// 아래와 같다
+const answer = inputArray.map(num => num + "%")
 
 
 // 위의 '함수 표현식'과 '화살표 함수'는 같은 의미이다. 하지만 '함수 선언문'은 add를 변수라고 착각할 수 있는데 add는 그저 함수의 이름을 지어준 것 뿐이다. 함수의 이름을 정할 때는 verb 형태로 짓도록하자. 또한, 함수에 이름을 지어주는 것은 디버깅 시에 편리하다.
