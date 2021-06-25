@@ -90,7 +90,7 @@
   + Compile Time 존재 X
 
   + runtime error를 잡는 것은 매우 어렵다.  ex) 함수 a에서 문제가 있을때 b만 실행시키면 오류를 잡을 수가 없다.
-    그렇기 때문에 스크립트언어에서는 이를 보완하기위한 여러가지 요소가 필요하다.
+    그렇기 때문에 스크립트 언어에서는 이를 보완하기위한 여러가지 요소가 필요하다.
     ex) Complie Language 스타일로 코드를 짜게끔 만드는 플랫폼 ex) typescript
     ex) Script Language의 개발론을 따르게 하는것 - 복잡성을 정복하기 위한 유일한 수단 **격리(isolate)** - 일(run)의 구분
 
@@ -120,6 +120,23 @@
     ````
 
     <br/>
+
++ 두 작동방식의 기계어 해석(≒compile) 차이
+
+  + Compile Language
+    + 전체의 결과를 하나의 파일로 만들기위해 모든 Language code를 빠짐없이 한번에 해석
+
+  + Runtime Language
+
+    + 현재 바라보고 있는 파일만 검사(일부)
+
+    + 더 나아가 한 파일 내에서도 부분적으로 머신코드로 바꾸고 나머지 코드는 해석하지 않는다.
+
+    + ex)  js 에서 함수 안에 문제가 있다하더라도 그 함수를 호출하기 전까지는 전체적으로 잘 돌아간다.
+
+    + 그러므로 컴퓨터의 전체 검사(≒Compile Language)가 아닌 부분 검사(≒Runtime Language)는 인간에게 더욱 더 강한 책임을 부여한다고 볼 수 있다.
+
+      <br/>
 
 #### 특성
 
@@ -169,7 +186,68 @@
 
 #### 구성 요소
 
-+ EXPRESSION **식**
++ **LEXICAL GRAMMAR 어휘 문법**
+
+  =>  JS에서 문자는 **유니코드**로 표현하며 JS에서 가장 기본적인 단위(Token)의 규칙을 'LEXICAL GRAMMAR'이라 한다.
+
+  <br/>
+
+  + **Control Character 제어 문자**
+
+    + 눈에 보이지 않지만 스크립트 소스의 본문 해석을 제어하는 데 사용된다.
+
+    + ex) 특정 언어(이란, 태국 등) 에 사용
+
+      <br/>
+
+  + **White Space 공백 문자**
+
+    + 말그대로 공백을 표현하는 문자이며 토큰을 구분한다.
+    + tip) 'Token 토큰'은 프로그래밍 언어에서 가장 최소한의 단위를 뜻한다.
+
+    + ex) `space(U+0020)`, `tab(U+0009)` 등
+
+    <br/>
+
+  + **Line Terminators 개행문자**
+
+    + 일명 '줄바꿈 문자'라고도 하며 줄과 줄을 구분한다.
+    + ex) `Line Feed(U+000A)-UNIX`, `Carriage Return(U+000D)-Mac` 등
+
+    <br/>
+
+  + **Comments 주석**
+
+    + 코드 실행에는 영향을 주지 않으며 코드에 대한 설명을 하거나 특정 코드가 실행되지 않도록 막아준다.
+    + ex) `//` or `/* */`
+
+    <br/>
+
+  + **Keyword 예약어**
+
+    + 엔진이 해당 keyword를 만나면 특정한 기능을 미리 약속한하여 실행한다.
+    + ex) `if`, `for`, `var` 등
+
+    <br/>
+
+  + **Literals 리터럴**
+
+    + 프로그래밍 언어에서 더이상 쪼갤 수 없는 값의 표현이다.
+
+      ````js
+      // 예시
+      null // Null literal
+      true // boolean literal
+      123 // Numeric literal (Decimal)
+      'bar' // String literal
+      {a: 'bar', b: 33} // Object literal
+      [2018, 2019, 2020, 2021] // Array literal
+      `string text ${expression} string text` // template litera
+      ````
+
+  <br/>
+
++ **EXPRESSION 식**
 
   + '**식**' 이란? 
 
@@ -221,7 +299,7 @@
 
       <br />
 
-+ IDENTOFIER **식별자**
++ **IDENTOFIER 식별자**
 
   + '**식별자**' 란? 
 
@@ -296,7 +374,7 @@
 
     <br />
 
-+ STATEMENTS **문**
++ **STATEMENTS 문**
 
   + '**문**' 이란?
     + 값이 아닌 모든 것들. 
