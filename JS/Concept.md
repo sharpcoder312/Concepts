@@ -2,7 +2,7 @@
 
 <br/>
 
-#### 들어가기에 앞서
+#### 들어가기에 앞서 (Intro)
 
 + '프로그램' 이란?
 
@@ -12,9 +12,114 @@
 + '프로그래밍' 이란?
 
   + 위의 '프로그램'을 짜는 행위 
-  + 이를 위해 '개발자'는 '사용자'와 달리 **복잡성을 제어하는 방법**을 갈구해야한다.
+  + 이를 위해 '개발자'는 '사용자'와 달리 **복잡성을 제어하는 방법**을 갈구해야하며 좋은 개발자가 되기 위해서는 먼저 **'복잡성에 대한 정복'**이라 할 수 있다.
 
   <br/>
+
+#### 작동 방식 (How it works)
+
++ **Compile Language** 작동 방식
+
+  <table>
+      <tr>
+          <th>1. Language Code (사람에게 친절한 언어)</th>
+          <td><b>Lint Time</b> - Language Code의 오류를 잡아주고 힌트를 줌 ex) VSC</td>
+      </tr>
+     <tr>
+         <th>2. Machine Language (기계가 이해할 수 있는 언어)</th>
+         <td><b>Compile Time</b> - Comepile 오류를 잡아줌 </td>
+      </tr>
+      <tr>
+         <th>3. File</th>
+         <td>프로그램이 될수있는 파일</td>
+      </tr>
+      <tr>
+         <th>4. Road</th>
+         <td>메모리 적재</td>
+      </tr>
+      <tr>
+         <th>5. Run</th>
+         <td><b>Run time</b> - 프로그램 실제 실행</td>
+      </tr>
+      <tr>
+         <th>6. Terminate</th>
+         <td>메모리에서 내려가서 프로그램 종료</td>
+      </tr>
+  </table>
+
+  + ex) C, C++
+  + 원리 : 실제 cpu가 소화할 수 있는 명령 체계로 코드를 짜기 어렵기에 사람에게 친절한 언어를 쓰고 다시 기계가 이해할 수 있는 언어로 바꾼다.
+  + error로 인해 프로그램을 수정할 수 있는 기회가 lint, compile, run time 3번 있지만 'context error'와 같이 마지막 runtime error에도 길리지 않는 것이 있다.
+  + 결국, lint time때 미리 에러를 잡아주는 것이 좋다.
+
+<br/>
+
++ **Script Language** 작동 방식 (Runtime Language, interpreter Language)
+
+  <table>
+      <tr>
+          <th>1. Language Code</th>
+          <td><b>Lint Time</b> (js에 빗대어 설명)</td>
+      </tr>
+      <tr>
+         <th>2. File</th>
+         <td>js 파일로 저장</td>
+      </tr>
+      <tr>
+         <th>3. Road</th>
+         <td>메모리 적재</td>
+      </tr>
+      <tr>
+         <th>4. Machine Language</th>
+         <td>auto compile(부분적 컴파일) - 자기가 알아서 매번 바꿈</td>
+      </tr>
+      <tr>
+         <th>5. Run (Run Time)</th>
+         <td><b>Run time</b> - js 실행, type이 정해짐</td>
+      </tr>
+      <tr>
+         <th>6. Terminate</th>
+         <td>메모리에서 내려가서 프로그램 종료</td>
+      </tr>
+  </table>
+
+  + ex) JS
+
+  + 현대의 패러다임은 복잡한 compile과정 없이 즉시 실행할 수 있는 Runtime Script 개념을 도입했다.
+
+  + Compile Time 존재 X
+
+  + runtime error를 잡는 것은 매우 어렵다.  ex) 함수 a에서 문제가 있을때 b만 실행시키면 오류를 잡을 수가 없다.
+    그렇기 때문에 스크립트언어에서는 이를 보완하기위한 여러가지 요소가 필요하다.
+    ex) Complie Language 스타일로 코드를 짜게끔 만드는 플랫폼 ex) typescript
+    ex) Script Language의 개발론을 따르게 하는것 - 복잡성을 정복하기 위한 유일한 수단 **격리(isolate)** - 일(run)의 구분
+
+  + **Run Isolate**
+
+    1. 해당 run의 기저(base) 함수, 클래스 등 선언
+    2. 해당 run의 응용(extended) 함수, 클래스 등 선언
+    3. 함수, 클래스 등의 사용
+
+    ````js
+    // RUN
+    
+     Declare Base Function, class ...
+               static time
+     ---------------------------------
+                 run time
+     Declare Extended Function, class ...
+               static time
+     ---------------------------------
+                 run time
+     Use Function, class ...
+     
+    // 각각을 추상 레이어로 생각하면 각 레이어 사이에는 static time과 run time으로 나뉜다.
+    // script 개발론에서는 위와 같이 error를 더 잘 찾기위해서 의미론적인 관리론을 도입한다.
+    // 즉, 복잡성을 정복하는 가장 기본적인 전략은 'isolate'라 할 수 있다.
+    // 또한 위 행위는 어떠한 error가 발생했을 때 레이어를 구분함에 따라 누구의 책임인지를 확정지을 수 있다.
+    ````
+
+    <br/>
 
 #### 특성
 
@@ -28,18 +133,6 @@
     + 사파리 : 웹킷
     
       <br/>
-  + JS 실행 원리
-    + interpreter 방식으로 실행
-      + Tip) `interpreter` vs `complie`
-        + `interpreter`
-          + 코드를 한 덩어리씩 실행하며 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용 ex) JavaScript
-          + runtime에서 type이 정해짐 - error 발생 확률 높아짐. 해결방안 : type script
-        + `complie`
-
-      + 우리가 작성한 소스코드들을 머신코드로 변환하는 과정을 거친 후 한 번에 실행 ex) C, C++
-
-          <br/>
-
   + 클라이언트 => 확장 
 
     + 자바스크립트 엔진이 브라우저 밖을 나오는 것을 의미함
