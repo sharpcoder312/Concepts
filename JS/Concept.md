@@ -1,6 +1,20 @@
 ## JavaScript Concepts
 
+<br/>
 
+#### 들어가기에 앞서
+
++ '프로그램' 이란?
+
+  + 컴퓨터 메모리에 적재된 이후 실행되기 전부터의 상태 (기계만 처리할 수 있을만큼 매우 복잡한 상태)
+  + ex) PowerPoint.exe를 클릭해서 메모리에 적재된 그 상태부터를 프로그램이라 칭함 (이후 cpu가 처리)
+
++ '프로그래밍' 이란?
+
+  + 위의 '프로그램'을 짜는 행위 
+  + 이를 위해 '개발자'는 '사용자'와 달리 **복잡성을 제어하는 방법**을 갈구해야한다.
+
+  <br/>
 
 #### 특성
 
@@ -18,7 +32,7 @@
     + interpreter 방식으로 실행
       + Tip) `interpreter` vs `complie`
         + `interpreter`
-          + 코드를 한 덩어리씩 실행하며 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용 ex) Java Script
+          + 코드를 한 덩어리씩 실행하며 코드를 작성하면 엔진이 바로 코드를 이해할 수 있음. 즉, 코드를 수정하면 별다른 프로세스 없이 바로 적용 ex) JavaScript
           + runtime에서 type이 정해짐 - error 발생 확률 높아짐. 해결방안 : type script
         + `complie`
 
@@ -1524,10 +1538,8 @@ console.log(typeof weight)
     console.log(essence.size);
     => 5
     ````
-  ````
   
-    
-  ````
+  <br/>
   
 + 기본 메서드
 
@@ -1549,19 +1561,16 @@ console.log(typeof weight)
       })	// [1, 2, 3, ... , 9]
       // .map은 아래에서 설명 예정
       
-      ````
-  
-    // 예시02
+      // 예시02
       const teams = ["Chelsea", "ManUnited", "Mancity"];
       teams.fill("premier"); // ["premier", "premier", "premier"]
-  
+      
       // 예시03
       const teams = ["Chelsea", "ManUnited", "Mancity"];
       teams.fill("premier",1,3); // ["Chelsea", "premier", "premier"]
+      ````
   
-      ````
-    
-      ````
+    <br/>
   
   + `push`, `unshift`
   
@@ -1579,15 +1588,12 @@ console.log(typeof weight)
           numbers.push(n + 1);
       }
       
+      // 배열 맨 앞에 요소 추가
+        users.unshift("kan");
+      => 배열의 처음에 kan 추가
       ````
   
-    // 배열 맨 앞에 요소 추가
-      users.unshift("kan");
-    => 배열의 처음에 kan 추가
-  
-      ````
-    
-      ````
+    <br/>
   
   + `pop`, `shift`
   
@@ -1626,43 +1632,40 @@ console.log(typeof weight)
       // splice (배열 자체 변형)
       // .splice(특정구간지정, 특정구간부터 n개 제거)
       // = .splice(시작 index, 제거할 요소의 개수)
-      
-      ````
-  
-    const users = ["june", "seok", "kim"];
+      const users = ["june", "seok", "kim"];
       const newUsers = users.splice(0, 2);
-    console.log(newUsers)	 // 	["june", "seok"]
+      console.log(newUsers)	 // 	["june", "seok"]
       console.log(users) 		// 		["kim"]
       // 여기서 볼 수 있듯이 배열 users의 요소들이 사라졌다. 즉, 배열 자체가 변형된 것이다.
-  
+      
       // 여기서 시작 index값만 넣을 경우, 해당 index부터 끝까지 모든 요소를 제거한다.
       const users = ["june", "seok", "kim"];
       const newUsers = users.splice(1);
       console.log(users);    // 	["june"]
-  
+      
       // 특정 요소들을 제거한 뒤, 제거한 자리에 다른 특정 값들을 넣을 수도 있다.
       const users = ["june", "seok", "kim"];
-    const newUsers = users.splice(0,2,"mount","pulisic");
+      const newUsers = users.splice(0,2,"mount","pulisic");
       console.log(users);    // 	["mount","pulisic","kim"]
-  
+      
+        
+      
+      
       
   
-      
-
-      // slice (새로운 배열 생성)
-    // .slice(start요소index, end요소index+1)
+    // slice (새로운 배열 생성)
+      // .slice(start요소index, end요소index+1)
   
       // 예시
       // 배열 array에서 [3, 4, 5]를 출력하고 싶을 때
-      const array = [1, 2, 3, 4, 5];
+    const array = [1, 2, 3, 4, 5];
       const result = array.slice(2, 6);
       console.log(result); // [3, 4, 5]
       console.log(array); // [1, 2, 3, 4, 5]
       // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있다. 즉, 새로운 배열을 형성한 것이다.
-  
       ````
     
-      ````
+    <br/>
   
   + `concat`
   
@@ -1703,20 +1706,18 @@ console.log(typeof weight)
       // 기본 문법
       .split(구분자, limit)
       // limit은 optional이기에 굳이 사용하지 않아도된다.
+      // 예시
+        const fruits = '🍎, 🥝, 🍌, 🍒';
+        const reuslt = fruits.split(',');
+        console.log(reuslt) // ["🍎", "🥝", "🍌", "🍒"]
+        // 구분자를 넣지않으면 문자열 전체가 배열의 요소 하나로 출력된다.
       
+      
+        const fruits = '🍎, 🥝, 🍌, 🍒';
+        const reuslt = fruits.split(',', 2);
+        console.log(reuslt) // ["🍎", "🥝"]
     
-    // 예시
-      const fruits = '🍎, 🥝, 🍌, 🍒';
-      const reuslt = fruits.split(',');
-      console.log(reuslt) // ["🍎", "🥝", "🍌", "🍒"]
-      // 구분자를 넣지않으면 문자열 전체가 배열의 요소 하나로 출력된다.
-    
-    
-      const fruits = '🍎, 🥝, 🍌, 🍒';
-      const reuslt = fruits.split(',', 2);
-      console.log(reuslt) // ["🍎", "🥝"]
-    
-      ````
+    <br/>
     
   + `reverse`
   
