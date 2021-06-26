@@ -69,7 +69,7 @@
       </tr>
       <tr>
          <th>3. Road</th>
-         <td>메모리 적재</td>
+         <td>parsing 후 메모리 객체화 하여 적재</td>
       </tr>
       <tr>
          <th>4. Machine Language</th>
@@ -406,10 +406,13 @@
 + **STATEMENTS 문**
 
   + '**문**' 이란?
-    + 값이 아닌 모든 것들. 
+    + 값이 아닌 모든 것들
+    
     + JS엔진이 어떻게 해석할 지를 알려주는 명령. 단지, 명령의 성격이기에 실행된 후에는 메모리에서 사라진다.
       그러므로 우리는 if문을 a에 할당할 수도 없고 throw도 a에 할당할 수도 없다. <u>단지 명령일 뿐이며 값이 될 수 없다.</u>
-
+    
+    + js엔진이 '문'을 번역해서 객체화하여 실행하기 위한 형태로 바뀔때 이때 '문'의 문두는 **'Record'**로 등록되는데 레코드는 쉽게flow의 내의 실행단위라고 보면 될것같다. 이는 html을 parsing해서 각 element들이 각 dom객체로 바뀌는 것과 맥락이 같다. 참고로 뒤에서 배울 `label`,`break`,`continue`처럼 flow내에서 흐름제어를 하는 것을 **'completion record'**라 한다.
+    
       <br />
     
   + **문**의 종류
@@ -544,6 +547,7 @@
         	}
         }
     }
+    // lable은 function scope를 탄다. 즉, blcok scope에서는 다른 변수명을 사용해야 하지만 function scope에서는 같은 변수명을 가져와서 break문과 결합할 수 있는 것이다.
     ````
 
 <br/>
@@ -1329,18 +1333,21 @@ console.log(typeof weight)
   // 예시는 &&파트에서 보도록하자.
   ````
 
-
+<br/>
 
 + **switch**문 기본형식과 예제
 
   ````js
   // 기본 형식
-  switch (조건식) {
-          case 비교조건식;
-          동작문;
+  switch (식) {  
+          case 식; // 비교할 식
+          문;
   }
-  // switch문에서는 조건식 두 개가 사용된다. 조건식의 값이 비교 조건식 값과 일치하면 해당 동작문이 실행된다.
+  // switch문에서는 식 두 개가 사용된다. 식의 값이 비교할 식의 값과 일치하면 jump하여 다음 문이 실행된다.
   // 여기서 일치한다는 것은 ==이 아닌 ===를 의미한다.
+  // tip)
+  // 1. 조건이 한정적인데 값이 다양 => 식에 조건을 쓰고 문에 값을 넣는다.
+  // 2. 값이 한정적인데 조건이 다양 => 식에 값을 넣고 문에 조건을 넣는다.
   
   // 예제
   const animal = "monkey";
@@ -1366,9 +1373,24 @@ console.log(typeof weight)
   // 위 예제에서 break를 볼 수 있는데 switch문은 일치하는 case 발견 시, 그 아래 case들의 동작문들을 모두 실행한다.
   // 그래서 원하는 case의 결과만 얻으려면 수동으로 case에서 빠져나와야 하는데, 이때 break문을 사용한다.
   
+  // 심화)
+  // switch문의 식 뒤에 나오는 {}는 중문을 뜻하는 것이 아니라 switch label blcok을 나타내는 문법적 형식이다. 
+  // 예를 들어 다른 제어문 같은 경우 식 뒤에 '문'만 오면 되기때문에 단문이 나올 시 {}를 빼도 된다.
+  // switch label blcok에서는 특수한 label을 만들 수 있는 권한을 부여한다. ex) case label, default label
+  // 예를 들어 'case label'과 '식:' 이 오게되면 하나의 jump label을 완성한다.
+  // 또한, label은 특정 구역으로 jump하는 기능만 가지기에 break문 없이 case label을 쓰게되면 멈추지 않고 다음 case label로 넘어가는 원리이다.
+  // 여기서 이름만 구별된다면 global scope 내에 또 다른 label을 만들어낼 수 있는 label의 특성을 이용해본다면 아래와 같이 또다른 label을 형성할 수 있다.
+  
+  switch (1) {
+      case 1:
+          a:{}
+      case 2:
+      case 3:
+      default:
+  }
   ````
 
-
+<br/>
 
 + **if문** vs **switch문**
 
@@ -1537,7 +1559,7 @@ console.log(typeof weight)
   + 더 이상 루프(반복문)를 진행하지 않고 (가장 가까운) 루프에서 탈출
 
   ````js
-  // iteration Set과 label Set 상황에서 사용 가능
+  // iteration Set, label Set, Switch Set 상황에서 사용 가능
   
   // 예시 1
   let i = 0;
@@ -1601,7 +1623,7 @@ console.log(typeof weight)
   + `break`와는 달리 현재 실행중인 루프를 멈추고 다음 루프로 넘어간다
 
   ````js
-  // iteration Set에서만 사용가능 (단독 사용시 auto identify인 자동 label 형성)
+  // iteration Set에서만 사용가능 + Switch Set (단독 사용시 break문 처럼 auto identify인 자동 label 형성)
   // 다음 루프라는 것은 해당 루프가 속해있는 더 큰 루프를 뜻한다기보다 해당 루프의 다음 인덱스로 넘어간다고 생각하자.
   // 예시 1
   let i =0:
