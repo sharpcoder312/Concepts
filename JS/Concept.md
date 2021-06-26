@@ -467,9 +467,11 @@
     
     <br />
 
-#### 스코프(Scope)와 클로저(Closer)
+#### Scope(스코프)와 Closer(클로저)
 
-+ 스코프
++ Scope
+
+  + 변수의 라이프싸이클(살아있는 범위)
 
   + 변수나 함수내에 값을 찾을때 들여다보는 곳(표)
 
@@ -478,7 +480,7 @@
     ````js
     let d = 'D'					// 글로벌 스코프
     
-    function outer(){			// out의 스코프 시작
+    function outer(){			// outer의 스코프 시작
         let a = 1;
         let b = 'B'
         function inner(){		// inner의 스코프 시작
@@ -493,7 +495,7 @@
     // 이처럼 스코프끼리 연결되어 있는 것을 '스코프 체인'이라고 부르며 맨 마지막으로 넘어가는 곳이 '글로벌 스코프'이다.
     ````
 
-+ 클로저
++ Closer
 
   + 함수 밖에서 선언된 변수를 함수 내부에서 사용할 때 '스코프 체인'을 계속 들고있는 함수(환경 기억)
   + 일반적으로 다른 언어에서 함수 종료 시(return)에 변수가 메모리에서 사라지는데 JS에서는 사라지지 않는다
@@ -1479,13 +1481,12 @@ console.log(typeof weight)
 
 <br />
 
-#### 흐름제어
+#### Flow Control (흐름제어)
 
-````js
-// flow 제어
-// 일반적으로 다른 언어에서는 goto를 사용하여 flow의 특정한 위치로 jump할 수 있지만 JS에서는 goto 구문은 존재하지 않으며
-// break와 continue만 label에 사용가능
-````
+> 일반적으로 다른 언어에서는 goto를 사용하여 flow의 특정한 위치로 jump할 수 있지만
+> JS에서는 goto 구문은 존재하지 않으며 `break`와 `continue`만 `label`에 사용가능하다.
+
+<br/>
 
 + **break문**
 
@@ -1525,7 +1526,7 @@ console.log(typeof weight)
   // 사실 break문을 label과 같이 쓰지 않고 단독 사용 시, 자동 label(auto identify)이 형성된다.
   // 자동 label은 iteration Set 상황에서만 발생한다. (continue문도 마찬가지다.)
   // 그러므로 iteration Set이 아닐 경우 break문을 단독 사용할 수 없다.
-  prac: {					// prac: 뒤에 나오는 중괄호 구간(블록)이 label Set이다.
+  prac: {					// prac: 뒤에 나오는 중괄호 구간(블록)이 레이블이 가리키고 있는 영역 즉, label Set이다. 
       console.log('a');
       break;
       log('b')
@@ -1533,7 +1534,7 @@ console.log(typeof weight)
   log('c')
   // error
   
-  // 레이블을 붙인 블록이라도 iteration Set이 아니기 때문에 break를 단독 사용하는 것이 아닌 label과 함께 사용해야한다.
+  // label을 붙인 블록이라도 iteration Set이 아니기 때문에 break를 단독 사용하는 것이 아닌 label과 함께 사용해야한다.
   // tip) continue문은 iteration Set에서만 사용가능하다. 즉, 아무리 label을 붙인 블록이라 하더라도 사용불가
   prac: {
       console.log('a');
@@ -1543,6 +1544,10 @@ console.log(typeof weight)
   console.log('c')
   // a
   // c
+  
+  // 위와 같이 label과 break를 사용하여 기본적인 흐름제어를 할 수 있다.
+  // 이는 if문과 if else문과도 맥락을 같이 가져갈 수 있겠다.
+  // 예를 들어, break 전후로 mendatory와 optional으로 나눌 수 있다. 이렇게 되면 함수 내에 return이 있는 것과 똑같은 기능을 하게된다.
   ````
 
   <br />
@@ -1599,7 +1604,7 @@ console.log(typeof weight)
   // 어떠한 호출행위나 sub routine에 빠지는 행위를 하더라도 기본적으로 해당 루틴의 처음으로 보내주지만
   // Label sub routine만이 유일하게 해당 루틴 밑으로 보내준다.
   
-  // 변수와 마찬가지로 block이 아닌 함수 scope를 탄다.
+  // 변수와 마찬가지로 block이 아닌 function scope(함수 스코프)를 탄다.
   prac:
   {
       prac:
@@ -1680,13 +1685,9 @@ console.log(typeof weight)
   // Exit
   ````
   
+  <br/>
   
-  
-  
-  
-  
-
-
+  <br/>
 
 #### Array (배열)
 
