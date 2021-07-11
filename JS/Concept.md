@@ -3552,8 +3552,6 @@ title.oncilcik = handleTitleClick; // 하지만 이렇게 줄여쓰면 removeEve
 // 그래서 보통 줄여쓰지않고 addEventListener를 명시해준다.
 ````
 
-
-
 <br/>
 
 ### DOM 객체 탐색
@@ -3987,9 +3985,9 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
 
   + **무조건 문자열로 출력**. 그러므로 빈 값이라면 undefinded가 아니라 ' '이 출력
 
-  + `<script>`나 `<style> `태그와 상관없이 해당 노드가 가지고 있는 텍스트 값을 그대로 읽음
+  + css와 js을 무시하고 해당 노드가 가지고 있는 텍스트 노드를 그대로 읽음
 
-    + ex) 공백과 같은 모든 텍스트를 그대로 가져옴
+    + ex) 여러 공백이나 display: none속성을 무시하고 그대로 텍스트 노드를 가져옴
     
     ````js
     태그.textContent // 태그 내부의 문자열 가져옴
@@ -4006,7 +4004,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // A   Class (띄어쓰기 즉, 공백 그대로 반영)
     ````
     
-    
+    <br/>
 
 + `value`
 
@@ -4019,7 +4017,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     입력창.value = 값 // 입력창에 값을 넣음
     ```
 
-    
+    <br/>
 
 + `innerText`
 
@@ -4049,13 +4047,11 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // <div style='color:red'>A</div> 문자열 그대로 element 안에 포함
     ````
 
-    
-
-    
+    <br/>
 
 + `innerHTML`
 
-  + 텍스트를 다룬다는 점에서 `innerText`과 같지만 text element가 아닌 html element를 다룬다는 점에서 차이가 있다.
+  + 텍스트를 다룬다는 점에서 `innerText`과 같지만 텍스트 노드와 동시에 요소 노드를 다룬다는 점에서 차이가 있다.
 
     ````js
     HTML
