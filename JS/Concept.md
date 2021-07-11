@@ -3803,7 +3803,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
 
     + 데이터를 계속 유지하고 싶을 때 사용 용이
 
-      
+      <br/>
 
 + `.createElement()`
 
@@ -3811,7 +3811,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
 
   + 단, 다른 태그에 `append`나 `appendChild`를 하기 전까지는 화면에 보이지 않는다.
 
-  + `createElement()`나 `.createTextNode()`는 JS로 태그를 만드는 법이라면 `append`나 `appendChild`는 실제 화면에 그리는 법이라고 생각하면 된다.
+  + `createElement()`나 `.createTextNode()`는 JS로 요소 노드를 만드는 법이라면 `append`나 `appendChild`는 실제 화면에 그리는 법(추가)이라고 생각하면 된다.
 
     ````js
     .createElement( 'h1' )
@@ -3819,13 +3819,13 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     => <h1></h1> 코드 생성
     ````
 
-    
+    <br/>
 
 + `.createTextNode()`
 
   + 선택한 요소에 텍스트 추가
 
-  + 단, 다른 태그에 `append`나 `appendChild`를 하기 전까지는 화면에 보이지 않는다.
+  + 단, 다른 태그에 `append` 하기 전까지는 화면에 보이지 않는다.
 
     ```js
     .createTextNode('hello')
@@ -3833,11 +3833,13 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     => hello 라는 문자열 추가
     ```
 
-    
+    <br/>
 
 + `.appendChild()`
 
-  + 선택한 요소에 하나의 자식 요소 추가 (DOM 함수)
+  + DOM 메서드 ∴ 이미 생성되어 있는 DOM내 요소(노드 객체)만 추가 가능
+
+  + 선택한 요소에 하나의 자식 요소 추가
 
     ````js
     // return값 반환o
@@ -3859,13 +3861,13 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // 이런 불편함을 append()가 해소
     ````
     
-    
+    <br/>
 
-+ `append()`
++ `.append()`
 
-  + `.appendChild()`와 달리 선택한 요소의 내용 끝에 
+  + Js 메서드 ∴ 노드 객체 뿐만 아니라 문자열을 사용하여 텍스트 노드로도 출력 가능
 
-    여러 개의 자식 요소 추가 가능 + 문자열 삽입 가능(JS 함수)
+  + `.appendChild()`와 달리 선택한 요소에 여러 개의 자식 요소 추가 가능. appendChild보다 성능이 좋기에 더 자주 쓰임.
 
     ````js
     // return값 반환x undefined
@@ -3885,7 +3887,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     p.append('${value}: ${name} 입니다', document.createElement('br'));
     ````
     
-    
+    <br/>
 
 + `sort()`
 
@@ -3912,7 +3914,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     });
     ````
 
-    
+    <br/>
 
 + `setTimeout()`
 
@@ -3941,7 +3943,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // 4)방문자 접속 후 20-30초가 지난 뒤 메일 구독을 신청하는 팝업창을 띄울 경우
     ````
 
-  
+  <br/>
 
 + `setInterval()`
 
@@ -3977,7 +3979,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // 3) 일정 주기로 계속해서 서버와 통신이 필요한 경우
     ````
 
-    
+    <br/>
 
 + `textContent`
 
@@ -4076,7 +4078,7 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // html태그가 해석되어 A가 빨간색을 가지고 출력 (class는 출력 안됨)
     ````
 
-    
+    <br/>
 
 + `classList`
 
@@ -4086,10 +4088,10 @@ console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...
     // .add - 클래스 삽입
     // .remove - 클래스 제거
     // .contains - 클래스 존재 여부 체크
-    // .toggle - 클래스 존재 여부 체크 후 없으면 삽입 있으면 제거
+    // .toggle - 클래스 존재 여부 체크 후 없으면 삽입 있으면 제거 (완전 유용..)
     ````
 
-    
+    <br/>
 
 #### RESTful API
 
