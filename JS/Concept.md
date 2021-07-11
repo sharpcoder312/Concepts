@@ -51,7 +51,7 @@
 
   + ex) C, C++
   + 원리 : 실제 cpu가 소화할 수 있는 명령 체계로 코드를 짜기 어렵기에 사람에게 친절한 언어를 쓰고 다시 기계가 이해할 수 있는 언어로 바꾼다.
-  + error로 인해 프로그램을 수정할 수 있는 기회가 lint, compile, run time 3번 있지만 'context error'와 같이 마지막 runtime error에도 길리지 않는 것이 있다.
+  + error로 인해 프로그램을 수정할 수 있는 기회가 lint, compile, run time 3번 있지만 'context error'와 같이 마지막 runtime error에도 걸리지 않는 것이 있다.
   + 결국, lint time때 미리 에러를 잡아주는 것이 좋다.
 
 <br/>
@@ -76,7 +76,7 @@
          <td>auto compile(부분적 컴파일) - 자기가 알아서 매번 바꿈</td>
       </tr>
       <tr>
-         <th>5. Run (Run Time)</th>
+         <th>5. Run</th>
          <td><b>Run time</b> - js 실행, type이 정해짐</td>
       </tr>
       <tr>
@@ -231,14 +231,14 @@
 
   + **Keyword 예약어**
 
-    + 엔진이 해당 keyword를 만나면 특정한 기능을 미리 약속한하여 실행한다.
+    + 엔진이 해당 keyword를 만나면 미리 약속한 특정한 기능을  실행한다.
     + ex) `if`, `for`, `var` 등
 
     <br/>
 
   + **Literals 리터럴**
 
-    + 프로그래밍 언어에서 더이상 쪼갤 수 없는 값의 표현이다.
+    + 프로그래밍 언어에서 더이상 쪼갤 수 없는 값(데이터)의 표현이다.
 
       ````js
       // 예시
@@ -280,12 +280,11 @@
     
     // '연산식'
     // 연산자가 등장하는 식. 연산자의 결과는 값으로 수렴된다.
-    // ex) let plus = 1 + 3
-    // 위 예시는 '식별자'가 '식'에 포함되어 있는 형태로도 볼 수 있다.
+    // ex) plus = 1 + 3
     
     // '호출식'
-    // 함수 a 호출 => a의 함수의 return값 도출. 즉, 하나의 값으로 수렴
-    // return값이 없다해도 undefined가 반환되어 값으로 수렴한다.
+    // 함수 a 호출 => 함수 a의 return값 도출. 즉, 하나의 값으로 수렴
+    // return값이 따로 입력해주지 않아도 undefined가 반환되어 값으로 수렴한다.
     
     // '리터럴'
     // array literal, object literal, function literal 등
@@ -323,8 +322,10 @@
       
       > typeof a
       < "number"
+      
+      // type 정보를 알 수 있기때문에 메모리의 크기도 유추 가능하다.
       ````
-
+      
       <br />
 
 + **IDENTOFIER 식별자**
@@ -341,10 +342,10 @@
 
     + **primitive value type(기본형)** vs **reference type(참조형)**
 
-    + '메모리 주소의 별명이라는 특성을 가지는 '식별자'에는 '값(기본형)'이 들어오거나 '참조'가 들어올 수 있다. 
+    + '메모리 주소의 별명이라는 특성을 가지는 '식별자'에는 **'기본형(값)'**이 들어오거나 **'참조형'**이 들어올 수 있다. 
 
       ````js
-      // 기본형
+      // 기본형 (값)
       let a = 3;	// 3이라는 값을 직접 씀
       
       // 참조형 '참조'? 다른 메모리의 주소를 가리키고 있는 것
@@ -382,14 +383,16 @@
       < 7	// 즉, 값 복사가 아닌 참조가 이루어진 것이다. 현재 b는 a의 메모리 주소를 가리키고 있는 것이다.
       
       // 이와 같이 우리는 '식별자'를 primitive value type(기본형) reference type(참조형)으로 나눌 수 있다.
-      // primitive value type(기본형) 복사로 인해 두개의 메모리 주소를 가리킨다는 특징
-      // reference type(참조형) 하나의 메모리 주소를 가리켜 참조한다는 특징
+      // primitive value type(기본형) - 복사로 인해 두개의 메모리 주소를 가리킨다는 특징
+      // reference type(참조형) - 하나의 메모리 주소를 가리켜 참조한다는 특징
       
-      // primitive value type(기본형)
-      // string, number, boolean, null, undefined, not
+      // primitive value type(원시 타입)
+      // string, number, boolean, null, undefined, symbol
+      // 특징 : immutable 즉, 변하지 않는 속성을 지닌다. => 메서드 호출 불가
       
-      // reference type(참조형)
-      // primitive value type 제외 나머지 array, object, literal ...
+      // reference type
+      // primitive value type 제외 나머지 array, object, function ...
+      // 물론 object는 array와 function을 모두 포함하는 개념이기에 primitive value type가 아니면 object라고 할 수도 있겠다.
       
       // tip) 무엇이 primitive value type이며 어디까지가 '문'이고 '식'인지는 artificial language이기에 해당 언어를 개발한 개발자가 정한다. 이에 의문을 가지지는 말자. 머리만 아프다. 또한, 특정 언어가 답이 아니며 상식이 아니다. 각 언어마다 개발자가 그 언어를 만든 지향점과 가치가 다르기 때문이다. 목적에 맞게 잘 쓰는 것이 중요하겠다.
       ````
@@ -438,20 +441,9 @@
     // 3. 제어문 (sync) flow control statement
     
     // flow control 플로우 제어 (방향, 반복, 점프 등)
-    // 'normal flow control' 일반적인 statement를 많이 사용하여 제어
+    // 'normal flow control' 일반적인 statement(문)를 많이 사용하여 제어
     // vs 'sub flow control' function, class 등을 많이 사용하여 제어
     // 여러 문과 식들을 조직화하는 방법
-    
-    // cf) sync flow
-    // 이처럼 메모리에 있는 프로그램을 Neumann machine이 순서대로 쭉 소비하는 과정을 'flow(플로우)'라고 한다.
-    // 물론 이 flow 과정에서 인간은 관여할 수 없으며 요즘은 흔히 flow를 'sync(동기화 과정)'이라고도 부른다.
-    // 이 과정을 어길 수 있는 다양한 기법들을 반대로 '비동기성'이라 부른다.
-    // 즉, '동기성(화) 명령'이란 메모리에 적재되어있는 프로그램이 cpu에 한번에 소비되는 것을 말한다.
-    
-    // flow 1개의 세트가 쭉 진행되는 것을 routine이라고 부른다.
-    // 보통 routine은 한 번 진입하면 끝까지 실행되고 빠져나가버린다.
-    // 하지만 'call routine'은 이 개념을 깨고 원하는 위치에서 여러 번 진입하고 여러 번 빠져나갈 수 있다.
-    // 즉, 복잡한 flow 제어를 가능하게한다.
     
     // 종류
     // 조건 : if , if - else
@@ -464,8 +456,21 @@
     // ex) 어떤 문을 이용하여 알고리즘을 표현할 것인가? 단순히 변수의 이름을 보고 의도를 표현하는 것이 아니다.
     // 즉, 우리는 제어문을 배울 때 무슨 의미로 쓰이는 것인지 섬세하게 배워야한다.
     
+    // cf) sync flow
+    // 이처럼 메모리에 있는 프로그램을 Neumann machine이 순서대로 쭉 소비하는 과정을 'flow(플로우)'라고 한다.
+    // 물론 이 flow 과정에서 인간은 관여할 수 없으며 요즘은 흔히 flow를 'sync(동기화 과정)'이라고도 부른다.
+    // 이 과정을 어길 수 있는 다양한 기법들을 반대로 '비동기성'이라 부른다.
+    // 즉, '동기성(화) 명령'이란 메모리에 적재되어있는 프로그램이 cpu에 한번에 소비되는 것을 말한다.
+    
+    // flow 1개의 세트가 쭉 진행되는 것을 routine이라고 부른다.
+    // 보통 routine은 한 번 진입하면 끝까지 실행되고 빠져나가버린다.
+    // 하지만 'call routine'은 이 개념을 깨고 원하는 위치에서 여러 번 진입하고 여러 번 빠져나갈 수 있다.
+    // 즉, 복잡한 flow 제어를 가능하게한다.
     
     // 4. 선언문
+    // var, let, nuconst 등을 사용하여 식별자(변수)를 선언한다.
+    // ex)
+    let a = 36
     
     // cf) 단문과 중문
     // 단문 : 문장 하나 
@@ -476,7 +481,7 @@
     
     <br />
 
-#### Scope(스코프)와 Closer(클로저)
+#### Scope(스코프), Closer(클로저) 그리고 hoisting(호이스팅)
 
 + Scope
 
@@ -504,18 +509,13 @@
     // 이처럼 스코프끼리 연결되어 있는 것을 '스코프 체인'이라고 부르며 맨 마지막으로 넘어가는 곳이 '글로벌 스코프'이다.
     ````
 
+  <br />
+
 + Closer
 
   + 함수 밖에서 선언된 변수를 함수 내부에서 사용할 때 '스코프 체인'을 계속 들고있는 함수(환경 기억)
   
-  + 일반적으로 다른 언어에서 함수 종료 시(return)에 변수가 메모리에서 사라지는데 JS에서는 사라지지 않는다
-  
-  + 그 원리는 ``hoisting``에 의한 것인데, 호이스팅은 함수내의 변수들의 선언이 함수 최상단으로 옮겨지는 것을 말한다. 즉, 변수의 사용 및 함수의 실행 코드가 선언보다 먼저 일어나도 정상 진행이 되도록 해주는 것을 말한다.
-  
-  + 유의할 점은 선언만 옮겨지는 것이지 초기화는 원래 위치에서 실행된다.
-  
     ````js
-    // ex)
     const func1 = () => {
         let a = 0;	// 자유변수
     }
@@ -554,6 +554,19 @@
         }
     }
     // lable은 function scope를 탄다. 즉, blcok scope에서는 다른 변수명을 사용해야 하지만 function scope에서는 같은 변수명을 가져와서 break문과 결합할 수 있는 것이다.
+    ````
+
+<br />
+
++ hoisting
+
+  + 함수와 변수들의 선언이 함수 최상단으로 옮겨지는 것
+
+    ````js
+    // 일반적으로 다른 언어에서 함수 종료 시(return)에 변수가 메모리에서 사라지는데 Js에서는 사라지지 않는다.
+    // 그 원리는 hoisting에 의한 것인데 변수의 사용 및 함수의 실행 코드가 선언보다 먼저 일어나도 정상 진행이 되도록 해주는 것을 말한다.
+    // 유의할 점은 함수는 '함수 선언문'일 때만 옮겨지며 '함수 표현식'은 원래 위치에서 실행된다.
+    // 또한, 변수는 var에 의해서 선언 됐을 때 hoisting이 실행된다.
     ````
 
 <br/>
@@ -753,6 +766,10 @@
         
         > 0 / 0
         < NaN
+        
+        // NaN 확인 메서드
+        > console.log(isNaN("hi"))
+        < false
         ````
 
 + Float
@@ -790,13 +807,15 @@
 
 + null
 
-  + 선언되었고 null로 값 지정(비었다는 뜻으로 많이 씀)
+  + 선언되었고 null로 값 지정(의도적으로 비었다는 뜻으로 많이 씀)
+  + 즉, 절대 자연적으로 발생하지 않는다. 어떤 것이 없다는 것을 명시하기 위해 선언했기 때문이다.
 
   
 
 + undefined
 
-  + 선언 자체 x (선언 자체는 됐는데 값이 지정되어 있지않다고도 볼 수 있음)
+  + 선언 자체는 됐는데 값이 지정되어 있지않다고 볼 수 있다. 대신 컴퓨터 내에 메모리 안에는 존재한다.
+    즉, 공간은 있는데 값이 들어가있지 않다는 의미라고도 볼 수 있겠다.
 
   + 적든 적지않든 결과는 같다
 
@@ -922,9 +941,12 @@ console.log(typeof weight)
   + 메모리 주소의 별명
 
   ````js
-  let a = 1;
+  var a = 1;
   // 여기서 1은 a라는 변수에 들어가 있는 것이 아니라 컴퓨터 메모리 어딘가에 들어있는 것인데 단지 그 메모리 주소가 복잡하므로 별명을 붙인 것 뿐이다.
-  // 그러므로 a를 호출한다면 사실 해당 메모리 번지수에 찾아가서W 값을 꺼내오는 것이다.
+  // 그러므로 a를 호출한다면 사실 해당 메모리 번지수에 찾아가서 값을 꺼내오는 것이다.
+  // var a 가 변수 선언 이며
+  // var a = 1; 는 변수 선언 후 할당까지 이루어진 것이다.
+  // 여기서 호이스팅과 관련하여 이야기해보자면 호이스팅 기능이 적용될때 var a = 1 자체가 올라가는 것이 아니라 var a; 상태의 변수 선언만 올라간다.
   ````
 
   + 해당 값에 대한 type 정보 소유
@@ -1249,7 +1271,7 @@ console.log(typeof weight)
     console.log("x is string");
   }
   
-  if (x === 10) {                   //  ===는 자료형이 틀렸을 때 생길 수 있는 오류들을 사전에 차단할 수 있다
+  if (x === 10) {                   //  ===는 자료형이 틀렸을 때 생길 수 있는 오류들을 사전에 차단할 수 있다.
     console.log("x is 10");
   } else if (x === 20) {
     console.log("x is 20");
@@ -1268,21 +1290,26 @@ console.log(typeof weight)
   }
   
   // 위의 else, else if로 조건을 여러개 만들 수 있다
-  // tip) 여기서 else if는 else if문이 따로 존재한다기 보다는 사실 else 뒤에 다시 if문이 온 것으로 if else문의 연쇄라고 볼 수 있다. 추가적으로 if else문은 다른 제어문들과 달리 문을 2개 소유하기 때문에 뒤에서 앞으로 '후방결합'하는 현상이 발생한다. 이에 따른 버그가 많이 발생하기에 해당 현상에 잘 대응하려면 if else문 사용시 {}를 쳐주는 습관을 들이는 것이 좋다. 즉, else if를 남발하지말고 차라리 else { if }로 방향을 바꾸라는 말이다. 이는 또한 병렬적인 조건들을 나열할 수 있다는 점에서 굉장한 메리트가 있따.
+  // tip) 여기서 else if는 else if문이 따로 존재한다기 보다는 사실 else 뒤에 다시 if문이 온 것으로 if else문의 연쇄라고 볼 수 있다. 추가적으로 if else문은 다른 제어문들과 달리 문을 2개 소유하기 때문에 뒤에서 앞으로 '후방결합'하는 현상이 발생한다. 이에 따른 버그가 많이 발생하기에 해당 현상에 잘 대응하려면 if else문 사용시 {}를 쳐주는 습관을 들이는 것이 좋다. 즉, else if를 남발하지말고 차라리 else { if }로 방향을 바꾸라는 말이다. 이는 또한 병렬적인 조건들을 나열할 수 있다는 점에서 굉장한 메리트가 있다.
   // 예시 
   let a = 1;
   if (a === 0) {
       console.log('hi');
   } else if (a === 1) {
       console.log('hello');
+  } else {
+      console.log('bye');
   }
   // 위 코드는 아래의 코드와 같다.
   
   let a = 1;
   if (a === 0) {
       console.log('hi');
-  } else { if (a === 1) {
+  } else {
+    if (a === 1) {
       console.log('hello')
+    } else {
+      console.log('bye');
     }
   }
   
@@ -1430,7 +1457,7 @@ console.log(typeof weight)
 
 + **if문** vs **switch문**
 
-  + switch문의 **case**는 if문의 **else if**와, *default*는 *else*와 맥락이 비슷하다고도 볼 수 있다.
+  + switch문의 **case**는 if문의 **else if**와, **default**는 **else**와 맥락이 비슷하다고도 볼 수 있겠다. (`optional` vs `mendatory`)
   + if문이 === 연산자만 사용하는 경우 switch문으로 쉽게 대체 가능하다.
 
   ````js
@@ -1444,7 +1471,7 @@ console.log(typeof weight)
         console.log("not animal")
   }
   
-  // 두 if문과 switch문은 동일한 결괏값을 갖는다
+  // 두 if문과 switch문은 동일한 결괏값을 갖는다.
   
   switch (animal) {
       default:
@@ -1534,13 +1561,15 @@ console.log(typeof weight)
   do {
       console.log(`do while: ${1}`);
       i--;
-  } while (i > 0);
-  => do while: 0
+  } while (i > 0);	// do while: 0
   
   // 위를 종합하여 봤을 때 while문과 do while문은 평가식에 관여되어 있는 상태값이 변하지 않으면 무한루프에 빠지는 일이 많다는 것을 알 수 있다.
-  // 또한, while문과 do while문을 봤을 때 바른 코드인지 눈으로 직시할 수 있는 것은 조건'식'에 등장하는 상태(내용)가 바디내에 나오는지부터 체크하고 나오지 않았다면 block내에 나오게하여 코드를 다시 짜는 것이 좋다. 이렇게 된다면 자신도 모르는 사이에 무한루프에 빠지는 것을 방지하는데에 도움이 될 것이다.
+  // 또한, while문과 do while문을 봤을 때 바른 코드인지 눈으로 직시할 수 있는 것은 조건'식'에 등장하는 상태(내용)가 바디내에 나오는지부터 체크하고 나오지 않았다면 block내에 나오게하여 코드를 다시 짜는 것이 좋다. 이렇게 한다면 자신도 모르는 사이에 무한루프에 빠지는 것을 방지하는데에 도움이 될 것이다.
+  
   // 예시
-  do i++ while (i) // 조건식에 등장하는 변수 i의 상태가 1씩 증가하고 있다는 사실을 body내에 i++을 통해서 알 수 있다.
+  let i = -2
+  do i++ while (i < 0) 
+  // 조건식에 등장하는 변수 i의 상태가 1씩 증가하고 있다는 사실을 body내에 i++을 통해서 알 수 있다.
   ````
 
   <br />
@@ -1585,11 +1614,11 @@ console.log(typeof weight)
       식;
   }	
   
-  // 또한, 세번째 인자의 식은 중괄호 맨 마지막에서 실행되는 것이기에 '식'이 하나의 '문'이되는 '식문'이다.
-  // 여기서 유추할 수 있는 것은 '문'의 자리라 본다면 세번째 인자는 '공문' 즉, 비워놔도 전혀 문제가 없다는 것도 알 수 있다.
+  // 또한, 세번째 인자의 식은 중괄호 맨 마지막에서 실행되는 것이기에 '식'이 하나의 '문'이되는 '식 문'이다.
+  // 여기서 또 유추할 수 있는 것은 '문'의 자리라 본다면 세번째 인자는 '공문' 즉, 비워놔도 전혀 문제가 없다는 것도 알 수 있다.
   
   for (; truthy; ) {
-      // 그리하여 해당 for문 처럼 첫번째 인자와 세번째 인자를 비워 놓을 수 있다.
+      // 위와 같은 이유로 해당 for문 처럼 첫번째 인자와 세번째 인자를 비워 놓을 수 있다.
   }
   // tip) 사실 for문의 두번째 인자 또한 비워 놓을 수 있는데 이 때에는 truthy로 평가된다는 예외 항목이 존재한다.
   
@@ -1598,7 +1627,7 @@ console.log(typeof weight)
   }
   
   while () {
-         // 반면, for문의 두번째 인자에 해당하는 while문의 인자를 비워놓으면 falsy값을 얻어 죽게된다.
+         // 반면, for문의 두번째 인자에 해당하는 while문의 인자를 비워놓으면 falsy값을 얻어 while문이 죽게된다.
   }
   ````
 
@@ -1629,8 +1658,8 @@ console.log(typeof weight)
 
 #### Flow Control (흐름제어)
 
-> 일반적으로 다른 언어에서는 goto를 사용하여 flow의 특정한 위치로 jump할 수 있지만
-> JS에서는 goto 구문은 존재하지 않으며 `break`와 `continue`만 `label`에 사용가능하다.
+> 일반적으로 다른 언어에서는 `goto`를 사용하여 flow의 특정한 위치로 jump할 수 있지만
+> JS에서는 `goto` 구문은 존재하지 않으며`label`에는  `break`와 `continue`만 사용가능하다.
 
 <br/>
 
@@ -1700,13 +1729,12 @@ console.log(typeof weight)
 
 + **continue문**
 
-  + `break`와는 달리 현재 실행중인 루프를 멈추고 다음 루프로 넘어간다
+  + `break`와는 달리 현재 실행중인 루프 인덱스를 생략하고 다음 인덱스로 넘어가 루프를 실행한다.
 
   ````js
   // iteration Set에서만 사용가능 + Switch Set (단독 사용시 break문 처럼 auto identify인 자동 label 형성)
-  // 다음 루프라는 것은 해당 루프가 속해있는 더 큰 루프를 뜻한다기보다 해당 루프의 다음 인덱스로 넘어간다고 생각하자.
   // 예시 1
-  let i =0:
+  let i = 0:
   while (i < 7) {
       i++;
       if (i % 2 === 0) {
@@ -1715,7 +1743,7 @@ console.log(typeof weight)
       console.log(i)
   }
   
-  // 1, 3, 5 출력
+  // 1, 3, 5, 7 출력
   
   // 예시 2 
   let i = 0;
@@ -1735,9 +1763,9 @@ console.log(typeof weight)
   // 6 ~ 9
   // Exit
   ````
-
+  
   <br />
-
+  
 + **Label**
 
   + 특정 위치 지정
@@ -1762,7 +1790,7 @@ console.log(typeof weight)
   prac: () => {
       prac: statement
   }
-  // 정상 작동
+  // 정상 실행
   
   
   
@@ -1772,13 +1800,13 @@ console.log(typeof weight)
   document.write("Enter");
   loop1:
   for (let i = 0; i < 5; i++) {
-      document.write("Loop1: " +i+ "<br />");
+      document.write("Loop1: " + i + "<br />");
       loop2:
       for (let j = 0; j < 5; j++) {
           if (j > 3) break;
        	if (i === 2) break loop2;
           if (i === 4) break loop1;
-          document.write("Loop2 " +j+ "<br />");
+          document.write("Loop2 " + j + "<br />");
       }
   }
   document.write("Exit");
@@ -1811,7 +1839,7 @@ console.log(typeof weight)
       document.write("Loop1: " +i+ "<br />");
       for (let j = 0; j < 5; j++) {
           if (j === 3) {
-              continue loop1;		// j가 3일때 loop1을 스킵하고 다음 인덱스(i)의 for문(루프) 실행
+              continue loop1;		// j가 3일때 loop1을 스킵하고 loop1의 다음 인덱스(i)로 loop1 다시 진행.
           }						// loop1을 스킵하기 때문에 당연히 loop2 또한 스킵한다.
           document.write("Loop2: " +j+ "<br />");
       }
@@ -2380,9 +2408,9 @@ console.log(typeof weight)
     // forEach
     // 인수로 함수를 받고, 이 함수가 각각의 배열 요소들에 순서대로 적용되는 구조
     // 즉 배열의 요소마다 한 번씩 '주어진 함수를 실행'(콜백 함수)
-    // 여기서 배열의 요소마다 한 번씩 돌아다니는 사실이 중요함. 이것이 반복문의 역할을 하게됨
-    // 아무것도 return(반환)하지않음. (undefined) - .map()과 명확한 차이
-    // 그러므로 forEach가 map과 같은 기능을 하기위해서는 .push .unshift 등의 메서드가 필요하다
+    // 원본 배열을 바꾸지 않고 배열의 요소마다 한 번씩 돌아다니는 사실이 중요함. 이것이 반복문의 역할을 하게됨
+    // 아무것도 return(반환)하지않다는 점은 map과의 가장 큰 차이이다.
+    // 그러므로 forEach가 map과 같은 기능을 하기위해서는 .push .unshift 등의 메서드가 필요하다.
     // 기본 구조
     const array = [value01, value02, value03, ...];
     array.forEach((value, index, array) => {
@@ -2404,12 +2432,14 @@ console.log(typeof weight)
       });
       => lion
          tiger
+         
+    // cf) foreach와 map 모두 원본 배열을 수정하지 않지만 js의 참조 현상으로 인해 객체의 배열 형태에서는 원본 배열이 수정되는 현상이 발생한다.
     ````
 
     + `map`
-
+    
     ````js
-    // 배열을 순회하면서 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
+    // 배열을 순회하면서 원본 배열은 바꾸지 않고 배열의 각 원소들을 출력한다는 점은 forEach와 같지만 새로운 array 생성한다는 점에서 다르다.
     // return후 다음 index로 이동. 본래 배열의 마지막 index까지 순회 후 map 스코프에서 탈출
     // 즉, 내부 원소만 상이하며 본래 배열의 length === 새로운 배열의 length
     const inputArray = [100, 10, 20, 40];
@@ -2448,7 +2478,7 @@ console.log(typeof weight)
       });
     
     ````
-
+  
   
 
 #### Function 함수
@@ -2469,17 +2499,24 @@ console.log(typeof weight)
 + 함수 선언과 실행
 
 ````js
-// 함수 선언 (함수 표현 expression과 달리 hoisting 기능이 있다.)
+// 함수 선언
+
+// 1. 함수 선언문 (function declaration statement)
 function add(){}
-function키워드 함수이름(parameter매개변수){동작문}	// 함수 선언문 (function declaration statement)
+function키워드 함수이름(parameter매개변수){동작문}	
+// 함수 선언문은 함수 표현식과 달리 hoisting 기능이 있다. 
+// 물론, hoisting 기능이 있다고 다 좋은 것은 아니다. 오히려 코드가 더 복잡해지는 것을 초래할 수 있다.
 
-const add = function() {};	// 함수 표현식 (function expression)
+// 2. 함수 표현식 (function expression)
+const add = function() {};	
+// 함수 표현식은 closure로 사용 하거나 callback함수로 사용할 수 있다는 장점이 있다.
 
-const add = () => {};	// 화살표 함수 (arrow function)
+// cf) 화살표 함수 (arrow function)
+const add = () => {};	
 // tip1) 매개 변수가 하나뿐일 때는 소괄호 생략 가능하나 매개 변수가 없을 시에는 소괄호 필요
 (parameter1) => {statement}
 () => {statement}
-// tip2) 함수 내에 return구문 하나만 존재할 때는 중괄호와 return 생략도 가능하다.
+// tip2) 함수 내에 return구문 하나만 존재할 때는 중괄호와 return 생략도 가능하다. (같이 없애야함)
 const answer = inputArray.map(num => {
   return num + "%"
 })	// 아래와 같다
@@ -2526,6 +2563,7 @@ hello();
 
 ````js
 // return문 추가
+// return은 함수가 함수 밖의 스코프와 소통하기 위해 사용한다.
 > function a() {
     return 5;
 }
@@ -2730,20 +2768,22 @@ a('hi','hello','bye');
 
   + Callback 콜백함수
 
-    + 말 그대로 나중에 호출되는 함수 (호출되기 원할 때 전달된 함수를 부른다.)
+    + 다른 함수의 인자로 넘겨진다.
 
+    + 말 그대로 나중에 호출되는 함수 (호출되기 원할 때 전달된 함수를 부른다.)
+  
     + 어떤 이벤트가 발생했거나 특정 시점에 도달했을 때 시스템에서 호출
     + ex) 이벤트 핸들러
 
   + recursions 재귀함수
-
+  
     + 함수 안에서 자신 스스로를 호출
     + 정말 필요할 때만 사용하도록 한다.
-
+  
   + Arrow 함수
     + 일반 function과 다르게 지정한 변수(객체)에 함수를 담기 때문에 window 객체 안에 들어가지않고 안정적이다
     + this(scope)가 고정이 되면서 혼동이 일어날 일이 적어진다
-
+  
   ````js
   // function(){} = ()=>{}
   const sum = (a, b) => {
@@ -2757,7 +2797,7 @@ a('hi','hello','bye');
   + 고차 함수(high order function)
 
     + 함수를 만들어내는 함수. 즉, 함수가 함수를 `return`
-
+  
   ````js
   // 예시1
   const func1 = () => {		// 고차 함수
@@ -2802,7 +2842,7 @@ a('hi','hello','bye');
   
   // third의 값을 유추 해보자.
   ````
-
+  
   
 
 #### Object 객체
@@ -3092,7 +3132,7 @@ a('hi','hello','bye');
 
 + **Method(메서드)** 
 
-  + 객체 안에 선언된 함수
+  + 객체 안에 선언된 함수(객체의 프로퍼티)
 
   + 객체의 속성 값으로 함수를 넣은 경우를 말한다
 
@@ -3362,7 +3402,11 @@ a('hi','hello','bye');
 
     
 
-#### DOM
+### DOM
+
+
+
+#### DOM 개념
 
 + Document Object Model
 
@@ -3370,14 +3414,26 @@ a('hi','hello','bye');
 
   ````js
   // constructor function
-  // 일반적으로 함수 이름의 첫 글자를 대문자로 네이밍 한다
-  function Song(title, singer) {			//	song (x) Song(o)
-  	this.title = title;			// this.title의 title이 object의 property가 된다
-      this.singer = singer;		//	this는 현재 이 object를 말한다
-      console.log(this);
-  }
+  // 함수를 객체(object) 그 자체로 return하는 함수
+  // 'this'를 통해서 object에 property들을 할당할 수 있다.
   
-  const song1 = new Song("Gang", "Rain");
+  // 예시 1
+  const Straight = function () {};
+  const go = new Straight();
+  go; // {} - 생성자 함수에 의해 객체로 return되었다.
+  go instanceof Straight; // true - go는 Straight의 객체인가?
+  go instanceof Object; // true - go는 Object의 객체인가? 생성자 함수는 객체를 반환한다.
+  
+  
+  // 예시 2
+  > function Song(title, singer) {		// tip) 일반적으로 함수 이름의 첫 글자를 대문자로 네이밍 한다.
+  	  this.title = title;			// this.title의 title이 object의 property가 된다
+        this.singer = singer;		//	this는 현재 이 object를 말한다
+        console.log(this);
+    }
+  
+    const song1 = new Song("Gang", "Rain");
+  < Song {title: "Gang", singer: "Rain"}
   // new 키워드를 통해 기존 인스턴스를 삭제하고 새로운 인스턴스를 생성한다
   ````
 
@@ -3427,102 +3483,181 @@ a('hi','hello','bye');
   event.target.style 등
   // 여기서 함수의 매개 변수로 event를 불러올 때, e나 event로 많이 표기한다.
   ````
-  
-+ **선택자**
 
-  ````js
-  document.querySelector()	//	정의 : queryselector는 특정 name이나 id를 제한하지 않고 css선택자를 사용하여 요소를 찾을 수 있다. 객체를 id로 찾고싶다면 "#title"  class로 찾고 싶다면 ".title"
-  document.querySelectorAll()		// 태그 모두 선택 ex) button태그 모두 선택
-  document.getElementById		//	gets only by ID
-  document.getElementsByClassName		//	 gets MANY elements by classname
-  
-  // querySelector()와 querySelectorAll()의 차이
-  // querySelector()는 한 개의 요소만을 객체로 반환하며 동일 클래스명을 가진 요소들이 있을 경우 html 문서내의 첫번째 요소를 반환(지정)한다.
-  // querySelectorAll()는 해당 선택자에 해당 하는 모든 요소를 객체 배열로 가져온다.
-  // 즉, 반환 객체가 nodeList이기에 eventListen에 등록할 때 for문(for of) 또는 forEach문을 사용해야한다.
-  // 예시
-  const buttons = document.querySelectorAll(".button")
-  const onClickBtn = () => {
-      // ...
-  }
-  for (const button of buttons) {
-    button.addEventListener('click', onClickBtn) 
-  }
-  
-  
-  // 심화
-  // 상황 : div 태그 안에 들어 있는 id값이 order인 태그 선택
-  document.querySelector('부모태그 자식태그')
-  document.querySelector('div #order')			// 띄어 쓰기(공백)으로 구분
-  ````
-  
-+ **Event와 Event handlers**
+<br/>
 
-  + Event : 웹사이트에서 사용자가 태그와 상호작용 할 때 발생하는 것들 ex) button 클릭 시, click 이벤트 발생
+### DOM과 Event
 
-  + 태그에 Event 달기
++ Event : 웹사이트에서 사용자가 태그와 상호작용 할 때 발생하는 것들 ex) button 클릭 시, click 이벤트 발생
 
-    + addEventListener
++ type 종류 링크
 
-      + type 종류 링크
+  [MDN에서 종류 보기](https://developer.mozilla.org/ko/docs/Web/Events)
 
-        [MDN에서 종류 보기](https://developer.mozilla.org/ko/docs/Web/Events)
-      
-      ````js
-      // 기본 문법
-      target.addEventListener("type", listener);
-      target.addEventListener("event 행위", 리스너 함수);
-      
-      // 자바스크립트는 자동으로 이벤트를 감지할 수는 없다. 그래서 우리는 이를 감지할 수 있게 만들어 줘야 한다.
-      // 자바스크립트가 우리의 이벤트를 받기 기다리는 것을 Listen to event라 칭한다. 
-      // 여기서 우리는 event가 무엇인지 정해야 하는데, listener는 우리가 이벤트에서 다룰 함수를 의미한다.
-      // `type`은 target이 기다리는 event 행위를 말한다.
-      
-      
-      
-      // 예시 1)
-      function handleResize(){
-          console.log("I have been resized")
-      }
-            
-      window.addEventListener("resize", handleResize);
-      
-      // 코드 맨 마지막줄에 handleResize()라고 적지 않는 것은 resize 이벤트 행위와는 상관 없이 바로 함수를 호출해버리기 때문이다. 
-      // 이제 우리는 우리가 원할때 이 함수를 호출할 수 있다.
-      
-      
-      
-      // 예시 2)
-      const onInput = (e) => {
-          console.log(e.target.value);
-      };
-      
-      const $input = document.querySelector('input');
-      $input.addEventListener('input', onInput);
-      // addEventListene에 넣는 함수에는 매겨변수를 통해서 이벤트에 관한 정보가 제공된다.
-      // 위에서는 이벤트에 관한 정보 매개변수로 'e'로 넣었는데, 말그대로 매개변수이므로 아무 이름을 지어도 된다.
-      // 보통 'e'나 'event'를 많이 쓴다. 다른 사람이 보기에 헷갈리지 않게 하기 위해서다.
-      // 한마디로 위의 'e'는 input event가 발생했을 때 발생한 event의 정보를 담고있다.
-      // event객체의 대표적인 속성
-      // target : 이벤트가 발생한 요소 || type : 발생한 이벤트의 종류
-      
-      
-      
-      // tip) 입력창에 이벤트를 걸 때에는 버튼에 click 이벤트 보다는 form으로 감싸서 submit 이벤트를 사용하는 것이 좋다. 그 이유는 버튼을 클릭하지 않아도 [Enter]키를 눌러 값 제출도 가능해지기 때문이다.
-      
-      
-      
-      // addEventListener 연결 함수 제거방법
-      removeListener
-      
-      // 사용법
-      tag.addEventLinstener('event', func);
-      tag.removeEventLinstener('event', func);
-      ````
-      
-      
+```` js
+// 기본 문법
+target.addEventListener("type", listener);
+target.addEventListener("event 행위", 리스너 함수);
 
-#### 자주 쓰이는 기본 메서드와 객체
+// 자바스크립트는 자동으로 이벤트를 감지할 수는 없다. 그래서 우리는 이를 감지할 수 있게 만들어 줘야 한다.
+// 자바스크립트가 우리의 이벤트를 받기 기다리는 것을 Listen to event라 칭한다. 
+// 여기서 우리는 event가 무엇인지 정해야 하는데, listener는 우리가 이벤트에서 다룰 함수를 의미한다.
+// `type`은 target이 기다리는 event 행위를 말한다.
+// tip) type값은 console.dir()로 element를 출력한 뒤 property중 문두가 on으로 시작하는 것들에 on만 빼고 입력해주면 type이 된다.
+
+
+
+// 예시 1)
+function handleResize(){
+    console.log("I have been resized")
+}
+      
+window.addEventListener("resize", handleResize);
+
+// 코드 맨 마지막줄에 handleResize()라고 적지 않는 것은 resize 이벤트 행위와는 상관 없이 바로 함수를 호출해버리기 때문이다. 
+// 이제 우리는 우리가 원할때 이 함수를 호출할 수 있다.
+
+
+
+// 예시 2)
+const onInput = (e) => {
+    console.log(e.target.value);
+};
+
+const $input = document.querySelector('input');
+$input.addEventListener('input', onInput);
+// addEventListene에 넣는 함수에는 매개변수를 통해서 이벤트에 관한 정보가 제공된다.
+// 위에서는 이벤트에 관한 정보 매개변수로 'e'로 넣었는데, 말그대로 매개변수이므로 아무 이름을 지어도 된다.
+// 보통 'e'나 'event'를 많이 쓴다. 다른 사람이 보기에 헷갈리지 않게 하기 위해서다.
+// 한마디로 위의 'e'는 input event가 발생했을 때 발생한 event의 정보를 담고있다.
+// event객체의 대표적인 속성
+// target : 이벤트가 발생한 요소 || type : 발생한 이벤트의 종류
+
+
+
+// tip) 입력창에 이벤트를 걸 때에는 버튼에 click 이벤트 보다는 form으로 감싸서 submit 이벤트를 사용하는 것이 좋다. 그 이유는 버튼을 클릭하지 않아도 [Enter]키를 눌러 값 제출도 가능해지기 때문이다.
+
+
+
+// addEventListener 연결 함수 제거방법
+removeListener
+
+// 사용법
+tag.addEventLinstener('event', func);
+tag.removeEventLinstener('event', func);
+
+// cf)
+title.addEventListener("click", handleTitleClick); // 이 코드는 바로 아래 코드와 바꿔쓸 수 있다.
+title.oncilcik = handleTitleClick; // 하지만 이렇게 줄여쓰면 removeEventLinstener를 사용하지 못한다.
+// 그래서 보통 줄여쓰지않고 addEventListener를 명시해준다.
+````
+
+
+
+<br/>
+
+### DOM 객체 탐색
+
+````js
+document.querySelector()	//	정의 : queryselector는 특정 name이나 id를 제한하지 않고 css선택자를 사용하여 요소를 찾을 수 있다. 객체를 id로 찾고싶다면 "#title" class로 찾고 싶다면 ".title"로 찾을 수 있다.
+document.querySelectorAll()		// 태그 모두 선택 ex) button태그 모두 선택
+document.getElementById		//	gets only by ID
+document.getElementsByClassName		//	 gets MANY elements by classname
+
+// querySelector()와 querySelectorAll()의 차이
+// querySelector()는 한 개의 요소만을 객체로 반환하며 동일 클래스명을 가진 요소들이 있을 경우 html 문서내의 첫번째 요소를 반환(지정)한다.
+// querySelectorAll()는 해당 선택자에 해당 하는 모든 요소를 객체 배열로 가져온다.
+// nodelist 가져왔을때는 배열로 다시 바꿔주려면 Array.from(변수)로 만든다. or [... ]
+// 즉, 반환 객체가 nodeList이기에 eventListen에 등록할 때 for문(for of) 또는 forEach문을 사용해야한다.
+// 예시
+const buttons = document.querySelectorAll(".button")
+const onClickBtn = () => {
+    // ...
+}
+for (const button of buttons) {
+  button.addEventListener('click', onClickBtn) 
+}
+
+
+// 심화 1
+// 상황 : div 태그 안에 들어 있는 id값이 order인 태그 선택
+document.querySelector('부모태그 자식태그')
+document.querySelector('div #order')			// 띄어 쓰기(공백)으로 구분
+// 또한 css 선택자를 사용하기에 자식, 자손 관계 표현도 가능하다.
+
+// tip)
+// 보통 요소들을 querySelector 등으로 찾아야 하지만 document의 body, head, title과 같은 것들은 중요하기에 document의 객체로서 다룰 수 있다. ex) document.body.style.backgroundColor = "white"
+
+// 심화 2
+// data관련 property를 가지는 태그들도 querySelector로 지정 가능
+const $audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+const $key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+const button = document.querySelector('[data-test="1"]');
+````
+
+<br/>
+
+### DOM 트리 탐색
+
+````js
+// # 트리 탐색과 관련하여 알아두면 좋은 노드의 종류
+// document node(문서 노드) - HTML 문서 전체를 나타내는 노드
+// element node(요소,태그 노드) - 모든 HTML 요소는 요소 노드이며, 속성 노드를 가질 수 있는 유일한 노드
+// attribute node(속성 노드) - 모든 HTML 요소의 속성은 속성 노드이며, 요소 노드에 관한 정보를 가지고 있음(자식 노드는 제외)
+// text node(텍스트 노드) - HTML 문서의 모든 텍스트는 텍스트 노드
+// comment node(주석 노드) - HTML 문서의 모든 주석은 주석 노드
+
+// ! 일반적으로 Node가 붙은 객체는 요소 노드와 다른 노드(텍스트,주석 등)들을 모두 가리키지만 Element가 붙은 객체는 요소 노드만을 가리킨다.
+
+// 여러가지 DOM 트리 탐색(DOM 선회) 객체
+// 1. 특정 노드의 부모노드 접근 - parentNode
+item.parentNode.style.backgroundColor = 'blue';
+item.parentNode.parentNode.style.backgroundColor  =  'red'; // 부모보다 상위노드로까지 접근 가능.
+
+// 2. 특정 노드의 자식노드 접근 - children, childNodes
+// children - 요소 노드만 포함
+// childNodes - 텍스트, 주석, 요소 노드 포함
+// 그러므로 HTML코드에 특정 요구사항을 반영하려할 때 보통 children을 많이 쓴다.
+itemlist.children[1].style.backgroundColor = 'blue';
+itemlist.childNodes[0].style.backgroundColor = 'red';
+
+// 3. 특정 노드의 첫번째 자식 노드 접근 - FirstChild, FirstElementChild
+// FirstElementChild - 요소 노드만 포함
+// FirstChild - 텍스트, 주석, 요소 노드 포함
+// children, childNodes와 같은 이유로 보통 FirstElementChild를 많이 쓴다.
+item.firstElementChild.textContent = 'piro15'
+item.FirstChild.textContent = 'piro16'
+
+// 4. 특정 노드의 마지막 자식 노드 접근 - LastChild, LastElementChild
+// 2, 3과 동일한 논리를 가진다.
+
+// 5. 특정 노드와 동등한 레벨(같은 부모를 가지는)에 있는 다음 형제 노드 접근 - NextSibling, NextElementSibling
+// 2, 3, 4와 동일한 논리를 가진다.
+
+// 6. 특정 노드와 동등한 레벨에 있는 이전 형제 노드 접근 - previousElementSibling
+// previousElementSibling - 요소 노드만 포함
+
+// 7. 특정 노드(요소)에서 가장 가까운 조상 요소 접근 - closet()
+// closet(selectors) 가장 가까운 조상의 element를 반환하며 해당 selectors가 없다면 null을 반환한다.
+// selectors인자를 반드시 포함해야한다.
+// closet메서드를 이용아여 parentNode남발을 줄일 수 있겠다.
+<div>
+<div class="grandfather">‣ 우리집 할아버지
+   <div class="parent">
+      ‣ 첫째
+   <div class="grandson">‣ 손자</div>
+   </div>
+</div>
+<div class="grandfather" style="margin-top: 20px;">‣ 이웃집 할아버지</div>
+</div>
+const grandson = document.querySelector('.grandson')
+const myGrandFa = grandson.closest('.grandfather')
+console.log(myGrandFa) // <div class="grandfather">‣ 우리집 할아버지...</div> 반환
+````
+
+<br/>
+
+### 자주 쓰이는 DOM관련 기본 메서드와 객체 속성 조작
 
 + `prompt`
 
@@ -3756,7 +3891,7 @@ a('hi','hello','bye');
 
 + `sort()`
 
-  + 배열을 정렬
+  + 배열을 정렬inner
 
     ````js
     // 비교 함수 : 함수에 적힌 규칙에 따라 배열이 정렬됨
