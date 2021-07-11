@@ -3479,9 +3479,25 @@ a('hi','hello','bye');
 
   ````js
   // event객체에 저장된 정보를 가져오는 방법
+  
+  // 1. event.target
+  // 실제 이벤트가 시작된 '타겟'요소 - 이벤트가 발생한 가장 안쪽 요소(버블링 영향 받지않음)
   event.target.~ // ~에는 target을 따르는 어떠한 하위 요소들도 올 수 있다.
-  event.target.style 등
-  // 여기서 함수의 매개 변수로 event를 불러올 때, e나 event로 많이 표기한다.
+  event.target.style 등	
+  
+  // 2. event.currentTarget(=this)
+  // 현재 실행 중인 이벤트를 핸들링하는 현재 요소 (버블링 영향 받음)
+  event.currentTarget
+  
+  // tip) 버블링 중단 시키기
+  // event.stopPropagation() - 버블링 // event.stopImmediatePropagation() - 버블링, 캡쳐
+  // event.stopImmediatePropagation()는 요소에 할당된 이벤트 핸들러 모두 동작 스탑시킴 
+  <body onclick="console.log(`버블링 멈춰~`)">
+    <button onclick="event.stopPropagation()">클릭</button>
+  </body>
+  
+  // 일단 'target'을 쓴다는 것은 eventListener로 등록됐다는 가정을 두는 것임을 명심하자.
+  // 아무데나 target을 같다붙이는 것이 아니다.
   ````
 
 <br/>
@@ -3496,14 +3512,16 @@ a('hi','hello','bye');
 
 ```` js
 // 기본 문법
-target.addEventListener("type", listener);
-target.addEventListener("event 행위", 리스너 함수);
+target.addEventListener("type", listener, useCapture);
+target.addEventListener("event 행위", 리스너 함수, options);
 
 // 자바스크립트는 자동으로 이벤트를 감지할 수는 없다. 그래서 우리는 이를 감지할 수 있게 만들어 줘야 한다.
 // 자바스크립트가 우리의 이벤트를 받기 기다리는 것을 Listen to event라 칭한다. 
 // 여기서 우리는 event가 무엇인지 정해야 하는데, listener는 우리가 이벤트에서 다룰 함수를 의미한다.
 // `type`은 target이 기다리는 event 행위를 말한다.
 // tip) type값은 console.dir()로 element를 출력한 뒤 property중 문두가 on으로 시작하는 것들에 on만 빼고 입력해주면 type이 된다.
+// useCapture는 필수 조건은 아니다. 
+// capture : 기본값 false // once : 리스너 추가 후 반 번만 호출되게함. true이면 호출 시, 리스너 자동 삭제
 
 
 
@@ -3540,11 +3558,25 @@ $input.addEventListener('input', onInput);
 
 
 // addEventListener 연결 함수 제거방법
-removeListener
+removeEventListener
 
 // 사용법
+// 1. 기본 callback
 tag.addEventLinstener('event', func);
-tag.removeEventLinstener('event', func);
+tag.removeEventLinstener('event',　func);
+
+// 2. arguments.callee
+// 두번째 파라미터에는 익명함수가 올 수 없지만 익명함수를 사용한다면 arguments.callee를 사용하여 제거한다.
+element.addEventListener("click, function(){
+           alert('익명함수');
+           this.removeEventListener("click",arguments.callee);
+}); // 하지만 이 방법은 ES5 이후에 strict mode에서는 사용할 수 없다.
+
+// 3. addEventListener의 once사용
+element.addEventListener('click', func, {
+  once: true
+})};
+
 
 // cf)
 title.addEventListener("click", handleTitleClick); // 이 코드는 바로 아래 코드와 바꿔쓸 수 있다.
