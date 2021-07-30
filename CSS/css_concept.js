@@ -806,6 +806,9 @@
 // cover는 원본 크기에서 cover되는 것이 아니라 해상도에 맞는 크기를 기준으로 cover된다
 // cover에 center center 사용 多
 
+// * 7) background
+// color image - repeat - position - attachment
+
 
 
 
