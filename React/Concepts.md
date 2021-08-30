@@ -111,9 +111,240 @@
     {
       /* 이것은 xxx입니다.! */
     }
-
+    
     // 2. Tag 여는 부분 or selfClosing Tag
     <HEllo
     // 이런식으로 작성
     />;
     ```
+
+#### 4. 기본 개념
+
+1. `className`
+
+````js
+// tag에 class주기
+<div className="클래스명"></div>
+
+// HTML이 아닌 JSX에서는 class를 줄 때에, JSX가 객체지향의 개념을 가지기에 class가 아닌 className이라고 입력한다.
+// 물론 카멜표기법 camelCase을 이용하여 작성한다.
+// component의 함수명 첫 글자에는 반드시 대문자를 넣어주자.
+
+// for문 또한 'htmlFor'을 사용한다.
+<span htmlFor="제목">header1</span>
+````
+
+
+
+2. 데이터 바인딩
+
++ `{ }` 중괄호 사용 
+
+  ````js
+  // 정적 데이터에 많이 사용하며, 동적 데이터는 state를 많이 사용한다.
+  // state에 대한 설명은 아래에 있다.
+  
+  { 변수명 } { 함수 } - 공백은 취향 차이
+  
+  // src, id, href 등의 속성 안에도 넣어 사용 할 수 있다.
+  // 상상하는 모든 곳에 변수 집어넣기 가능 ex) className에 변수 사용
+  
+  // 예시 1
+  let posts = '이번주 신상 리스트'
+  <div className={ posts }> 개발 Blogs</div>
+  
+  // 예시 2
+  let posts = '이번주 신상 리스트'
+  <h3> { posts } </h3>
+  
+  // 예시 3
+  import logo from './logo.svg';
+  <img src={ logo } />
+  
+  // 예시 4
+  function hundred() {
+   return 100
+  }
+  <h3> { hunderd() } </h3>
+  ````
+
+
+
+3. **props** 
+
++ properties의 줄임말
+
++ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용
+
++ 사실, 함수의 parameter라고 생각하면 쉽다.
+
+  ````js
+  // App.js
+  import React from 'react';  
+  import Hello from './Hello';
+  
+  function App() {
+      return (
+      	<Hello name="리액트" color="red" />
+      )	// Hello.js 에서 props인 name과 color를 받아온 뒤 값 지정
+  }
+  
+  export default App;
+  
+  // Hello.js
+  // 1. 일반
+  
+  import React from 'react';    
+  
+  // props에는 우리가 넣어준 값들이 객체 형태로 존재한다. 
+  // 확인해보고 싶다면, console.log(props); 로 확인해보자.
+  function Hello(props) {   
+   // console.log(props); => {name: "react"}
+    	return <div style={{color:props.color}}>안녕하세요 {props.name}</div>;   
+  }	// style에서 중괄호가 2개 겹친 것은 style 부여시 객체 형태로 입력해야 하는 것과 데이터 바인딩을 위한 중괄호이다.
+  
+  export default Hello;  
+  
+  
+  // 2. 비구조화 할당, 구조 분해 문법 사용
+  // props를 적어주지 않아도 된다.
+  
+  import React from 'react';    
+  
+  function Hello({ color, name }) {    // props 미리 추출
+    	return <div style={{color}}>안녕하세요 {name}</div>;    
+  }	
+  export default Hello;  
+  ````
+
+  
+
++ `defaultProps`
+
+  + props 기본값 설정
+
+  + 특정 값을 주지않아도 기본적으로 사용(출력)할 값
+
+    ````js
+    // App.js
+    import React from 'react';  
+    import Hello from './Hello';
+    
+    function App() {
+        return (
+            <>
+        	  <Hello name="리액트" color="red" />
+              <Hello color="pink" />   		// name 값 주지않음
+            </>
+        )
+    }
+    
+    export default App;
+    
+    // Hello.js
+    import React from 'react';    
+    
+    function Hello({ color, name }) {    
+      	return <div style={{
+    		color
+        }}>안녕하세요 {name}</div>;    
+    }	
+    
+    Hello.defaultProps = {			// props 기본값 설정
+        name: '이름없음'
+    };
+    
+    export default Hello;  
+    ````
+
+  
+
++ `childrenProps` 
+
+  + component로 특정 내용, 태그 등을 감쌌을 때 값을 주기 위해 사용
+
+  + Children 자체가 component로 감싼 내용을 지칭함
+
+    ````jsx
+    // Wrapper.js
+    import React from 'react';
+    
+    function Wrapper({ children }) {
+        const style = {
+            border: '2px solid black',
+            padding: 16
+        };
+        
+        return <div style={style}>{children}</div>
+    }
+    
+    export default Wrapper;
+    
+    // App.js
+    import React from 'react';  
+    import Hello from './Hello';
+    import Wrapper from './Wrapper'
+    // 사실 import는 함수에 불러올 component를 입력하면서 자동 완성 기능을 통해 불러올 수도 있다.
+    
+    function App() {
+        return (
+            <Wrapper>
+        	  <Hello name="리액트" color="red" />
+              <Hello color="pink" />
+            </Wrapper>
+        )
+    }
+    ````
+    
+    
+  
++ `조건부 렌더링`
+
+  + 특정 조건이 참인지 거짓인지에 따라서 다른 결과를 보임.
+
+  + `falsy`한 값은 아무것도 나타나지 않음. `0`예외.  ex) null, false, undefined
+
+  + 가장 기본적으로는 `3항 연산자`를 사용하나, 경우에 따라 `end연산자`를 활용하기도함.
+
+    ```jsx
+    // App.js
+    import React from 'react';  
+    import Hello from './Hello';
+    import Wrapper from './Wrapper'
+    // 사실 import는 함수에 불러올 component를 입력하면서 자동 완성 기능을 통해 불러올 수도 있다.
+    
+    function App() {
+        return (
+            <Wrapper>
+        	  <Hello name="리액트" color="red" isSpecial={true} />
+                {/* boolean 설정시, 값인 true, false를 생략하면 기본적으로 true로 받아옴*/}
+              <Hello color="pink" />
+            </Wrapper>
+        )
+    }
+    
+    export default App;
+    
+    
+    
+    
+    
+    // Hello.js
+    import React from 'react';    
+    
+    function Hello({ color, name, isSpecial }) {    
+        return <div style={{color}}>
+          {isSpecial ? <b>*</b> : null} {/* 조건부 연산자 (보통 true와 false의 내용이 다를때 사용 */}
+          {/* {isSpecial && <b>*</b>}  and연산자 (유무 구현) */}
+                안녕하세요 {name}
+              </div>;    
+    }	
+    
+    Hello.defaultProps = {			// props 기본값 설정
+        name: '이름없음'
+    };
+    
+    export default Hello;  
+    ```
+    
+    
