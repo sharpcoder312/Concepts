@@ -138,6 +138,10 @@
 
 2. 데이터 바인딩
 
++ '바인딩'? 프로그램의 어떤 기본 단위가 가질 수 있는 구성요소의 구체적인 값, 성격을 확정하는 것
+
+  ex) 객체로 바인딩하여 구체적인 성격 확정. `{content}`
+
 + `{ }` 중괄호 사용 
 
   ````js
@@ -348,3 +352,61 @@
     ```
     
     
+
+
+4. **state**
+
++ 동적. 중요하고 자주 바뀌는 데이터에 사용 ex) 사용자 인터렉션에 따라
+
++ `state`?
+
+  + 변수 대신 쓰는 데이터 저장공간
+
++ `useState()`를 이용해 만든다 - React에 있는 내장 함수(Hooks 중 하나)
+
++ `useState()` 내에 문자,숫자,array,object 모두 저장 가능
+
++ state에 데이터를 저장해놓는 이유
+
+  + 웹이 App처럼(React를 웹앱처럼) 동작하게 만들고 싶기 때문
+  + state는 변경되면 html이 자동으로 재렌더링 된다. 그러므로 그냥 변수에 넣어 데이터를 저장하는 것 보다 수정, 순서 변경 등에 용이하다.
+  + 예를 들어 제목 수정 시에 일반 변수에 저장하는 것과 달리 새로고침 없이 재렌더링이 가능하다.
+
+  ````js
+  import React, { useState } from 'react';
+  // react에서 useState함수를 불러온다 .
+  
+  function List() {
+  
+    const [theme, themeChange] = useState(['남자 지갑 추천', '남자 향수 추천', '남자 신발 추천']);
+  
+  
+    return (
+      <div className="list" >
+        <h3> { theme[0] } </h3>
+        <p>3월 11일 발행</p>
+        <hr />
+      </div>
+      <div className = "list" >
+        <h3> { theme[1] } </h3>
+        <p>3월 11일 발행</p>
+        <hr />
+      </div>
+      <div className = "list" >
+        <h3> { theme[2] } </h3>
+        <p>3월 11일 발행</p>
+      <hr />
+      </div>
+      )
+  }
+  
+  // useState 함수는 실행하고나면 2개의 데이터를 담고 있는 array가 하나 남게되는데 
+  // [a,b] - 여기서 a는 ''내의 데이터를 포함하고 있으며(현재상태 표시) b는 해당 state를 정정해주는 함수이다. b는 함수라는 사실을 반드시 기억하자.
+  // [state데이터, state 데이터 변경 함수]
+  // 사실 위 useState는 아래의 코드를 배열 비구조 할당(구조 분해)를 통해서 더 쉽게 쓴 것이다.
+  const themeState = useState();
+  const theme = themeState[0];
+  const themeChange = themeState[1];
+  ````
+
+  
