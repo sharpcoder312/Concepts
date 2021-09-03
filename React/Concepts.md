@@ -8,6 +8,10 @@
 
   - 앵귤러, 백본 등의 라이브러리들은 특정 값과 특정 DOM간의 규칙을 만들어서 업데이트를 간소화함. 반면에, 리액트는 어떠한 상태가 변경됐을 때 업데이트 규칙을 정하는 것이 아닌 Virtual DOM 내에서 다 날리고 새로 업데이트함. 이는 'UI를 어떻게 업데이트 할 것인가'가 아닌 'UI를 어떻게 변경할것인가'에 초점을 맞출 수 있음.
 
+  - tip) 상태관리?
+
+    객체지향 프로그래밍에서는 기본 단위가 객체이고, 프론트엔드에서는 비슷한 개념으로 컴포넌트라는 용어를 사용한다. 객체가 인스턴스 변수(데이터)로 상태를 갖고 있듯이 컴포넌트도 상태(데이터)를 가질 수 있다.
+
   - Virtual DOM 은 메모리 안에서 가상으로 존재하는 돔으로써 직접 실제 DOM을 보여주는 것보다 작동 성능이 훨씬 좋다. (속도가 빠르다.)
 
   - One way Data Flow(단방향 데이터)의 특성을 가지기에 하나의 Watcher를 사용하여 데이터 추적이 쉽고 성능이 좋다. (이슈 해결에 용이)
@@ -68,15 +72,42 @@
 
 - `JSX` -> ~`JS`
 
+  ```jsx
   - JSX? JS 파일 내에서 html 태그를 사용하는 문법. (JS에서 확장된 문법이라고 생각하면됨)
-
+  - compile 이후 JSX 표현식이 정규 JS함수 호출이 되며 JS 객체로 인식되기 때문에 JSX 또한 JS와 같이 if문이나 for문을 사용할 수 있으며 변수 할당 및 인자로 받아들이기, 함수로부터 return(반환)도 가능하다.
+  
   - BABEL을 통하여 HTML 형태의 JSX 코드가 JS로 변환
-
   - BABEL은 JS 컴파일러이다. 자세한 사항은 Babeljs.io 에서 확인 가능
-
   - 대표적으로 JSX문법을 사용하여 XML형태로 선언하면 `React.createElement` 처럼 JS로 변환함.
+  - React의 element는 '불변 객체'이며 element 생성 이후에는 해당 element와 자식 element의 속성을 변경할 수 없다. 이와 같은 이유로 UI를 업데이트 하기위해서는 새롭게 element를 생성하여 이를 `ReactDOM.render()`로 전달하는 것이다. 실제로 대부분의 React앱은 `ReactDOM.render()`를 한 번만 호출한다.
+  
+  const element = (
+    <h1 className="title">
+      fantastic topic!
+    </h1>
+  );
+  
+  위와 아래의 예시는 동일하다.
+  
+  const element = React.createElement(
+    'h1',
+    {className: 'title'},
+    'fantastic topic'
+  );
+  
+  => const element = {
+    type: 'h1',
+    props: {
+      className: 'greeting',
+      children: 'Hello, world!'
+    }
+  };
+  
+  
+  - 이렇게JSX를 JS로 변환하기 위해서는 몇 가지 규칙을 준수해야 한다.
+  ```
 
-  - 이렇게 변환을 위해서는 몇 가지 규칙을 준수해야 한다.
+  
 
   - 규칙 1 - **Tag는 꼭 닫혀있어야 한다.**
 
@@ -145,6 +176,8 @@
 + `{ }` 중괄호 사용 
 
   ````js
+  // JSX의 중괄호 안에는 유효한 모든 JS 표현식을 넣을 수 있다.
+  // ex) 1+1 , user.lastName , resetName(user)
   // 정적 데이터에 많이 사용하며, 동적 데이터는 state를 많이 사용한다.
   // state에 대한 설명은 아래에 있다.
   
@@ -178,7 +211,7 @@
 
 + properties의 줄임말
 
-+ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용
++ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용 (정적 데이터)
 
 + 사실, 함수의 parameter라고 생각하면 쉽다.
 
