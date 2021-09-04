@@ -2136,9 +2136,9 @@ console.log(typeof weight)
       ````
   
 + `indexOf` ,`lastIndexOf`
-  
+
   + 배열,문자열 내에서 특정 원소(문자열)의 index값(순서) 구하기
-  
+
     ````js
       // indexOf	앞에서부터 주어진 값 검색
       const users = ["seok", "june", "kim"];
@@ -2162,30 +2162,99 @@ console.log(typeof weight)
       console.log(users.lastIndexOf("seok"));
         => 2
     ````
-  
+
   + `isArray`
-  
+
     + Array인지 판단
-  
+
       ````js
       console.log(Array.isArray(users));
       => true
       console.log(Array.isArray(hello));
       => false
       ````
-  
-  + `...` spread operator
-  
-    + 배열의 값들만 가져옴
-  
-    + 객체에도 사용할 수 있으며 spread operator는 대괄호, 중괄호 모두 제거 해달라는 의미를 가진다.
+
+    <br/>
+
+  + `... spread와 reset` 
+
+    ````js
+    // spread
+    // 사용 용도 : 기존의 것을 건들지 않고 새로운 객체, 배열을 만들고자 할 때
+    // 얼마나 요소들이 들어올지 모를 때 사용하면 아주 유용하다.
     
-      ````js
-      console.log(users);
-      => {"june", "seok", "kim"}
-      console.log(...users);
-      => june seok kim
-      ````
+    // 예시 1
+    const chicken = {
+      name: '치킨'
+    };
+    
+    const tastyChicken = {
+      ...chicken,
+      taste: 'delicious'
+    };
+    
+    const redTastyChicken = {
+      ...tastyChicken,
+      color: 'red'
+    };
+    
+    console.log(chicken);
+    console.log(tastyChicken);
+    console.log(redTastyChicken);
+    
+    // 예시 2
+    // 여러번 사용도 가능하다.
+    const numbers = [1, 2, 3];
+    
+    const spreadNumbers = [...numbers, 10, ...numbers];
+    console.log(spreadNumbers); // [1, 2, 3, 10, 1, 2, 3]
+    
+    // 예시 3
+    // '배열'에서는 각 요소에 같은 index를 가지는 배열 값이 할당된다.
+    // '객체'에서는 우항의 key, value가 좌항의 변수명과 매칭된다.
+    // 전개 연산자 이후에 변수를 입력해서는 안된다.
+    
+    const [a1, a2, ...rest_a] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const { a1, a2, ...rest_a } = { a1 : 10, a2 : 20, a3 : 30, a4 : 40, a5 : 50 };
+    console.log(rest_a) // { a3 : 30, a4 : 40, a5 : 50 };
+    
+    
+    // reset
+    // spread의 반대 역할을 하며 객체, 배열, 함수의 파라미터에서 사용 가능하다.
+    // 객체와 배열에서 사용할 때에는 보통 '비구조화 할당'과 함께 사용된다.
+    
+    // 예시 1 (객체)
+    const redTastyChicken = {
+      name: '치킨',
+      taste: 'delicious',
+      color: 'red'
+    };
+    
+    const { name, ...tastyChicken } = redTastyChicken;
+    console.log(tastyChicken) // Object {taste: 'delicious', color: 'red'}
+    
+    // 예시 2 (배열)
+    const numbers = [0,1,2,3,4,5]
+    const [zero, ...lastNums] = numbers;
+    console.log(zero) // 0
+    console.log(lastNums) // [1,2,3,4,5]
+    
+    
+    // 배열에서의 spread와 reset 활용
+    // spread - 배열 -> 함수 파라미터 && reset - 함수 파라미터 -> 배열
+    // 함수 파라미터와 reset, 함수 인자와 spread는 아래 링크에서 확인하자.
+    // https://learnjs.vlpt.us/useful/07-spread-and-rest.html
+    
+    function sum(...nums) { // reset
+      return nums.reduce((acc, current) => acc + current, 0);
+    }
+    
+    const numbers = [1, 2, 3, 4, 5];
+    const result = sum(...numbers); // spread
+    console.log(result);
+    ````
+
+<br/>
 
 
   + `includes`
