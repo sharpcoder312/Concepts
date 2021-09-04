@@ -209,9 +209,11 @@
 
 3. **props** 
 
+   ![image-20210904211347359](C:\Users\Seok\AppData\Roaming\Typora\typora-user-images\image-20210904211347359.png)
+
 + properties의 줄임말
 
-+ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용 (정적 데이터)
++ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용 (정적 데이터. 읽기 전용)
 
 + 사실, 함수의 parameter라고 생각하면 쉽다.
 
@@ -252,6 +254,13 @@
     	return <div style={{color}}>안녕하세요 {name}</div>;    
   }	
   export default Hello;  
+  
+  // tip) '비구조화 할당' ?
+  // 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식
+  // 쉽게 말하여 '배열' 혹은 '객체' 안의 값을 편하게 꺼내 쓸 수 있는 문법
+  // 참고 할만한 링크들
+  // https://yuddomack.tistory.com/entry/자바스크립트-문법-비구조화-할당
+  // https://learnjs.vlpt.us/useful/06-destructuring.html
   ````
 
   
@@ -389,7 +398,7 @@
 
 4. **state**
 
-+ 동적. 중요하고 자주 바뀌는 데이터에 사용 ex) 사용자 인터렉션에 따라
++ 동적. 중요하고 자주 바뀌는 데이터에 사용 ex) 사용자 인터렉션에 따라. 쓰기 전용
 
 + `state`?
 
@@ -397,7 +406,7 @@
 
 + `useState()`를 이용해 만든다 - React에 있는 내장 함수(Hooks 중 하나)
 
-+ `useState()` 내에 문자,숫자,array,object 모두 저장 가능
++ **`useState()` 내에 문자,숫자,array,object 모두 저장 가능**
 
 + state에 데이터를 저장해놓는 이유
 
@@ -442,4 +451,48 @@
   const themeChange = themeState[1];
   ````
 
-  
++ state 수정하기
+
+  + React의 요소(element)는 **불변객체**이기에 기존의 state를 반드시 복사한 뒤 업데이트 해야한다.
+
+  + 'state 변경함수'를 사용하지 않고 그냥 state를 변경한다면 무한 재렌더링이 되므로 꼭 변경함수를 사용한다. (컴포넌트 업데이트 성능 최적화와 관련)
+
+  + 변경함수는 기존 데이터를 아예 갈아 엎는다.
+
+    ````js
+    const [like, likeChange] = useState(0);
+    const clickLike = () => {
+      likeChange(like + 1);	
+    }	// like가 아닌 likeChange (변경)함수를 이용하여 수정
+      
+    <h3> <span onClick={ clickLike }>👍</span> { like } </h3>
+        
+    // React를 사용할 때 DOM 엘리먼트가 생성된 후 리스너를 추가하기 위해 addEventListener를 호출할 필요가 없다. 대신, 엘리먼트가 처음 렌더링될 때 리스너를 제공하면 된다.
+    ````
+
+  + **Array, Object state 데이터 수정 방법**
+
+    ````js
+    // 가정 : 배열 내의 '남자 지갑 추천' -> '여자 지갑 추천'으로 변경
+    const [theme, themeChange] = useState(['남자 지갑 추천', '서울 맛집 추천', '리액트독학']);
+    const clickGender = () => {
+        const newGender = [...theme]	// step 1) 기존의 상태를 새 변수에 복사한다.
+        newGender[0] = '여자 지갑 추천'	// step 2) 카피본에 수정사항 반영
+        themeChange(newGender);			// step 3) 변경함수()에 집어넣기
+      }
+    // const newGender = theme 이렇게 쓰게되면 이것은 복사의 의미보다는 값 공유의 의미가 된다.
+    // 그러므로 deep copy를 사용하여 복사본을 만들어야 한다.
+    // '...' spread operator(ES6문법)를 사용하여 배열과 객체의 값만 가져온 뒤,
+    // [], {}를 사용하여 새로운 복사본을 만들어준다. ex) {...object}
+    // deep copy는 단순히 값 공유가 아닌 새로운 복사본(별개의 Array, object)을 만들어준다.
+    
+    // React의 state data를 이런 식으로 다루는 이유는 React에서 state data는 
+    // immutable(불가변. 직접 수정x) 하도록 의도하고 있기 때문이다. (개발자들의 의도)
+    
+    // state data를 바꿀 때 가장 중요한 것은 변경 함수에 들어갈 수 있는 건 본래 array나 object와 유사하거나 거의 같은 자료형이여야 한다는 것이다. 자료형이 숫자든 문자열이든 이런 식으로 자료형을 맞추어 똑같이 변경 함수에 넣어줘야한다.
+    // 예를 들어, state data가 배열일때 변경 함수에 문자열을 넣어서 변경해서는 안된다는 것이다.
+    
+    // tip) Hooks가 등장하면서 함수형 컴포넌트에서도 상태를 관리할 수 있게됨
+    ````
+
+    
