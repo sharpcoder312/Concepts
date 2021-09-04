@@ -2028,6 +2028,8 @@ console.log(typeof weight)
       // 가능하면 shift와 unshift 보다는 pop과 push를 쓰도록 하자.
       ````
   
+    <br/>
+  
   + `splice`, `slice`
   
     + 배열 특정 구간에서 자르기, 제거
@@ -2054,24 +2056,18 @@ console.log(typeof weight)
       const newUsers = users.splice(0,2,"mount","pulisic");
       console.log(users);    // 	["mount","pulisic","kim"]
       
-        
-      
-      
-      
-  
-    // slice (새로운 배열 생성)
+      // slice (새로운 배열 생성)
       // .slice(start요소index, end요소index+1)
-  
+      
       // 예시
       // 배열 array에서 [3, 4, 5]를 출력하고 싶을 때
-    const array = [1, 2, 3, 4, 5];
+      const array = [1, 2, 3, 4, 5];
       const result = array.slice(2, 6);
       console.log(result); // [3, 4, 5]
       console.log(array); // [1, 2, 3, 4, 5]
       // 여기서 볼 수 있듯이 배열 array의 요소들이 그대로 남아있다. 즉, 새로운 배열을 형성한 것이다.
-      ````
-    
-    <br/>
+        
+      
   
   + `concat`
   
@@ -2960,6 +2956,69 @@ a('hi','hello','bye');
 
   <br>
 
++ **비구조화 할당(객체 구조 분해)**
+
+  ````js
+  // 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식
+  // 쉽게 말하여 '배열' 혹은 '객체' 안의 값을 편하게 꺼내 쓸 수 있는 문법
+  // 참고 할만한 링크들
+  // https://yuddomack.tistory.com/entry/자바스크립트-문법-비구조화-할당
+  // https://learnjs.vlpt.us/basics/06-object.html
+  // https://learnjs.vlpt.us/useful/06-destructuring.html
+  
+  // 예시
+  
+  const seok = {
+      age: 25,
+      position: '프론트엔드'
+  };
+  
+  const kim = {
+      age: 24,
+      position: '백엔드'
+  };
+  
+  // 객체 비구조화 x
+  function intro(member) {
+    const text = `저는 ${member.age}살이고, ${member.position} 개발자를 준비하고 있습니다.`;
+    console.log(text);
+  }
+  
+  // 객체 비구조화 o
+  function intro(member) {
+    const { age, position } = member
+    const text = `저는 ${age}살이고, ${position} 개발자를 준비하고 있습니다.`;
+    console.log(text);
+  }
+  
+  // 함수 parameter에서의 객체 비구조화 o
+  function intro({ age, position }) {
+    const text = `저는 ${age}살이고, ${position} 개발자를 준비하고 있습니다.`;
+    console.log(text);
+  }
+  
+  // 위 세가지 방법 모두 동일한 함수 실행 결과를 가진다.
+  intro(seok);
+  intro(kim)
+  
+  
+  // tip) 객체 안에서 함수를 선언 할 때에는 함수의 이름이 없어도 된다.
+  // 단, 객체 안에 함수를 선언 할 때, 화살표 함수로 선언한다면 error가 발생하게 되는데 이는 function으로 선언한 함수는 this가 자신이 속한 객체를 제대로 가리키지만, 화살표 함수는 그렇지 않기 때문이다.
+  
+  const seok = {
+      age: 25,
+      position: '프론트엔드',
+      say: function() {
+          console.log(this.position);
+      }
+      // say: function say() {
+          // console.log(this.position);
+      // }
+  };
+  ````
+
+  <br>
+
 + **Class**
 
   ````js
@@ -2980,10 +3039,12 @@ a('hi','hello','bye');
   // new 키워드로 해당 클래스에 영향을 받는 객체를 생성한다.
   
   // 예시 0
-  function User(){	// this가 존재하는 한, 함수 또한 class 역할을 할 수 있다.
+  function User(){	
       this.name = 'jin'
       this.age = 25
   }
+  // this가 존재하는 한, 함수 또한 class 역할을 할 수 있다.
+  // 이때, this는 자신이 속해있는 객체를 가리키게 된다.
   
   const player01 = new User();
   player01	// User {name: jin, age: 25}
