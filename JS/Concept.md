@@ -2176,7 +2176,7 @@ console.log(typeof weight)
 
     <br/>
 
-  + `... spread와 reset` 
+  + `... spread와 rest` 
 
     ````js
     // spread
@@ -2219,9 +2219,10 @@ console.log(typeof weight)
     console.log(rest_a) // { a3 : 30, a4 : 40, a5 : 50 };
     
     
-    // reset
+    // rest
     // spread의 반대 역할을 하며 객체, 배열, 함수의 파라미터에서 사용 가능하다.
     // 객체와 배열에서 사용할 때에는 보통 '비구조화 할당'과 함께 사용된다.
+    // 예를 들어, 원하는 값을 밖으로 꺼낼 때 많이 쓰인다. < - > 원하는 값을 안으로 넣을 때 많이 쓰인다 (spread)
     
     // 예시 1 (객체)
     const redTastyChicken = {
@@ -2240,12 +2241,12 @@ console.log(typeof weight)
     console.log(lastNums) // [1,2,3,4,5]
     
     
-    // 배열에서의 spread와 reset 활용
-    // spread - 배열 -> 함수 파라미터 && reset - 함수 파라미터 -> 배열
-    // 함수 파라미터와 reset, 함수 인자와 spread는 아래 링크에서 확인하자.
+    // 배열에서의 spread와 rest 활용
+    // spread - 배열 -> 함수 파라미터 && rest - 함수 파라미터 -> 배열
+    // 함수 파라미터와 rest, 함수 인자와 spread는 아래 링크에서 확인하자.
     // https://learnjs.vlpt.us/useful/07-spread-and-rest.html
     
-    function sum(...nums) { // reset
+    function sum(...nums) { // rest
       return nums.reduce((acc, current) => acc + current, 0);
     }
     
