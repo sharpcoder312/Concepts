@@ -10,7 +10,7 @@
 
   - tip) 상태관리?
 
-    객체지향 프로그래밍에서는 기본 단위가 객체이고, 프론트엔드에서는 비슷한 개념으로 컴포넌트라는 용어를 사용한다. 객체가 인스턴스 변수(데이터)로 상태를 갖고 있듯이 컴포넌트도 상태(데이터)를 가질 수 있다.
+    객체지향 프로그래밍에서는 기본 단위가 객체이고, 프론트엔드에서는 비슷한 개념으로 컴포넌트(일종의 UI 조각)라는 용어를 사용한다. 객체가 인스턴스 변수(데이터)로 상태를 갖고 있듯이 컴포넌트도 상태(데이터)를 가질 수 있다.
 
   - Virtual DOM 은 메모리 안에서 가상으로 존재하는 돔으로써 직접 실제 DOM을 보여주는 것보다 작동 성능이 훨씬 좋다. (속도가 빠르다.)
 
@@ -225,7 +225,7 @@
   function App() {
       return (
       	<Hello name="리액트" color="red" />
-      )	// Hello.js 에서 props인 name과 color를 받아온 뒤 값 지정
+      )	// Hello.js 에서 props인 name과 color를 받아온 뒤 값 지정. 현재 전달해 주고 싶은 값이 name과 color이다.
   }
   
   export default App;
@@ -235,12 +235,13 @@
   
   import React from 'react';    
   
-  // props에는 우리가 넣어준 값들이 객체 형태로 존재한다. 
+  // props에는 우리가 넣어준 값들이 객체 형태로 존재한다. 현재는 App.js의 props인 name과 color를 가져온 상태이다.
   // 확인해보고 싶다면, console.log(props); 로 확인해보자.
   function Hello(props) {   
    // console.log(props); => {name: "react"}
     	return <div style={{color:props.color}}>안녕하세요 {props.name}</div>;   
-  }	// style에서 중괄호가 2개 겹친 것은 style 부여시 객체 형태로 입력해야 하는 것과 데이터 바인딩을 위한 중괄호이다.
+  }	// style에서 중괄호가 2개 겹친 것은 1.style 부여시 객체 형태로 입력해야 하는 것과 2.데이터 바인딩을 위한 중괄호이다.
+  	// 여기서 문제점은 일일이 props를 써주기 귀찮다는 것이다. 해결책 : 비구조화 할당
   
   export default Hello;  
   
@@ -251,7 +252,8 @@
   import React from 'react';    
   
   function Hello({ color, name }) {    // props 미리 추출
-    	return <div style={{color}}>안녕하세요 {name}</div>;    
+    	return <div style={{color}}>안녕하세요 {name}</div>;
+  // return <div style={{color: color}}>안녕하세요 {name}</div> App.js의 props인 color에서 red라는 값을 충족하기에 color도 하나만 써주면 된다.
   }	
   export default Hello;  
   
@@ -261,6 +263,9 @@
   // 참고 할만한 링크들
   // https://yuddomack.tistory.com/entry/자바스크립트-문법-비구조화-할당
   // https://learnjs.vlpt.us/useful/06-destructuring.html
+  
+  
+  // props를 사용하지않고도 기본적으로 값을 설정하고 싶다면 defaultProps를 사용한다.
   ````
 
   
@@ -280,7 +285,7 @@
         return (
             <>
         	  <Hello name="리액트" color="red" />
-              <Hello color="pink" />   		// name 값 주지않음
+              <Hello color="pink" />   		// name 값 주지않음 (props를 사용하지않음)
             </>
         )
     }
@@ -296,7 +301,7 @@
         }}>안녕하세요 {name}</div>;    
     }	
     
-    Hello.defaultProps = {			// props 기본값 설정
+    Hello.defaultProps = {			// 'props 기본값 설정'으로 App.js의 두번째 Hello component는 '이름없음'이라는 name을 갖게된다.
         name: '이름없음'
     };
     
@@ -307,7 +312,7 @@
 
 + `childrenProps` 
 
-  + component로 특정 내용, 태그 등을 감쌌을 때 값을 주기 위해 사용
+  + component로 특정 내용, 태그 등을 감쌌을 때 값을 주기 위해 사용 (일반적인 div태그 등이 아닌 <Wrapper> 등과 같은 component를 말하는 것임.)
 
   + Children 자체가 component로 감싼 내용을 지칭함
 
@@ -334,7 +339,8 @@
     
     function App() {
         return (
-            <Wrapper>
+            // 현재 일반적인 div태그 등이 아닌 <Wrapper>라는 Component가 특정 내용을 감싸고있음.
+            <Wrapper>				
         	  <Hello name="리액트" color="red" />
               <Hello color="pink" />
             </Wrapper>
@@ -348,7 +354,7 @@
 
   + 특정 조건이 참인지 거짓인지에 따라서 다른 결과를 보임.
 
-  + `falsy`한 값은 아무것도 나타나지 않음. `0`예외.  ex) null, false, undefined
+  + `falsy`한 값은 아무것도 나타나지 않음. `0`예외.  ex) `null`, `false`, `undefined`
 
   + 가장 기본적으로는 `3항 연산자`를 사용하나, 경우에 따라 `end연산자`를 활용하기도함.
 
@@ -398,11 +404,12 @@
 
 4. **state**
 
-+ 동적. 중요하고 자주 바뀌는 데이터에 사용 ex) 사용자 인터렉션에 따라. 쓰기 전용
++ 동적. 중요하고 자주 바뀌는 데이터에 사용 ex) 컴포넌트가 보여줘야하는 내용이 사용자 인터렉션에 따라 바뀔 때
 
 + `state`?
 
   + 변수 대신 쓰는 데이터 저장공간
+  + 쓰기전용
 
 + `useState()`를 이용해 만든다 - React에 있는 내장 함수(Hooks 중 하나)
 
@@ -508,7 +515,7 @@
     + `useRef` 호출하여 객체 만들기
     + 원하는 DOM에 `ref` 객체 추가
 
-+ 사용 용도 2)useRef로 component 안의 변수 만들기
++ 사용 용도 2) useRef로 component 안의 변수 만들기
 
   ````jsx
   // 예시
