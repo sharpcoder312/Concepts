@@ -667,3 +667,27 @@ useEffect(() => {
 // 주소가 바뀔 때 props 또한 바뀌게되면서 useEffect를 통해 새로운 포스트를 불러온다.
 ````
 
+<br />
+
+8.`useMemo`
+
+````jsx
+// 기존의 문제점 ex) 보통 input창에 문자열을 입력해줄 때마다 상태가 바뀌면서 리렌더링됨. clg찍어보면 안다! - useMemo로 해결
+
+// 이전에 연산된 값을 재사용
+// 원하는 값이 바뀌지 않았다면 상태를 바꿀 때마다 리렌더링되는 것을 막고 이전의 값을 재사용할 수 있게한다 => 결국 성능 최적화
+// 원하는 값이 바뀌었을 때만 특정 함수를 실행시켜 연산을 실행하도록함
+// 쉽게 말해, useMemo를 사용하게되면 필요한 연산을 정말 필요할 때만 할 수 있게된다.
+
+
+// useMemo(() => function, input) // 첫번째 parm은 함수 두번째 parm은 deps
+
+function countActiveUsers(users) {
+  console.log('활성 사용자 수를 세는중...');
+  return users.filter(user => user.active).length;
+}
+
+const count = useMemo(() => countActiveUsers(users), [users])
+// useMemo()의 deps내에 들어있는 값인 users가 바뀔 때만 countActiveUsers() 함수가 호출되며 그렇지 않다면 이전에 연산된 최근 값을 재사용한다.
+````
+
