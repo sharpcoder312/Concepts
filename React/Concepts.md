@@ -669,7 +669,7 @@ useEffect(() => {
 
 <br />
 
-8.`useMemo`
+8. `useMemo`
 
 ````jsx
 // 기존의 문제점 ex) 보통 input창에 문자열을 입력해줄 때마다 상태가 바뀌면서 리렌더링됨. clg찍어보면 안다! - useMemo로 해결
@@ -689,5 +689,52 @@ function countActiveUsers(users) {
 
 const count = useMemo(() => countActiveUsers(users), [users])
 // useMemo()의 deps내에 들어있는 값인 users가 바뀔 때만 countActiveUsers() 함수가 호출되며 그렇지 않다면 이전에 연산된 최근 값을 재사용한다.
+````
+
+<br />
+
+9. `useCallback`
+
+````jsx
+// 기존의 문제점 ex) 컴포넌트가 리렌더링 될 때마다 새로운 함수를 만듦(선언). 이것이 리소스를 많이 차지하는 작업은 아니기에 함수를 새로 선언한다고해서 그 자체로 부하가 걸리진않는다. 하지만, props가 바뀌지 않았다면 virtual DOM을 새로 그릴 필요가 없는데 함수가 계속 선언된다면 성능 최적화를 할 수 없다. => 함수의 재사용 => 결국 성능 최적화
+
+// 이전에 만들었던 함수를 재사용 (useMemo와 논리 비슷 - useCallback은 function을 위한 Hook이라고 생각하면 되겠다)
+
+function App({ onDoSomething }) {
+    const [inputs, setInputs] = useState({
+      username: '',
+      email: '',
+    })
+    const { username, email } = inputs
+    const onChange = useCallback(e => {
+      const { name, value } = e.target;
+      setInputs({
+        ...inputs,
+        [name]: value
+      })
+    }, [inputs]); 
+// onChange내에서 상태가 바뀔 시 의존하고 있는 값을 찾아보면 inputs라는 것을 알 수 있다.
+// 위와 같은 논리로 deps에 inputs를 넣어준다. 
+// 이렇게 되면 onChange함수는 inputs가 바뀔 때만 함수가 선언되며 그렇지 않다면 기존의 함수를 재사용하게 된다.
+    
+// 유의) useCallback 내에서 참조하는 props를 빠트리는 경우가 있는데 state 뿐만아니라 props 또한 반드시 deps 배열 안에 넣어줘야한다.
+    
+    
+const onCreate = useCallback(() => {
+  const user = {
+    id: nextId.current,
+    username,
+    email,
+  }
+  setUsers([...users, user]); 
+  setInputs({
+    username: '',
+    email: ''
+  })
+  console.log(nextId.current);
+  nextId.current += 1;
+}, [username, email, users])
+// username과 email 같은 경우에도 결국에 input에서 관리하는 상태이기 때문에 deps 배열에 넣어준다.
+// input에서 관리하는 것이 해당 예시에는 나와있지 않으니 이해만 하고 넘어가자.
 ````
 
