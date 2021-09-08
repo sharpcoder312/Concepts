@@ -480,6 +480,10 @@
   + **Array, Object state 데이터 수정 방법**
 
     ````js
+    // Array와 Object 모두 상태 불변성을 위해 기존의 것을 복사한 뒤 생성해야한다는 점은 동일하지만 방법은 약간 차이가 있다.
+    // Array - 추가 : ...spread && concat // 제거 : filter // 특정 값 수정 : map
+    // Object - ...spread
+    
     // 가정 : 배열 내의 '남자 지갑 추천' -> '여자 지갑 추천'으로 변경
     const [theme, themeChange] = useState(['남자 지갑 추천', '서울 맛집 추천', '리액트독학']);
     const clickGender = () => {
@@ -501,7 +505,7 @@
     
     // tip) Hooks가 등장하면서 함수형 컴포넌트에서도 상태를 관리할 수 있게됨
     ````
-
+    
     <br/>
 
 5. **useRef**
@@ -526,77 +530,140 @@
 
   
 
-1. **배열 렌더링**
+6. **배열 렌더링**
 
-   ````jsx
-   import React from 'react';
-   
-   function User({user}) {
-     return (
-         <div>
-           <b>{user.username}</b><span>({user.email})</span>
-         </div>
-     )
-   }
-   
-   function UserList() {
-     const users = [
-       {
-         id: 1,
-         username: 'seok',
-         email: 'seok.@example.com'
-       },
-       {
-         id: 2,
-         username: 'seokk',
-         email: 'seokk.@example.com'
-       },
-       {
-         id: 3,
-         username: 'seokkk',
-         email: 'seokkk.@example.com'
-       },
-     ];
-   
-     return ( // ( 원시적 방법 )
-       <div>
-         <div>
-           <b>{users[0].username}</b><span>({users[0].email})</span>
-         </div>
-         <div>
-           <b>{users[1].username}</b><span>({users[1].email})</span>
-         </div>
-         <div>
-           <b>{users[2].username}</b><span>({users[2].email})</span>
-         </div> 
-         {/* 배열 index마다 일일이 추가해준 것이 맘에 들지않는다. */}
-       </div>
-     )
-   
-     return ( // 배열의 수가 고정적일때
-       <div>
-         <User user={users[0]}/>
-         <User user={users[1]}/>
-         <User user={users[2]}/>
-       </div>
-     )
-   
-     return ( // 배열의 수가 고정x 일때 - map함수 사용. 객체 배열 형태로 있는 배열을 컴포넌트 element형태의 배열로 변환
-       <div>
-         <h5>11 배열의 렌더링</h5>
-         {
-           users.map(
-             user => (<User user={user} key={user.id} />) // 각 child(현재는 User)는 key props이 있어야함. key props은 각 원소들 마다 고유값을 줌으로써 리렌더링 성능을 최적화해줌.
-             )
-           // users.map (
-           //   (user, index) => (<User user={user} key={index} />) // key로 사용할 고유값이 없을 때는 map 콜백함수의 두번째 parm인 index값을 사용하자. 하지만 이렇게한다고해서 성능이 좋아지는 것은 아니니 index를 넣어주는 것을 될수있으면 피하도록하자.
-           // ) // key가 없으면 각 배열의 원소가 정확히 어떤 것을 렌더링 해야하는지 잘 모른다. 단순히 자신의 index값만 기억할 뿐이다.
-         }
-       </div>
-     )
-   }
-   
-   export default UserList;
-   ````
+````jsx
+import React from 'react';
 
-   
+function User({user}) {
+  return (
+      <div>
+        <b>{user.username}</b><span>({user.email})</span>
+      </div>
+  )
+}
+
+function UserList() {
+  const users = [
+    {
+      id: 1,
+      username: 'seok',
+      email: 'seok.@example.com'
+    },
+    {
+      id: 2,
+      username: 'seokk',
+      email: 'seokk.@example.com'
+    },
+    {
+      id: 3,
+      username: 'seokkk',
+      email: 'seokkk.@example.com'
+    },
+  ];
+
+  return ( // ( 원시적 방법 )
+    <div>
+      <div>
+        <b>{users[0].username}</b><span>({users[0].email})</span>
+      </div>
+      <div>
+        <b>{users[1].username}</b><span>({users[1].email})</span>
+      </div>
+      <div>
+        <b>{users[2].username}</b><span>({users[2].email})</span>
+      </div> 
+      {/* 배열 index마다 일일이 추가해준 것이 맘에 들지않는다. */}
+    </div>
+  )
+
+  return ( // 배열의 수가 고정적일때
+    <div>
+      <User user={users[0]}/>
+      <User user={users[1]}/>
+      <User user={users[2]}/>
+    </div>
+  )
+
+  return ( // 배열의 수가 고정x 일때 - map함수 사용. map함수의 용도를 생각해보면 배열 각 원소들을 변환하기 위해 사용하는데, 현재 객체 상태의 각 원소들을 element 상태의 각 원소들로 변환해야 하기 때문에 map함수를 쓰는 것이다.)
+    <div>
+      <h5>11 배열의 렌더링</h5>
+      {
+        users.map(
+          user => (<User user={user} key={user.id} />) // 각 child(현재는 User)는 key props이 있어야함. key props은 각 원소들 마다 고유값을 줌으로써 리렌더링 성능을 최적화해줌.
+          )
+        // users.map (
+        //   (user, index) => (<User user={user} key={index} />) // key로 사용할 고유값이 없을 때는 map 콜백함수의 두번째 parm인 index값을 사용하자. 하지만 이렇게한다고해서 성능이 좋아지는 것은 아니니 index를 넣어주는 것을 될수있으면 피하도록하자.
+        // ) // key가 없으면 각 배열의 원소가 정확히 어떤 것을 렌더링 해야하는지 잘 모른다. 단순히 자신의 index값만 기억할 뿐이다.
+      }
+    </div>
+  )
+}
+
+export default UserList;
+````
+
+7. `UseEffect`
+
++ 컴포넌트가 화면에 나타나고 사라질 때(마운트, 언마운트) 특정 작업 처리 가능
++ 컴포넌트의 props나 state가 바뀌어서 업데이트될 때,되기 전 특정 작업 처리 가능 
++ 리렌더링될 때 특정 작업 처리 가능
++ useEffect 내에 first parm으로 들어가는 함수는 마운트, 언마운트, 업데이트 직후에 일어남
+
+````jsx
+// 1. 마운트될 때
+useEffect(() => {
+    console.log('컴포넌트가 화면에 나타남')
+}, [])
+// first parm에 실행하고 싶은 함수
+// second parm에 배열을 넣어줌 dependency를 요약하여 deps라고함. 의존되는 값들을 배열 내에 넣어주면 되며 의존되는 값들이 없을 때 즉, 해당 배열이 비어있을 때(빈 배열)는 컴포넌트가 화면에 마운트 될 때에만 실행된다.
+
+// tip) 컴포넌트가 마운트될 때 보통 처리하게되는 작업들
+// 1 - prop로 받은 값을 컴포넌트의 state로 설정
+// 2 - 외부 특정 api 호출
+// 3 - D3, Video.js 사용
+// 4 - setInterval, setTimeout 등
+
+
+// 2. 언마운트될 때
+useEffect(() => {
+    return () => {
+        console.log('컴포넌트가 화면에서 사라짐')
+    }
+}, [])
+// 클리너 함수를 반환(return)해준다. 클리너 함수는 쉽게 말해 일종의 '뒷정리 함수'라고 생각하면 되겠다.
+
+// tip) 컴포넌트가 언마운트될 때 보통 처리하게되는 작업들
+// 1 - clearInterval, clearTimeout
+// 2 - 라이브러리 인스턴스 제거
+
+
+// 3. 업데이트될 때
+useEffect(() => {
+    console.log('user 값이 설정됨')
+    console.log(user)
+    return () => {
+        console.log('user 값이 바뀌기 전')
+        console.log(user)
+    }
+}, [user])
+// deps에 어떠한 값을 넣게된다면(deps에는 보통 props나 state가 들어간다.) 해당 값이 바뀌기 직전에 클리너 함수(return하는 함수)가 호출되며 바뀐 직후에는 클리너 함수를 제외한 userEffect에 등록한 함수가 실행된다.
+// deps에 값이 있을 때는 업데이트 뿐만아니라 마운트 될 때에도 실행된다. 물론, 클리너 함수를 제외한 userEffect에 등록한 함수가 실행된다.
+// deps에 값이 없을 때는 deps에서 가리켜야하는 값이 최신 업데이트 되지않고 이전의 값을 가리키게 된다.
+// 또한, useEffect함수 내에서 또 다른 함수를 사용하게 된다면 마찬가지로 deps에 해당 함수를 넣어줘야할 것이다.
+
+
+// 번외) deps가 아예 생략 됐을 때
+useEffect(() => {
+	console.log(user)
+});
+// 리액트에서는 부모 컴포넌트가 리렌더링 되면 자식 컴포넌트도 리렌더링 되는데, 여기서 또한 deps를 생략하게 되만 선택한 자식 컴포넌트 뿐만아니라 모든 자식 컴포넌트(가정 : UserList > User)가 업데이트 된다. UI상으로는 제대로 작동하는 것처럼 보이며 virtual DOM내에서 리렌더링 되기 때문에 크게 문제가 생기지는 않아보이지만, 이는 컴포넌트의 양이 많아질수록 컴포넌트 리렌더링 성능 최적화에 문제를 유발할 수 있다.
+
+
+// 실제 사용 예시
+useEffect(() => {
+    loadPost(username, urlSlug);
+}, [username, urlSlug])
+// 주소가 바뀔 때 props 또한 바뀌게되면서 useEffect를 통해 새로운 포스트를 불러온다.
+````
+
