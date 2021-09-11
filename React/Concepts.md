@@ -774,3 +774,50 @@ const User = React.memo(function User({ user, onRemove, onToggle }) {
 ````
 
 <br />
+
+11. `useReducer`
+
+````jsx
+// 목적 : useState와 동일하게 컴포넌트 상태 업데이트 가능
+// useState - 설정하고 싶은 다음 상태를 직접 지정하여 상태 업데이트
+// useReducer - action객체(업데이트시, 참조하는 객체)를 기반으로 상태 업데이트
+// useReducer는 쉽게 말해 컴포넌트의 상태를 리덕스처럼 관리하게 해준다.
+
+// useState와 대비한 장점
+// 컴포넌트의 상태 업데이트 로직을 컴포넌트에서 분리시킬 수 있으며, 심지어 다른 파일에서 불러와 사용할 수도 있음.
+
+// cf) action객체
+dispatch({
+    type: 'INCREMENT',
+    diff: 4
+})
+// type : 어떤 업데이트를 진행할것인지 명시
+// diff : 업데이트시 필요한 참조하고 싶은 다른 값을 넣어줌
+
+
+// reducer? - 상태를 업데이트 하는 함수
+// 현재 객체와 action객체를 파라미터로 받아서 새로운 상태를 반환해주는 형태를 갖추어야함.
+function reducer(state, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return state + 1;
+        case 'DECREMENT':
+            return state - 1;
+        default:
+            return state;
+    }
+}
+
+// 사용법
+const [number, dispatch] = useReducer(reducer, 0)
+// 첫번째 파라미터 - reducer함수
+// 두번째 파라미터 - 기본값(초기값) : 숫자, 문자, 객체 등 모두 가능
+// number - 현재 상태
+// dispatch - action을 발생시키는 함수 (dispatch는 본래 '보내다'의 의미가 있으며 여기서는 액션을 발생시킨다라고 해석하면 되겠음.)
+
+
+// 순서
+// 1. reducer함수 생성
+// 2. reducer함수 사용
+````
+
