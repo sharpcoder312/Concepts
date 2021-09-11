@@ -211,200 +211,196 @@
 
    ![image-20210904211347359](C:\Users\Seok\AppData\Roaming\Typora\typora-user-images\image-20210904211347359.png)
 
-+ properties의 줄임말
+````js
+// properties의 줄임말
+// 목적 : component 사용 시, 특정 값을 전달해 주고 싶을 때 사용 (정적 데이터. 읽기 전용)
+// 사실, 함수의 parameter라고 생각하면 쉽다.
 
-+ component 사용 시, 특정 값을 전달해 주고 싶을 때 사용 (정적 데이터. 읽기 전용)
+// App.js
+import React from 'react';  
+import Hello from './Hello';
 
-+ 사실, 함수의 parameter라고 생각하면 쉽다.
+function App() {
+    return (
+    	<Hello name="리액트" color="red" />
+    )	// Hello.js 에서 props인 name과 color를 받아온 뒤 값 지정. 현재 전달해 주고 싶은 값이 name과 color이다.
+}
+
+export default App;
+
+// Hello.js
+// 1. 일반
+
+import React from 'react';    
+
+// props에는 우리가 넣어준 값들이 객체 형태로 존재한다. 현재는 App.js의 props인 name과 color를 가져온 상태이다.
+// 확인해보고 싶다면, console.log(props); 로 확인해보자.
+function Hello(props) {   
+ // console.log(props); => {name: "react"}
+  	return <div style={{color:props.color}}>안녕하세요 {props.name}</div>;   
+}	// style에서 중괄호가 2개 겹친 것은 1.style 부여시 객체 형태로 입력해야 하는 것과 2.데이터 바인딩을 위한 중괄호이다.
+	// 여기서 문제점은 일일이 props를 써주기 귀찮다는 것이다. 해결책 : 비구조화 할당
+
+export default Hello;  
+
+
+// 2. 비구조화 할당, 구조 분해 문법 사용
+// 목적 : props를 일일이 적어주지 않아도 된다.
+
+import React from 'react';    
+
+function Hello({ color, name }) {    // props 미리 추출
+  	return <div style={{color}}>안녕하세요 {name}</div>;
+// return <div style={{color: color}}>안녕하세요 {name}</div> App.js의 props인 color에서 red라는 값을 충족하기에 color도 하나만 써주면 된다.
+}	
+export default Hello;  
+
+// tip) '비구조화 할당' ?
+// 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식
+// 쉽게 말하여 '배열' 혹은 '객체' 안의 값을 편하게 꺼내 쓸 수 있는 문법
+// 참고 할만한 링크들
+// https://yuddomack.tistory.com/entry/자바스크립트-문법-비구조화-할당
+// https://learnjs.vlpt.us/useful/06-destructuring.html
+
+
+// props를 사용하지않고도 기본적으로 값을 설정하고 싶다면 defaultProps를 사용한다.
+````
+
+
+
++ `defaultProps`
 
   ````js
+  // props 기본값 설정
+  // 목적 : 특정 값을 주지않아도 기본적으로 사용(출력)할 값
+  
   // App.js
   import React from 'react';  
   import Hello from './Hello';
   
   function App() {
       return (
-      	<Hello name="리액트" color="red" />
-      )	// Hello.js 에서 props인 name과 color를 받아온 뒤 값 지정. 현재 전달해 주고 싶은 값이 name과 color이다.
+          <>
+      	  <Hello name="리액트" color="red" />
+            <Hello color="pink" />   		// name 값 주지않음 (props를 사용하지않음)
+          </>
+      )
   }
   
   export default App;
   
   // Hello.js
-  // 1. 일반
-  
   import React from 'react';    
   
-  // props에는 우리가 넣어준 값들이 객체 형태로 존재한다. 현재는 App.js의 props인 name과 color를 가져온 상태이다.
-  // 확인해보고 싶다면, console.log(props); 로 확인해보자.
-  function Hello(props) {   
-   // console.log(props); => {name: "react"}
-    	return <div style={{color:props.color}}>안녕하세요 {props.name}</div>;   
-  }	// style에서 중괄호가 2개 겹친 것은 1.style 부여시 객체 형태로 입력해야 하는 것과 2.데이터 바인딩을 위한 중괄호이다.
-  	// 여기서 문제점은 일일이 props를 써주기 귀찮다는 것이다. 해결책 : 비구조화 할당
-  
-  export default Hello;  
-  
-  
-  // 2. 비구조화 할당, 구조 분해 문법 사용
-  // props를 적어주지 않아도 된다.
-  
-  import React from 'react';    
-  
-  function Hello({ color, name }) {    // props 미리 추출
-    	return <div style={{color}}>안녕하세요 {name}</div>;
-  // return <div style={{color: color}}>안녕하세요 {name}</div> App.js의 props인 color에서 red라는 값을 충족하기에 color도 하나만 써주면 된다.
+  function Hello({ color, name }) {    
+    	return <div style={{
+  		color
+      }}>안녕하세요 {name}</div>;    
   }	
+  
+  Hello.defaultProps = {			// 'props 기본값 설정'으로 App.js의 두번째 Hello component는 '이름없음'이라는 name을 갖게된다.
+      name: '이름없음'
+  };
+  
   export default Hello;  
-  
-  // tip) '비구조화 할당' ?
-  // 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식
-  // 쉽게 말하여 '배열' 혹은 '객체' 안의 값을 편하게 꺼내 쓸 수 있는 문법
-  // 참고 할만한 링크들
-  // https://yuddomack.tistory.com/entry/자바스크립트-문법-비구조화-할당
-  // https://learnjs.vlpt.us/useful/06-destructuring.html
-  
-  
-  // props를 사용하지않고도 기본적으로 값을 설정하고 싶다면 defaultProps를 사용한다.
   ````
-
-  
-
-+ `defaultProps`
-
-  + props 기본값 설정
-
-  + 특정 값을 주지않아도 기본적으로 사용(출력)할 값
-
-    ````js
-    // App.js
-    import React from 'react';  
-    import Hello from './Hello';
-    
-    function App() {
-        return (
-            <>
-        	  <Hello name="리액트" color="red" />
-              <Hello color="pink" />   		// name 값 주지않음 (props를 사용하지않음)
-            </>
-        )
-    }
-    
-    export default App;
-    
-    // Hello.js
-    import React from 'react';    
-    
-    function Hello({ color, name }) {    
-      	return <div style={{
-    		color
-        }}>안녕하세요 {name}</div>;    
-    }	
-    
-    Hello.defaultProps = {			// 'props 기본값 설정'으로 App.js의 두번째 Hello component는 '이름없음'이라는 name을 갖게된다.
-        name: '이름없음'
-    };
-    
-    export default Hello;  
-    ````
 
   
 
 + `childrenProps` 
 
-  + component로 특정 내용, 태그 등을 감쌌을 때 값을 주기 위해 사용 (일반적인 div태그 등이 아닌 <Wrapper> 등과 같은 component를 말하는 것임.)
-
-  + Children 자체가 component로 감싼 내용을 지칭함
-
-    ````jsx
-    // Wrapper.js
-    import React from 'react';
-    
-    function Wrapper({ children }) {
-        const style = {
-            border: '2px solid black',
-            padding: 16
-        };
-        
-        return <div style={style}>{children}</div>
-    }
-    
-    export default Wrapper;
-    
-    // App.js
-    import React from 'react';  
-    import Hello from './Hello';
-    import Wrapper from './Wrapper'
-    // 사실 import는 함수에 불러올 component를 입력하면서 자동 완성 기능을 통해 불러올 수도 있다.
-    
-    function App() {
-        return (
-            // 현재 일반적인 div태그 등이 아닌 <Wrapper>라는 Component가 특정 내용을 감싸고있음.
-            <Wrapper>				
-        	  <Hello name="리액트" color="red" />
-              <Hello color="pink" />
-            </Wrapper>
-        )
-    }
-    ````
-    
-    
+  ````jsx
+  // 목적 : component로 특정 내용, 태그 등을 감쌌을 때 값을 주기 위해 사용 (일반적인 div태그 등이 아닌 <Wrapper> 등과 같은 component를 말하는 것임.)
+  // Children 자체가 component로 감싼 내용을 지칭함
   
+  // Wrapper.js
+  import React from 'react';
+  
+  function Wrapper({ children }) {
+      const style = {
+          border: '2px solid black',
+          padding: 16
+      };
+      
+      return <div style={style}>{children}</div>
+  }
+  
+  export default Wrapper;
+  
+  // App.js
+  import React from 'react';  
+  import Hello from './Hello';
+  import Wrapper from './Wrapper'
+  // 사실 import는 함수에 불러올 component를 입력하면서 자동 완성 기능을 통해 불러올 수도 있다.
+  
+  function App() {
+      return (
+          // 현재 일반적인 div태그 등이 아닌 <Wrapper>라는 Component가 특정 내용을 감싸고있음.
+          <Wrapper>				
+      	  <Hello name="리액트" color="red" />
+            <Hello color="pink" />
+          </Wrapper>
+      )
+  }
+  ````
+
+  
+
 + `조건부 렌더링`
 
-  + 특정 조건이 참인지 거짓인지에 따라서 다른 결과를 보임.
+  ```jsx
+  // 목적 : 특정 조건이 참인지 거짓인지에 따라서 다른 결과를 보임.
+  // `falsy`한 값은 아무것도 나타나지 않음. `0`예외.  ex) `null`, `false`, `undefined`
+  // 가장 기본적으로는 `3항 연산자`를 사용하나, 경우에 따라 `end연산자`를 활용하기도함.
+  
+  // App.js
+  import React from 'react';  
+  import Hello from './Hello';
+  import Wrapper from './Wrapper'
+  // 사실 import는 함수에 불러올 component를 입력하면서 자동 완성 기능을 통해 불러올 수도 있다.
+  
+  function App() {
+      return (
+          <Wrapper>
+      	  <Hello name="리액트" color="red" isSpecial={true} />
+              {/* boolean 설정시, 값인 true, false를 생략하면 기본적으로 true로 받아옴*/}
+            <Hello color="pink" />
+          </Wrapper>
+      )
+  }
+  
+  export default App;
+  
+  
+  
+  
+  
+  // Hello.js
+  import React from 'react';    
+  
+  function Hello({ color, name, isSpecial }) {    
+      return <div style={{color}}>
+        {isSpecial ? <b>*</b> : null} {/* 조건부 연산자 (보통 true와 false의 내용이 다를때 사용 */}
+        {/* {isSpecial && <b>*</b>}  and연산자 (유무 구현) */}
+              안녕하세요 {name}
+            </div>;    
+  }	
+  
+  Hello.defaultProps = {			// props 기본값 설정
+      name: '이름없음'
+  };
+  
+  export default Hello;  
+  ```
 
-  + `falsy`한 값은 아무것도 나타나지 않음. `0`예외.  ex) `null`, `false`, `undefined`
-
-  + 가장 기본적으로는 `3항 연산자`를 사용하나, 경우에 따라 `end연산자`를 활용하기도함.
-
-    ```jsx
-    // App.js
-    import React from 'react';  
-    import Hello from './Hello';
-    import Wrapper from './Wrapper'
-    // 사실 import는 함수에 불러올 component를 입력하면서 자동 완성 기능을 통해 불러올 수도 있다.
-    
-    function App() {
-        return (
-            <Wrapper>
-        	  <Hello name="리액트" color="red" isSpecial={true} />
-                {/* boolean 설정시, 값인 true, false를 생략하면 기본적으로 true로 받아옴*/}
-              <Hello color="pink" />
-            </Wrapper>
-        )
-    }
-    
-    export default App;
-    
-    
-    
-    
-    
-    // Hello.js
-    import React from 'react';    
-    
-    function Hello({ color, name, isSpecial }) {    
-        return <div style={{color}}>
-          {isSpecial ? <b>*</b> : null} {/* 조건부 연산자 (보통 true와 false의 내용이 다를때 사용 */}
-          {/* {isSpecial && <b>*</b>}  and연산자 (유무 구현) */}
-                안녕하세요 {name}
-              </div>;    
-    }	
-    
-    Hello.defaultProps = {			// props 기본값 설정
-        name: '이름없음'
-    };
-    
-    export default Hello;  
-    ```
-    
-    <br />
+  <br />
 
 
 4. **state**
 
-+ 동적. 중요하고 자주 바뀌는 데이터에 사용 ex) 컴포넌트가 보여줘야하는 내용이 사용자 인터렉션에 따라 바뀔 때
++ 목적 : 중요하고 자주 바뀌는 데이터에 사용 (동적)
+
+  ex) 컴포넌트가 보여줘야하는 내용이 사용자 인터렉션에 따라 바뀔 때
 
 + `state`?
 
@@ -510,7 +506,7 @@
 
 5. **useRef**
 
-+ 사용 용도 1) 리액트 환경에서 DOM을 직접 선택할 시 사용 ( `useState`와 같이 리액트 Hook 중 하나.)
++ 목적 1) 리액트 환경에서 DOM을 직접 선택할 시 사용 ( `useState`와 같이 리액트 Hook 중 하나.)
 
   ex) 특정 element의 크기, 위치 // 스크롤바 위치 가져오기 등
 
@@ -519,7 +515,7 @@
     + `useRef` 호출하여 객체 만들기
     + 원하는 DOM에 `ref` 객체 추가
 
-+ 사용 용도 2) useRef로 component 안의 변수 만들기
++ 목적 2) useRef로 component 안의 변수 만들기
 
   ````jsx
   // 예시
@@ -605,9 +601,9 @@ export default UserList;
 
 7. `UseEffect`
 
++ 목적 - 리렌더링될 때 특정 작업 처리 가능
 + 컴포넌트가 화면에 나타나고 사라질 때(마운트, 언마운트) 특정 작업 처리 가능
 + 컴포넌트의 props나 state가 바뀌어서 업데이트될 때,되기 전 특정 작업 처리 가능 
-+ 리렌더링될 때 특정 작업 처리 가능
 + useEffect 내에 first parm으로 들어가는 함수는 마운트, 언마운트, 업데이트 직후에 일어남
 
 ````jsx
@@ -674,7 +670,7 @@ useEffect(() => {
 ````jsx
 // 기존의 문제점 ex) 보통 input창에 문자열을 입력해줄 때마다 상태가 바뀌면서 리렌더링됨. clg찍어보면 안다! - useMemo로 해결
 
-// 이전에 연산된 값을 재사용
+// 목적 - 이전에 연산된 값을 재사용
 // 원하는 값이 바뀌지 않았다면 상태를 바꿀 때마다 리렌더링되는 것을 막고 이전의 값을 재사용할 수 있게한다 => 결국 성능 최적화
 // 원하는 값이 바뀌었을 때만 특정 함수를 실행시켜 연산을 실행하도록함
 // 쉽게 말해, useMemo를 사용하게되면 필요한 연산을 정말 필요할 때만 할 수 있게된다.
@@ -698,7 +694,7 @@ const count = useMemo(() => countActiveUsers(users), [users])
 ````jsx
 // 기존의 문제점 ex) 컴포넌트가 리렌더링 될 때마다 새로운 함수를 만듦(선언). 이것이 리소스를 많이 차지하는 작업은 아니기에 함수를 새로 선언한다고해서 그 자체로 부하가 걸리진않는다. 하지만, props가 바뀌지 않았다면 virtual DOM을 새로 그릴 필요가 없는데 함수가 계속 선언된다면 성능 최적화를 할 수 없다. => 함수의 재사용 => 결국 성능 최적화
 
-// 이전에 만들었던 함수를 재사용 (useMemo와 논리 비슷 - useCallback은 function을 위한 Hook이라고 생각하면 되겠다)
+// 목적 - 이전에 만들었던 함수를 재사용 (useMemo와 논리 비슷 - useCallback은 function을 위한 Hook이라고 생각하면 되겠다)
 
 function App({ onDoSomething }) {
     const [inputs, setInputs] = useState({
@@ -738,3 +734,43 @@ const onCreate = useCallback(() => {
 // input에서 관리하는 것이 해당 예시에는 나와있지 않으니 이해만 하고 넘어가자.
 ````
 
+<br />
+
+10. `React.memo`
+
+````jsx
+// 목적 : 컴포넌트에서 리렌더링이 불필요할 때 이전에 렌더링한 결과를 재사용할 수 있게 한다.
+// 이 함수를 사용하게되면 props가 바뀔 때만 리렌더링 하게되며 이는 곧 컴포넌트의 리렌더링 성능 최적화로 이어진다.
+// 사실 대부분의 웹페이지는 성능 최적화 없이도 잘 돌아간다. 그렇기에, 일반적으로 평상시에는 성능 최적화를 고민하지말고 편하게 코딩해도 상관 없으며, 성능과 관련한 이슈가 생길 때 성능 최적화를 고민해도 된다. useMemo, useCallback 모두 마찬가지다.
+
+// 사용법 : 컴포넌트를 내보낼 때 React.memo함수로 감싸준다.
+export default React.memo(CreateUser);
+
+// 물론 종속되어있는 컴포넌트 라면 자체적으로 React.memo함수로 감싸주면 된다.
+const User = React.memo(function User({ user, onRemove, onToggle }) {
+  const { username, email, id, active } = user;
+  useEffect(() => {
+    console.log('컴포넌트가 화면에 나타남');
+  }, [])
+  return (
+      <div>
+        <b style={{
+          color: active ? 'green' : 'black',
+          cursor: 'pointer'
+          }}
+            onClick={() => onToggle(id)}>
+          {username}
+        </b>
+        <span>({email})</span>
+        <button onClick={() => onRemove(id)}>삭제</button>
+      </div>
+  )
+})
+
+// React.memo를 사용한다하더라도 해당 컴포넌트의 자식 컴포넌트는 해당(부모) 컴포넌트의 속성이나 상태가 변할 때마다 리렌더링 될 것이다. 이는 자식 컴포넌트의 deps 배열에서 부모 컴포넌트를 참조하지않고 useState의 함수형 업데이트로 해결할 수 있다.(함수형 업데이트를 함으로써 파라미터에서 최신 부모 컴포넌트 값을 조회하게된다.) 이렇게 되면 deps 배열 내에 있는 값들이 변경될 때만 자식 컴포넌트가 리렌더링된다.
+
+// tip) 불필요한 리렌더링 확인은 크롬에서 react-devtool을 다운 받아 개발자 도구에서 사용하자.
+// F12 -> Components -> settings -> 'Highlight updates when components render.' 체크
+````
+
+<br />
