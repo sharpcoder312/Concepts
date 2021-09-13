@@ -16,7 +16,8 @@
 
     객체지향 프로그래밍에서는 기본 단위가 객체이고, 프론트엔드에서는 비슷한 개념으로 컴포넌트(일종의 UI 조각)라는 용어를 사용한다. 객체가 인스턴스 변수(데이터)로 상태를 갖고 있듯이 컴포넌트도 상태(데이터)를 가질 수 있다.
 
-    ![image-20210828114402729](C:\Users\Seok\AppData\Roaming\Typora\typora-user-images\image-20210828114402729.png)
+	![react-virtualdom](https://user-images.githubusercontent.com/73876068/133085217-f1b0ecd6-ddbe-4fc3-9735-109ffd0dce28.jpg)
+
 
   <br />
 
