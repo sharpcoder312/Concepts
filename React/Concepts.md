@@ -155,6 +155,7 @@
   // 예를 들어, App.js에 있는 함수형 컴포넌트(쉽게 말해 jsx반환 함수)가 jsx를 반환하여 public의 index.html root부분에 삽입되는 것이다.
   // App.js  -----by index.js-----> index.html
   // 리액트에서 아무리 컴포넌트에 요소들을 추가하더라도 index.html 소스코드에 보이지 않는 이유는 virtual DOM에서 컴포넌트들을 추가하기 때문이다.
+  // <App /><App2 /> 이런 식으로 컴포넌트가 2개 올 수 없다. 그 이유는 리액트는 SPA이기 때문에 최상위 컴포넌트가 단 하나만 올 수 있다.
   ```
 
 - `JSX` -> ~`JS`
@@ -433,7 +434,24 @@ export default Hello;
   }
   ````
 
+  <br />
+
+
++ `prop-types`
+
+  ````jsx
+  // 목적 : 컴포넌트의 props를 예측하고 알려줌
+  // 사용법 : npm i prop-types
+  // 유용한 상황 : 다른 파일을 props인 picture와 현재 파일의 props인 img를 잘못 봐꿔썼을 때. props를 빠뜨렸을 때, props type체크 등등
   
+  Food.propTypes = {
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    rating: PropTypes.number,
+  }
+  ````
+
+  <br />
 
 + `조건부 렌더링`
 
