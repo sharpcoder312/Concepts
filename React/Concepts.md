@@ -6,7 +6,7 @@
 
   - 사용자와의 인터렉션 多 => 동적으로 UI를 표현해야한다면 처리해야할 이벤트와 DOM간의 규칙이 복잡해지며 관리(유지 및 보수)하기도 매우 힘들어짐
 
-  - 앵귤러, 백본 등의 라이브러리들은 특정 값과 특정 DOM간의 규칙을 만들어서 업데이트를 간소화함. 반면에, 리액트는 어떠한 상태가 변경됐을 때 업데이트 규칙을 정하는 것이 아닌 Virtual DOM 내에서 다 날리고 새로 업데이트함. 이는 'UI를 어떻게 업데이트 할 것인가'가 아닌 'UI를 어떻게 변경할것인가'에 초점을 맞출 수 있음.
+  - 앵귤러, 백본 등의 라이브러리들은 특정 값과 특정 DOM간의 규칙을 만들어서 업데이트를 간소화함. 반면에, 리액트는 어떠한 상태가 변경됐을 때 업데이트 규칙을 정하는 것이 아닌 Virtual DOM 내에서 다 날리고 새로 업데이트함. 이는 'UI를 어떻게 업데이트 할 것인가'가 아닌 'UI를 어떻게 변경할것인가'에 초점을 맞출 수 있음. 즉, 리액트를 사용한다면 UI 데이터가 변경될 때마다 DOM 요소들을 직접 수정해야한다는 단점을 보완할 수 있다.
 
     + **Virtual DOM** ? 이전 UI 상태를 메모리에 유지해서 변경될 UI의 최소 집합을 계산하는 기술.
     + Virtual DOM 은 메모리 안에서 가상으로 존재하는 돔으로써 직접 실제 DOM을 보여주는 것보다 작동 성능이 훨씬 좋다. (속도가 빠르다.)
@@ -73,7 +73,7 @@
     + 장점 - 가장 쉬움
     + 단점 - 재사용 힘듦, 클래스명 충돌
 
-  + sass
+  + sass // scss
 
     + 장점 - 코드의 재사용으로 생산성 높은 스타일 코드 작성 가능
 
@@ -83,31 +83,129 @@
 
       ​               공통으로 사용되는 코드를 관리할 파일을 만든다음에 각 scss파일에 inport하여 사용하자.
 
+    ````jsx
+    // 0. 라이브러리 설치 (sass -> css로 변환하는 작업)
+    yarn add node-sass
+    
+    // 1. 임포트
+    import './Button.scss'
+    
+    // 2. 변수 선언과 활용
+    // $변수: 스타일
+    &blue: #228be6
+    background: lighten($blue, 10%)
+    
+    // 3. and 연산자
+    // % (자기 자신을 가리킨다고 생각하면됨)   
+    .Button {
+     &:hover { // 여기서 &은 .Button을 가리킨다.
+    	background: lighten($blue, 10%)                    
+     }
+     &.large {
+        height: 3rem;
+        font-size: 1.25rem;
+     }     
+     &.medium {
+        height: 2.25rem;
+        font-size: 1rem;
+     }   
+     & + & { // 오른쪽 or 아래의 요소에 특정 스타일을 넣겠다는 뜻.
+    	margin-left: 1rem;                        
+     }                       
+    }
+    
+    // 4. mixin 활용
+    // 선언
+    @mixin button-color($color) {
+      background: $color;
+      &:hover {
+        background: lighten($color, 10%);
+      }
+      &:active {
+        background: darken($color, 10%);
+      }
+    }
+    
+    // 사용
+    .Button{
+      &.blue {
+        @include button-color($blue);
+      }
+    
+      &.gray {
+        @include button-color($gray);
+      }
+    
+      &.pink {
+        @include button-color($pink);
+      }    
+    }
+    
+    
+    // tip. classnames 라이브러리
+    // 사용 이유 - 클래스를 효율적으로 넣어주기 위해서. (ex button size color outline 등등 조건마다 다르게 클래스를 넣어주고 싶을 때 편하다.)
+    
+    // 0. 라이브러리 설치
+    yarn add classnames
+    
+    // 1. 활용
+    // button.js
+    import React from 'react';
+    import classNames from 'classnames';
+    
+    import './Button.css';
+    
+    function Button({children, size} ) {
+    	return <button className={classNames('Button', size)}></button>
+    }
+    
+    Button.defaultProps = {
+    	size: 'medium'
+    };
+    
+    //props로 받아온 size에 따라 large, medium, small 등등.. 다르게 클래스네임이 들어갈 수 있다.
+    export default Button;
+    
+    // App.js
+    function App() {
+        return (
+        	<div className="App">
+            	<div className-"buttons">
+                	<Button size="large">BUTTON</Button>
+                    <Button>BUTTON</Button>
+                </div>
+            </div>
+        )
+    }
+    ````
+  
+    
+  
   + css module
-
+  
     + 원리 - 클래스명 정보를 담고 있는 '객체(고유 해시값 가짐)'를 내보낸다.
-
+  
     + 장점 - 클래스명 충돌 방지, 컴포넌트 응집도 높임
-
+  
     + 단점 - css 코드를 담당하는 팀이 따로 있다면 사용 불가
     + 사용법 - classNames 패키지를 사용하여 property 코드를 개선 시켜 사용하자.
-
+  
   + css-in-js
-
+  
     + 원리 - js 파일 내에 CSS 코드 작성
-
+  
     + 장점 - 지원 패키지 多, 문법의 다양성, 컴포넌트 응집도 높임
-
+  
     + 단점 - css 코드를 담당하는 팀이 따로 있다면 사용 불가
-
+  
     + 사용법 - styled-components(By ES6+의 tagged template literals 문법) 사용 `npm install styled-components`
-
+  
       ​			   정적 스타일, 동적 스타일 모두 사용 가능
-
+  
       ​			   tip) 동적 스타일 구현법 - 템플릿 리터럴에서 expression을 사용하여 컴포넌트의 속성값을 매개변수로 갖는 함수 작성
-
+  
     <br />
-
+  
     <br />
 
 #### 3. React app 설치 시 자동 생성되는 폴더 및 파일
@@ -709,7 +807,7 @@ export default UserList;
 7. `UseEffect`
 
 + 목적 - 리렌더링될 때 특정 작업 처리 가능
-+ 컴포넌트가 화면에 나타나고 사라질 때(마운트, 언마운트) 특정 작업 처리 가능
++ 컴포넌트가 화면에 나타나고 사라질 때(마운트, 언마운트) 특정 작업 처리 가능 ex) 페이지 바뀔 때
 + 컴포넌트의 props나 state가 바뀌어서 업데이트될 때,되기 전 특정 작업 처리 가능 
 + useEffect 내에 first parm으로 들어가는 함수는 마운트, 언마운트, 업데이트 직후에 일어남
 
@@ -847,6 +945,7 @@ const onCreate = useCallback(() => {
 
 ````jsx
 // 목적 : 컴포넌트에서 리렌더링이 불필요할 때 이전에 렌더링한 결과를 재사용할 수 있게 한다.
+// 예시 : 부모 컴포넌트의 렌더링과는 상관없이 해당 컴포넌트의 속성값이 변경될 때만 렌더링되길 원할 때
 // 이 함수를 사용하게되면 props가 바뀔 때만 리렌더링 하게되며 이는 곧 컴포넌트의 리렌더링 성능 최적화로 이어진다.
 // 사실 대부분의 웹페이지는 성능 최적화 없이도 잘 돌아간다. 그렇기에, 일반적으로 평상시에는 성능 최적화를 고민하지말고 편하게 코딩해도 상관 없으며, 성능과 관련한 이슈가 생길 때 성능 최적화를 고민해도 된다. useMemo, useCallback 모두 마찬가지다.
 
