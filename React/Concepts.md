@@ -56,12 +56,57 @@
   + 리액트는 UI 라이브러리로써 UI를 제외한 나머지 요소들은 직접 관리를 해줘야 한다.
 
     ex) 테스트 시스템, 빌드 시스템, 라우팅 시스템 등
+    
+    <br />
 
 + `create-react-app`
 
   + 리액트로 웹 애플리케이션을 만들기 위한 환경 제공 (리액트 네이티브는 'expo'를 사용)
 
   + 리액트 개발 환경을 직접 구축하지 않고도 여러 패키지를 조합(ex - 바벨, 웹팩, ES6+ 문법, CSS 후처리기, HMR 등 등)하여 리액트 개발 환경을 자동으로 구축해준다.
+
+  + tip) npx를 사용한 설치
+
+    + `npx create-react-app 프로젝트명`
+
+    + create-react-app을 실행하고 끝나면 컴퓨터에서 삭제함
+    + 이로서 철 지난 create-react-app을 컴퓨터에 계속 저장하지 않는다는 이점을 가진다.
+    + 즉, 사용하지 않는 오래된 버전의 것들을 저장하지 않는다.
+    + <br />
+
++ `react-router-dom`
+
+  + 간단한 컴포넌트의 묶음
+
+  + React App에게 특정 Route(컴포넌트 ≒ 페이지)에서 시작해야 한다는 것을 알려줌
+
+  + `yarn add react-router-dom`
+
+    ```jsx
+    // HashRouter 사용
+    
+    import React from "react"
+    import {HashRouter as Router, Route} from "react-router-dom"
+    import Home from "../Routes/Home";
+    import TV from "../Routes/TV";
+    import Search from "../Routes/Search";
+    
+    const routes = () => (
+      <Router>
+        <>
+          <Route path="/" exact component={Home} />
+            {/* path exact는 어느 URL에서 해당 Route를 render할 것인지 정확한 경로를 설정해줌 */}
+            {/* component는 해당 Route에 들어왔을 때 어떤 컴포넌트가 보여질 것인지 설정해줌 */}
+          <Route path="/tv" exact component={TV} />
+          <Route path="/search" exact component={Search} />
+        </>
+      </Router>)
+    
+    export default routes
+    
+    ```
+
+  <br />
 
 + css 작성 방법 
 
