@@ -3055,7 +3055,7 @@ a('hi','hello','bye');
 
   <br>
 
-+ **비구조화 할당(객체 구조 분해)**
++ **비구조화 할당(객체 구조 분해. Object Destructuring)**
 
   ````js
   // 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식
@@ -3065,8 +3065,26 @@ a('hi','hello','bye');
   // https://learnjs.vlpt.us/basics/06-object.html
   // https://learnjs.vlpt.us/useful/06-destructuring.html
   
-  // 예시
+  // 기본 예시
+  const seok = {
+      age: 25,
+      position: '프론트엔드',
+  	favFood: {
+          breakfast: bread,
+          dinner: meat
+      }
+  }
   
+  const { age, position: job, favFood: { breakfast, dinner }  } = seok;
+  // const age = seok.age 원리 : seok의 age를 가져와서 새로운 변수인 age에 넣는 것이다.
+  // sister객체명을 바꾸고 싶다면 위와 같이 바꿀 수 있다. const job = seok.position
+  // 객체 내의 객체를 가지고 오고싶다면 위와 같이 가져 올 수 있다. seok.favFood.breakfast
+  console.log(age, job, breakfast, dinner)
+  // 25 프론트엔드 bread meat
+  
+  
+  
+  // 응용 예시
   const seok = {
       age: 25,
       position: '프론트엔드'
