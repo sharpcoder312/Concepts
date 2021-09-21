@@ -2524,7 +2524,17 @@ console.log(typeof weight)
       }
     });
     console.log(nums); // [100, undefined, undefined, 40]
-    // 조건과 맞지않기에 함수는 자동으로 undefined 반환
+    
+    const animals = ["lion", "tiger"];
+    zoo = animals.map((animal) => {
+      console.log(animal);
+    });
+    // => lion
+    //    tiger
+    //    [undefined, undefined]
+    
+    
+    // 조건과 맞지않거나 return 값을 정해주지 않으면 함수는 자동으로 undefined 반환
     
     
     // map의 용도를 잘 살리려면 return문을 포함하여 각 요소에 대한 callback 이후 실행결과를 모은 새 배열을 return하게 해야한다.
@@ -2587,16 +2597,26 @@ const add = function() {};
 // 함수 표현식은 closure로 사용 하거나 callback함수로 사용할 수 있다는 장점이 있다.
 
 // cf) 화살표 함수 (arrow function)
-const add = () => {};	
-// tip1) 매개 변수가 하나뿐일 때는 소괄호 생략 가능하나 매개 변수가 없을 시에는 소괄호 필요
+const add = () => {};
+
+// tip 1) 매개 변수가 하나뿐일 때는 소괄호 생략 가능하나 매개 변수가 없을 시에는 소괄호 필요
 (parameter1) => {statement}
 () => {statement}
-// tip2) 함수 내에 return구문 하나만 존재할 때는 중괄호와 return 생략도 가능하다. (같이 없애야함)
+
+// tip 2) 함수 내에 return구문 하나만 존재할 때는 중괄호와 return 생략도 가능하다. (같이 없애야함)
 const answer = inputArray.map(num => {
   return num + "%"
 })	// 아래와 같다
 const answer = inputArray.map(num => num + "%")
 
+// tip 3) default값 부여
+const answer = (say = "yes") => "Umm..." + say
+// 물론 이 기증은 일반 함수에서도 사용 가능하다.
+
+// tip 4) 익명 함수로만 사용 가능(함수 표현식)
+
+// tip 5) 화살표 함수의 this는 언제나 상위 스코프의 this를 가리킴 (Lexical this)
+// 그렇기에 화살표 함수는 call, apply, bind를 사용해서 this를 변경할 수 없다.
 
 // 위의 '함수 표현식'과 '화살표 함수'는 같은 의미이다. 하지만 '함수 선언문'은 add를 변수라고 착각할 수 있는데 add는 그저 함수의 이름을 지어준 것 뿐이다. 함수의 이름을 정할 때는 verb 형태로 짓도록하자. 또한, 함수에 이름을 지어주는 것은 디버깅 시에 편리하다.
 
@@ -2672,7 +2692,7 @@ a();
 + 변수에 함수 넣기
 
 ````js
-const sum = function add(a,b){		//	이렇게 지칭하는 이름이 없는 함수를 '무명 함수' '익명 함수'라 한다
+const sum = function add(a,b){
     return a + b;
 }
 console.log(sum(5, 6));
@@ -2964,7 +2984,7 @@ a('hi','hello','bye');
     
     player.prototype.position = 'mid'	// player의 유전자에게 position이라는 객체 생성
     enroll	// player {name: 'mount', age: 22} 
-    // 이렇게 start에 직접등록 되어있지 않아도 부모만 가지고 있어도 자식이 뽑아 쓸 수 있다.
+    // 이렇게 player에 직접등록 되어있지 않아도 부모만 가지고 있어도 자식이 뽑아 쓸 수 있다.
     enroll.position // 'mid'	
     ````
 
@@ -3508,7 +3528,7 @@ a('hi','hello','bye');
 
 + **this** 
 
-  + JS에서는 선언할 때 결정되는 것이 있고 호출할 때에 결정 되는 것이 있는데, JS의 핵심은 '누가 실행(호출)했냐'가 핵심이다.
+  + JS에서는 선언할 때 결정되는 것이 있고 호출할 때에 결정 되는 것이 있는데, this의 핵심은 '누가 실행(호출)했냐'가 핵심이다.
 
   + `this`는 호출할 때 결정되며 여기서 호출한 객체가 바로 `this`이다. 
 
