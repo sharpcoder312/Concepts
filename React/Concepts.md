@@ -83,7 +83,7 @@
   + `yarn add react-router-dom`
 
     ```jsx
-    // HashRouter 사용
+    // 1. HashRouter 사용 (앱의 느낌. Hash 사용)
     
     import React from "react"
     import {HashRouter as Router, Route} from "react-router-dom"
@@ -98,6 +98,29 @@
             {/* path exact는 어느 URL에서 해당 Route를 render할 것인지 정확한 경로를 설정해줌 */}
             {/* component는 해당 Route에 들어왔을 때 어떤 컴포넌트가 보여질 것인지 설정해줌 */}
           <Route path="/tv" exact component={TV} />
+          <Route path="/tv/popular" exact component={TV} />
+          <Route path="/search" exact component={Search} />
+        </>
+      </Router>)
+    
+    export default routes
+    
+    
+    // 2. BrowserRouter 사용 (브라우저의 느낌. HTML history API 사용)
+    
+    import React from "react"
+    import {BrowserRouter as Router, Route} from "react-router-dom"
+    import Home from "../Routes/Home";
+    import TV from "../Routes/TV";
+    import Search from "../Routes/Search";
+    
+    const routes = () => (
+      <Router>
+        <>
+          <Route path="/" exact component={Home} />
+          <Route path="/tv" exact component={TV} />
+          <Route path="/tv/popular" render={() => <h1>Popular</h1>} />
+            {/* Composition은 두 개 이상의 Route를 동시에 렌더링하는 방식이다. 두 Route 모두 path에 일치하기 때문. /tv/와 /tv/popular*/}
           <Route path="/search" exact component={Search} />
         </>
       </Router>)
