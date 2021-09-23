@@ -127,6 +127,53 @@
       </Router>)
     
     export default routes
+    
+    
+    // 3. Redirect
+    <Redirect from="*" to="/" />
+    // Redirect의 역할은 해당 Router에 일치하는 Route가 없다면 어느 페이지든 받아서 '/'로 보내준다.
+    
+    
+    // 4. Switch
+    // 첫번째로 매칭되는 path를 가진 컴포넌트를 렌더링 시킴.
+    
+    
+    // 5. Link
+    // 해당 페이지가 어플리케이션 내에 존재한다면 브라우저가 아닌 js의 방식으로
+    import { Link } from "react-router-dom"
+    
+    const SLink - styled(Link)``;
+    
+    <SLink to="">Movies</SLink>
+    // href는 React Router에는 존재하지 않는다. to로 대신한다.
+    
+    
+    // 6. withRouter
+    // 사용 용도 : 다른 컴포넌트와 연결하기 위해서
+    // Link처럼 컴포넌트에서 router에 접근하는 방법 중 하나이며 HOC(Higher-order Component)이다. 즉, 고차 컴포넌트이며 컴포넌트를 인자로 받아 router에 의해 호출된 컴포넌트가 아니어도router에 특정 컴포넌트를 주입하고 그 특정 컴포넌트를 return한다.
+    // withRouter로 컴포넌트를 감싸주면 history, location, matech라는 props들이 생기며 이 prop들로 현재 어떤 페이지에 있는지 체크할 수 있고 앞 페이지, 뒷 페이지 자유자재로 넘나들 수 있게된다. current는 항상 true를 가리킨다. (crrent = true)
+    // 리액트 훅인 useHistory, useLocation, useParams로 대체 가능하다.
+    
+    // 6-1. location - 현재 페이지의 정보
+    
+    // pathname : 현재 페이지의 경로명
+    // search : 현재 페이지의 query String
+    // hash : 현재 페이지의 Hash
+    
+    // 6-2. match - <Route path>와 URL이 매칭한 정보
+    
+    // path : 라우터에 정의된 path
+    // url : 실제 클라이언트로 부터 요청된 url path
+    // isExact : true일 경우 전체 경로가 완전히 매칭될 경우에만 요청을 실행
+    // params : url path로 전달된 파라미터 객체
+    
+    // 6-3. history - 스택에 현재까지 이동한 url의 경로 정보
+    
+    // length : 전체 스택의 길이
+    // action : 최근 수행된 action
+    // push : 새로운 경로를 history로 푸시하여 페이지 이동
+    // goBack() : 이전 페이지로 이동
+    // goForward() : 앞 페이지로 이동
     ```
 
   <br />
