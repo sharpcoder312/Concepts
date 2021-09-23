@@ -72,7 +72,8 @@
     + create-react-app을 실행하고 끝나면 컴퓨터에서 삭제함
     + 이로서 철 지난 create-react-app을 컴퓨터에 계속 저장하지 않는다는 이점을 가진다.
     + 즉, 사용하지 않는 오래된 버전의 것들을 저장하지 않는다.
-    + <br />
+    
+      <br />
 
 + `react-router-dom`
 
@@ -97,9 +98,9 @@
           <Route path="/" exact component={Home} />
             {/* path exact는 어느 URL에서 해당 Route를 render할 것인지 정확한 경로를 설정해줌 */}
             {/* component는 해당 Route에 들어왔을 때 어떤 컴포넌트가 보여질 것인지 설정해줌 */}
-          <Route path="/tv" exact component={TV} />
-          <Route path="/tv/popular" exact component={TV} />
-          <Route path="/search" exact component={Search} />
+          <Route path="/tv"  component={TV} />
+          <Route path="/tv/popular"  component={TV} />
+          <Route path="/search"  component={Search} />
         </>
       </Router>)
     
@@ -126,7 +127,6 @@
       </Router>)
     
     export default routes
-    
     ```
 
   <br />
@@ -139,18 +139,21 @@
 
   + 일반 css
     + 장점 - 가장 쉬움
+    
     + 단점 - 재사용 힘듦, 클래스명 충돌
-
+    
+      <br/>
+    
   + sass // scss
-
+  
     + 장점 - 코드의 재사용으로 생산성 높은 스타일 코드 작성 가능
-
+  
       ​		   변수 정의로 코드 중복을 없앨 수 있다.
-
+  
     + 사용법 - `node-sass` 패키지 설치(sass를 css로 빌드할 때 사용) `npm install node-sass`
-
+  
       ​               공통으로 사용되는 코드를 관리할 파일을 만든다음에 각 scss파일에 inport하여 사용하자.
-
+  
     ````jsx
     // 0. 라이브러리 설치 (sass -> css로 변환하는 작업)
     yarn add node-sass
@@ -247,7 +250,7 @@
     }
     ````
   
-    
+    <br/>
   
   + css module
   
@@ -256,25 +259,34 @@
     + 장점 - 클래스명 충돌 방지, 컴포넌트 응집도 높임
   
     + 단점 - css 코드를 담당하는 팀이 따로 있다면 사용 불가
+  
     + 사용법 - classNames 패키지를 사용하여 property 코드를 개선 시켜 사용하자.
+  
+      ````jsx
+      // 파일명 : Folder.module.css
+      // import 방법
+      import styles from "./Folder.module.css"
+      
+      // tip) className에 '-'가 들어가면 styles["nav-list"] 이런 식으로 써는 번거로움이 있기 때문에 '-'는 쓰지말자.
+      // 그러므로 camelCase를 사용하도록 하자.
+      ````
+  
+      <br/>
   
   + css-in-js
   
     + 원리 - js 파일 내에 CSS 코드 작성
-  
-    + 장점 - 지원 패키지 多, 문법의 다양성, 컴포넌트 응집도 높임
-  
+  + 장점 - 지원 패키지 多, 문법의 다양성, Component의 특성을 가지고 Local화 및 Global화 모두 가능
     + 단점 - css 코드를 담당하는 팀이 따로 있다면 사용 불가
-  
-    + 사용법 - styled-components(By ES6+의 tagged template literals 문법) 사용 `npm install styled-components`
-  
-      ​			   정적 스타일, 동적 스타일 모두 사용 가능
-  
-      ​			   tip) 동적 스타일 구현법 - 템플릿 리터럴에서 expression을 사용하여 컴포넌트의 속성값을 매개변수로 갖는 함수 작성
-  
-    <br />
-  
-    <br />
+  + 사용법 - **styled-components**(By ES6+의 tagged template literals 문법) 사용 `npm install styled-components`
+      + 정적 스타일, 동적 스타일 모두 사용 가능
+    + props를 전달하여 스타일링 가능
+      + tip 1) 동적 스타일 구현법 - 템플릿 리터럴에서 expression을 사용하여 컴포넌트의 속성값을 매개변수로 갖는 함수 작성
+    + tip 2) `styled-reset` - css 초기화 // 보통 global한 css 작성 시에 사용 ex) font관련
+    
+  <br />
+    
+  <br />
 
 #### 3. React app 설치 시 자동 생성되는 폴더 및 파일
 
