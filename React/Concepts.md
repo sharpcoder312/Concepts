@@ -1155,3 +1155,23 @@ const [number, dispatch] = useReducer(reducer, 0)
 // 2. Component에서 useReducer 사용
 ````
 
+</br>
+
+</br>
+
+###  6. 패턴
+
+1. **Container-Presenter**
+
++ 사용 목적 : **데이터 처리**와 **데이터 출력**을 분리하기 위함
+
+  cf) 기존 문제점 : 단일 파일 내에 컴포넌트의 UI로직과 api와 같은 데이터관련 정보가 쌓인다면 코드 유지보수에 어려움을 겪음
+
++ 사용 방법 : Container에서 처리한 데이터들을 Presenter에 있는 컴포넌트에 props로 전달한다.
+
++ 내용
+
+  + Container - 데이터 요청 및 처리 관련 (state를 가지는 데이터 담당)
+  + Presenter - UI 관련 (컨테이너가 처리한 데이터들을 보여주는 함수형 컴포넌트)
+
++ 단점 :  함수형 컴포넌트에서는 잘 사용하지 않는다.
