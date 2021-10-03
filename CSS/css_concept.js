@@ -104,11 +104,11 @@
 // * 2-4) Sibling Combinator
 // General Sibling Combinator
 // todo css) .class name ~ element
-// 특정 클래스값을 기준으로 그 이후로 나오는 모든 같은 형제 요소에게 적용 (class값을 가진 본인에게는 적용 안됨)
+// 특정 클래스값, 태그 등을 기준으로 그 이후로 나오는 모든 같은 형제 요소에게 적용 (class값을 가진 본인에게는 적용 안됨)
 
 // Adjacent Sibling Combinator
 // todo css) .class name + element
-// 특정 클래스값을 기준으로 그 바로 다음에 나오는 형제 요소에게만 적용
+// 특정 클래스값, 태그 등을 기준으로 그 바로 다음에 나오는 형제 요소에게만 적용
 
 // todo html ex) <li class="number">1</li> <li>2</li> <li>3</li>
 // todo css ex) .number ~ or + <tag>
@@ -134,6 +134,7 @@
 // (n)값이 parameter 
 // ? n값은 0부터 해석한다(zero-base) 물론, n값이 0이라는 뜻이지 0번째를 뜻하는 것이 아님
 // ex) 2n-1, 2n, n+3, 3 등등
+// cf) nth-last-child는 nth-child와 반대로 뒤에서부터 카운팅 한다.
 
 // ex) .fruits의 <li>이면서 첫번째, 마지막, n번째 요소 선택 
 // todo css) .fruits li:first-child | :last-child | :nth-child(n)
@@ -143,12 +144,28 @@
 // 동일 element type 중 n번째
 // ! type은 element의 type을 말하는 것이다
 // ! 즉, element의 type이 들어갈 자리에 class나 id의 type이 들어가서는 안 된다
+// ex) .example:nth-of-type(even), .example:nth-of-type(odd), .example:nth-of-type(3n+1), .example:nth-of-type(2), 
 
 // * 3-5) not
 // todo css) element:not(s)
 // s가 아닌 element 선택
 // ex) .fruits li:not(.strawberry) - .fruits 중 li이면서 .strawberry만 제외
 
+// * 3-6) only-child
+// todo css) ul li:only-child
+// ul의 유일한 자식인 li 선택
+// 특정 요소의 자식이 하나 뿐일 때 적용
+
+// * 3-7) only-of-type
+// todo css) p span:only-of-type
+// 같은 유형의 형제가 없을 때 적용. 여기서의 유형은 태그를 말함
+
+// * 3-8) last-of-type
+// todo css) .small:last-of-type
+// small이라는 클래스를 가진 요소들 중, 같은 유형의 태그들과 비교 했을 때 가장 마지막에 있는 요소에 적용
+
+// * 3-9) empty
+// 자식이 없는 태그 선택
 
 
 // * 4. User Action Pseudo-classes
@@ -218,6 +235,10 @@
 // * 6-4) ATTR$=VALUE
 // 속성 attr을 포함하며 속성 값이 value로 끝나는 요소 선택
 // [attr$=value]
+
+// * 6-5) ATTR*=VALUE
+// 속성 attr을 포함하며 속성 값에 value로 들어가는 요소 선택
+// [attr*=value]
 
 
 
@@ -557,6 +578,10 @@
 // float, position - 안에서 밖으로
 // flexbox - 밖에서 안으로
 
+// * 4) 방향과 정렬 줄 개수 동시 설정
+// todo flex-flow: column wrap;
+// flex-direction과 flex-wrap이 자주 같이 사용되기 때문에, flex-flow가 이를 대신할 수 있다. 
+// 이 속성은 공백문자(띄어쓰기)를 이용하여 두 속성의 값들을 인자로 받는다.
 
 // * 2. Items
 
@@ -582,7 +607,7 @@
 // flex-grow와 정반대의 개념 | 사용 빈도수 낮음
 // 사진 참조
 
-// * 2-3) flex- basis 
+// * 2-3) flex-basis 
 // grow나 shrink에 상관없이 item의 (공간 배분 전) 기본 너비 설정
 // val : auto* | 단위 px, em, cm 등
 // 사진 참조
@@ -590,7 +615,8 @@
 
 // * 3) align-self
 // 교차 축(cross-axis)에서 item의 정렬 방법을 설정
-// ? align-self는 align-items와 달리 일부 item의 정렬 방법만 설정한다
+// ? align-self는 align-items와 달리 일부 item의 정렬 방법만 설정한다.
+// 즉, 개별 요소에 적용할 수 있는 또 다른 속성이며 align-items가 사용하는 값들을 인자로 받아서 그 값들을 지정한 요소에만 적용시킨다.
 // align-items 속성보다 우선
 // val : align-items와 동일 + auto*(Container의 align-items의 속성을 상속)
 
@@ -613,6 +639,12 @@
 // ? vw = viewport width
 // ? vmax = viewport의 width와 height중 더 긴 것을 기준으로 백분율 계산
 // ? vmin = viewport의 width와 height중 더 짧은 것을 기준으로 백분율 계산
+
+// vw,vh VS % 
+// vw, vh - 창 중심, 스크롤 포함 크기
+// % - %를 쓰고 있는 요소의 부모 요소의 길이에 맞게 반환, 스크롤 포함 x 크기
+// viewport? 현재 실행중인 스크린 크기에 맞춰 상대적 크기를 반환
+// vw와 vh에서 스크롤바가 발생한 이유는 viewport가 스크롤바의 영역을 포함하기 때문
 
 // 색추천
 // RED #ff4949
